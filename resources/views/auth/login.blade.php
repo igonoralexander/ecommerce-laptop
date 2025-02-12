@@ -47,6 +47,17 @@
                                     <span class="">Sign in with Facebook</span>
                                 </a>
                             </div>
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger" style = "font-size: 15px;">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <form class="form-login flex flex-column gap22 w-full" method = "POST" action="{{ route('login') }}">
                                 @csrf
 
@@ -64,10 +75,12 @@
                                 </fieldset>
                                 <div class="flex justify-between items-center">
                                     <div class="flex gap10">
-                                        <input class="tf-check" type="checkbox" id="signed">
+                                        <input class="tf-check" type="checkbox" id="remember_me" name = "remember">
                                         <label class="body-text text-white" for="signed">Keep me signed in</label>
                                     </div>
-                                    <a href="{{ route('password.request') }}" class="body-text tf-color">Forgot password?</a>
+                                    @if (Route::has('password.request'))
+                                        <a href="{{ route('password.request') }}" class="body-text tf-color">Forgot password?</a>
+                                    @endif
                                 </div>
                                 <button type="submit" class="tf-button w-full">Login</button>
                             </form>

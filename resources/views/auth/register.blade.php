@@ -24,8 +24,8 @@
                         </div>
 
                         @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
+                            <div class="alert alert-danger" style = "font-size: 15px;">
+                                <ul> 
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
