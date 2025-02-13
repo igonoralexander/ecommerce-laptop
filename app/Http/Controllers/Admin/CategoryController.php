@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
-
-class AdminController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +17,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+         //
+         return view('admin.media.category.categories-list');
     }
 
     /**
@@ -23,10 +26,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function AddUser()
+    public function create()
     {
-        //
-        return view('admin.user.add-new-user');
+       
     }
 
     /**
@@ -43,45 +45,45 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Category $category)
     {
-        //
+       
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Category $category)
     {
-        //
+    
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Category $category)
     {
-        //
+       
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Admin  $admin
+     * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy(Category $category)
     {
-        //
+       
     }
 }

@@ -4,12 +4,13 @@ namespace App\Http\Livewire\Admin;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Validation\Rules\Password;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class ManageUser extends Component
 {
+    use WithPagination;
+
     public $first_name, $last_name, $email, $password, $role, $user_id;
     public $action = 'index'; // Default action is 'index'
     public $title, $breadcrumbs = [];
@@ -134,7 +135,7 @@ class ManageUser extends Component
     public function render()
     {
         return view('livewire.admin.manage-user', [
-            'users' => User::paginate(10),
+            'users' => User::paginate(9),
         ]);
     }
 }

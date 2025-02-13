@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Photo;
-use App\Models\Image;
-use App\Models\Video;
+use App\Models\UploadMedia;
 
 class Category extends Model
 {
@@ -21,17 +19,8 @@ class Category extends Model
         'image',
     ];
 
-    public function photos()
+    public function media()
     {
-        return $this->hasMany(Photo::class);
-    }
-
-    public function images()
-    {
-        return $this->hasMany(Image::class);
-    }
-    public function videos()
-    {
-        return $this->hasMany(Video::class);
+        return $this->hasMany(UploadMedia::class, 'category_id', 'id');
     }
 }

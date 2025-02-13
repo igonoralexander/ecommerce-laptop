@@ -4,6 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
 <!--<![endif]-->
 
+<html data-turbolinks-track="reload">
+    
 <head>
     <!-- Basic Page Needs -->
     <meta charset="utf-8">
