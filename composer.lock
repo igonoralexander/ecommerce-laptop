@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "027d0b1a896c33fb8fa454f12bb4c829",
+    "content-hash": "c59fe5710b0652e9491bf60fff9a32e3",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1680,6 +1680,51 @@
                 }
             ],
             "time": "2022-10-04T09:16:37+00:00"
+        },
+        {
+            "name": "league/flysystem-azure-blob-storage",
+            "version": "0.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem-azure-blob-storage.git",
+                "reference": "c1723d90bf7c15c27f3506cddd6c2cf9266dcf12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-azure-blob-storage/zipball/c1723d90bf7c15c27f3506cddd6c2cf9266dcf12",
+                "reference": "c1723d90bf7c15c27f3506cddd6c2cf9266dcf12",
+                "shasum": ""
+            },
+            "require": {
+                "league/flysystem": "^1.0",
+                "microsoft/azure-storage-blob": "^1.1",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\AzureBlobStorage\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/flysystem-azure-blob-storage/issues",
+                "source": "https://github.com/thephpleague/flysystem-azure-blob-storage/tree/master"
+            },
+            "abandoned": "azure-oss/storage-blob-flysystem",
+            "time": "2018-07-14T10:20:00+00:00"
         },
         {
             "name": "league/mime-type-detection",

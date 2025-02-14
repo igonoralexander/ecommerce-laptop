@@ -47,7 +47,7 @@
                                                     <div class="name">
                                                         @if($category->image)
                                                             <div class="image">
-                                                                <img src="{{ asset($category->image) }}" alt="">
+                                                                <img src="{{ $category->image }}" alt="">
                                                             </div>
                                                         @endif
                                                         <div class="title line-clamp-2 mb-0">
@@ -96,11 +96,12 @@
                                                             <i class="icon-upload-cloud"></i>
                                                         </span>
                                                         <span class="body-text">Drop your images here or select <span class="tf-color">click to browse</span></span>
+
+                                                        <!-- Show Selected File Name -->
+                                                        <span class = "body-text" id="file-name">{{ $image ? $image->getClientOriginalName() : '' }}</span>
+
                                                         <img id="myFile-input" src="" alt="">
                                                         <input type="file" id="myFile" wire:model="image">
-                                                        @if ($image)
-                                                            <img src="{{ $image->temporaryUrl() }}" alt="Preview" width="100">
-                                                        @endif
                                                     </label>
                                                 </div>
                                             </div>
@@ -162,3 +163,5 @@
 
                             
 </div>
+
+

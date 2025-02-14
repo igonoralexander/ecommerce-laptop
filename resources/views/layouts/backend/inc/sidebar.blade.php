@@ -45,17 +45,17 @@
                                     <li class="menu-item has-children">
                                         <a href="javascript:void(0);" class="menu-item-button">
                                             <div class="icon"><i class="icon-layers"></i></div>
-                                            <div class="text"> Media Category</div>
+                                            <div class="text"> Category</div>
                                         </a>
                                         <ul class="sub-menu">
                                             <li class="sub-menu-item">
                                                 <a href="{{ route('admin.media-category-list') }}" class="">
-                                                    <div class="text">Category list</div>
+                                                    <div class="text">Media Category</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item">
                                                 <a href="new-category.html" class="">
-                                                    <div class="text">New category</div>
+                                                    <div class="text">Blog Category</div>
                                                 </a>
                                             </li>
                                         </ul>

@@ -11,6 +11,7 @@
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "league/flysystem-azure-blob-storage": "^0.1.4",
         "livewire/livewire": "^2.12",
         "microsoft/azure-storage-blob": "^1.5"
     },

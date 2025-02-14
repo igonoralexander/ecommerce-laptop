@@ -8,6 +8,8 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 
 class MediaManageCategory extends Component
 {
@@ -53,6 +55,57 @@ class MediaManageCategory extends Component
         ]);
     }
 
+   
+    public function save()
+    {
+        $this->validate();
+    
+        $slug = Str::slug($this->name);
+        $category = new Category();
+        $category->name = $this->name;
+        $category->slug = $slug;
+    
+        if ($this->image) {
+            $folder = 'media_categories';
+            $imageName = time() . '.' . $this->image->getClientOriginalExtension();
+            $filePath = $folder . '/' . $imageName;
+            $contentType = $this->image->getMimeType();
+    
+            // Get Connection String & Container Name
+            $connectionString = env('AZURE_STORAGE_CONNECTION_STRING');
+            $containerName = env('AZURE_STORAGE_CONTAINER');
+    
+            // Create Blob Client
+            $blobClient = BlobRestProxy::createBlobService($connectionString);
+    
+            // **Ensure the file stream is opened correctly**
+            $fileStream = fopen($this->image->getRealPath(), 'r');
+            if (!$fileStream) {
+                throw new \Exception('Failed to open file for reading');
+            }
+    
+            // Set Blob Options (including Content-Type)
+            $blobOptions = new CreateBlockBlobOptions();
+            $blobOptions->setContentType($contentType);
+    
+            // **Upload to Azure**
+            $blobClient->createBlockBlob($containerName, $filePath, $fileStream, $blobOptions);
+    
+            // **Close the file stream only if it's valid**
+            if (is_resource($fileStream)) {
+                fclose($fileStream);
+            }
+    
+            // Store Image URL in Database
+            $category->image = env('AZURE_STORAGE_URL') . '/' . $containerName . '/' . $filePath;
+        }
+    
+        $category->save();
+        session()->flash('message', 'Category created successfully.');
+        $this->action = 'index';
+    }
+    
+
     public function create()
     {
         $this->resetForm();
@@ -63,29 +116,7 @@ class MediaManageCategory extends Component
         $this->action = 'create';
     }
 
-    public function save()
-    {
-        $this->validate();
-
-        $slug = Str::slug($this->name);
-        $category = new Category();
-        $category->name = $this->name;
-        $category->slug = $slug;
-
-        if ($this->image) {
-
-            $folder = 'media_categories';
-            $imageName = time() . '.' . $this->image->getClientOriginalExtension();
-            $file = $this->image->storeAs($folder, $imageName, 'public');
-            $category->image = 'storage/' . $file;
-
-        }
-        
-        $category->save(); //
-
-        session()->flash('message', 'Category created successfully.');
-        $this->action = 'index';
-    }
+ 
 
     public function edit($id)
     {

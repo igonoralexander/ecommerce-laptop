@@ -59,6 +59,9 @@ return [
             'key'       => env('AZURE_STORAGE_KEY'),
             'container' => env('AZURE_STORAGE_CONTAINER'),
             'url'       => env('AZURE_STORAGE_URL'),
+            'endpoint'  => env('AZURE_STORAGE_ENDPOINT', null),
+            'visibility' => 'public', 
+            'class'     => App\Services\AzureBlobStorage::class, // Custom Storage Adapter
         ],
 
 
