@@ -7,7 +7,7 @@ use App\Models\Category;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 
@@ -105,7 +105,6 @@ class MediaManageCategory extends Component
         $this->action = 'index';
     }
     
-
     public function create()
     {
         $this->resetForm();
@@ -115,8 +114,6 @@ class MediaManageCategory extends Component
         ]);
         $this->action = 'create';
     }
-
- 
 
     public function edit($id)
     {
@@ -133,7 +130,6 @@ class MediaManageCategory extends Component
         $this->action = 'edit';
     }
 
-
     public function update()
     {
         $this->validate([
@@ -142,26 +138,67 @@ class MediaManageCategory extends Component
         ]);
 
         $category = Category::find($this->category_id);
-
-        if ($this->image) {
-            if ($this->existingImage && Storage::disk('public')->exists($this->existingImage)) {
-                Storage::disk('public')->delete($this->existingImage);
-            }
-
-            $folder = 'media_categories';
-            $imageName = time() . '.' . $this->image->getClientOriginalExtension();
-            $file = $this->image->storeAs($folder, $imageName, 'public');
-            $category->image = 'storage/' . $file;
-        }
         $slug = Str::slug($this->name);
 
         $category->name = $this->name;
         $category->slug = $slug;
         
-        $category->save();
+        if ($this->image) {
+            $folder = 'media_categories';
+            $imageName = time() . '.' . $this->image->getClientOriginalExtension();
+            $filePath = $folder . '/' . $imageName;
+            $contentType = $this->image->getMimeType();
+    
+            // Get Connection String & Container Name
+            $connectionString = env('AZURE_STORAGE_CONNECTION_STRING');
+            $containerName = env('AZURE_STORAGE_CONTAINER');
+    
+            // Create Blob Client
+            $blobClient = BlobRestProxy::createBlobService($connectionString);
+    
+            // **Ensure the file stream is opened correctly**
+            $fileStream = fopen($this->image->getRealPath(), 'r');
+            if (!$fileStream) {
+                throw new \Exception('Failed to open file for reading');
+            }
+    
+            // Set Blob Options (including Content-Type)
+            $blobOptions = new CreateBlockBlobOptions();
+            $blobOptions->setContentType($contentType);
+    
+            // **Delete the old image from Azure Blob Storage**
+            if ($category->image) {
+                $oldFilePath = str_replace(env('AZURE_STORAGE_URL') . '/' . $containerName . '/', '', $category->image);
+                $blobClient->deleteBlob($containerName, $oldFilePath);
+            }
 
-        $this->action = 'index';
+        // **Upload the new image to Azure**
+        $blobClient->createBlockBlob($containerName, $filePath, $fileStream, $blobOptions);
+
+        // **Close the file stream**
+        if (is_resource($fileStream)) {
+            fclose($fileStream);
+        }
+
+        // Store Image URL in Database
+        $category->image = env('AZURE_STORAGE_URL') . '/' . $containerName . '/' . $filePath;
+    }
+
+      
+        // if ($this->image) {
+        //     if ($this->existingImage && Storage::disk('public')->exists($this->existingImage)) {
+        //         Storage::disk('public')->delete($this->existingImage);
+        //     }
+
+        //     $folder = 'media_categories';
+        //     $imageName = time() . '.' . $this->image->getClientOriginalExtension();
+        //     $file = $this->image->storeAs($folder, $imageName, 'public');
+        //     $category->image = 'storage/' . $file;
+        // }
+        
+        $category->save();
         session()->flash('message', 'Updated successfull!');
+        $this->action = 'index';
         
     } 
 
@@ -175,9 +212,32 @@ class MediaManageCategory extends Component
 
     public function delete($id)
     {
-        Category::findOrFail($id)->delete();
+        $category = Category::findOrFail($id);
+
+        // Get Connection String & Container Name
+        $connectionString = env('AZURE_STORAGE_CONNECTION_STRING');
+        $containerName = env('AZURE_STORAGE_CONTAINER');
+
+        // Create Blob Client
+        $blobClient = BlobRestProxy::createBlobService($connectionString);
+
+        // **Delete the image from Azure Blob Storage if it exists**
+        if ($category->image) {
+            $filePath = str_replace(env('AZURE_STORAGE_URL') . '/' . $containerName . '/', '', $category->image);
+            try {
+                $blobClient->deleteBlob($containerName, $filePath);
+            } catch (\Exception $e) {
+                // Log the error but proceed with deletion
+                Log::error("Error deleting blob: " . $e->getMessage());
+            }
+        }
+
+        // **Delete the category from the database**
+        $category->delete();
+
         session()->flash('message', 'Category deleted successfully.');
     }
+
 
 
     public function render()
