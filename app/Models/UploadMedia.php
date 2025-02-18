@@ -12,8 +12,6 @@ class UploadMedia extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'description',
         'file_url',
         'file_name',
         'media_type',

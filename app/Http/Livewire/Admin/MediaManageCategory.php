@@ -72,7 +72,7 @@ class MediaManageCategory extends Component
             $contentType = $this->image->getMimeType();
     
             // Get Connection String & Container Name
-            $connectionString = env('AZURE_STORAGE_CONNECTION_STRING');
+            $connectionString = config('filesystems.disks.azure.connection_string');
             $containerName = env('AZURE_STORAGE_CONTAINER');
     
             // Create Blob Client
@@ -150,7 +150,7 @@ class MediaManageCategory extends Component
             $contentType = $this->image->getMimeType();
     
             // Get Connection String & Container Name
-            $connectionString = env('AZURE_STORAGE_CONNECTION_STRING');
+            $connectionString = config('filesystems.disks.azure.connection_string');
             $containerName = env('AZURE_STORAGE_CONTAINER');
     
             // Create Blob Client

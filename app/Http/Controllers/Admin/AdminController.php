@@ -23,7 +23,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function AddUser()
+    public function users()
     {
         //
         return view('admin.user.add-new-user');

@@ -52,4 +52,6 @@ $app->singleton(
 |
 */
 
+Dotenv\Dotenv::createImmutable(__DIR__.'/../')->load();
+
 return $app;

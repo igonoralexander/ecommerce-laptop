@@ -279,12 +279,9 @@
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
                                             <span class="header-user wg-user">
-                                                <span class="image">
-                                                    <img src="{{ asset('backend/images/avatar/user-1.png')}}" alt="">
-                                                </span>
                                                 <span class="flex flex-column">
-                                                    <span class="body-text text-main-dark">Kristin Watson</span>
-                                                    <span class="text-tiny">Sale Administrator</span>
+                                                    <span class="body-text text-main-dark">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
+                                                    <span class="text-tiny">{{ auth()->user()->role }}</span>
                                                 </span>
                                             </span>
                                         </button>
@@ -307,27 +304,11 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#" class="user-item">
-                                                    <div class="icon">
-                                                        <i class="icon-file-text"></i>
-                                                    </div>
-                                                    <div class="body-title-2">Taskboard</div>
-                                                </a>
-                                            </li>
-                                            <li>
                                                 <a href="setting.html" class="user-item">
                                                     <div class="icon">
                                                         <i class="icon-settings"></i>
                                                     </div>
                                                     <div class="body-title-2">Setting</div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="user-item">
-                                                    <div class="icon">
-                                                        <i class="icon-headphones"></i>
-                                                    </div>
-                                                    <div class="body-title-2">Support</div>
                                                 </a>
                                             </li>
                                             <li>
