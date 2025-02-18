@@ -13,7 +13,20 @@ return [
     |
     */
 
+    
     'default' => env('FILESYSTEM_DRIVER', 'local'),
+
+     /*
+    |--------------------------------------------------------------------------
+    | Maximum Upload Size
+    |--------------------------------------------------------------------------
+    |
+    | Defines the maximum file size allowed for uploads, defaulting to 5GB.
+    |
+    */
+
+    'upload_max_size' => env('UPLOAD_MAX_SIZE', 5 * 1024 * 1024 * 1024), // 5GB
+
 
     /*
     |--------------------------------------------------------------------------
@@ -55,14 +68,13 @@ return [
 
         'azure' => [
             'driver'    => 'azure',
-            'name'      => env('AZURE_STORAGE_ACCOUNT'),
+            'account'      => env('AZURE_STORAGE_ACCOUNT'),
             'key'       => env('AZURE_STORAGE_KEY'),
             'container' => env('AZURE_STORAGE_CONTAINER'),
             'url'       => env('AZURE_STORAGE_URL'),
-            'endpoint'  => env('AZURE_STORAGE_ENDPOINT', null),
+            'endpoint'  => env('AZURE_STORAGE_ENDPOINT', 'https://' . env('AZURE_STORAGE_ACCOUNT') . '.blob.core.windows.net'),
             'connection_string' => env('AZURE_STORAGE_CONNECTION_STRING'),
             'visibility' => 'public', 
-            'class'     => App\Services\AzureBlobStorage::class, // Custom Storage Adapter
         ],
 
 

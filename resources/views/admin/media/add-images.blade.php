@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="cols gap10">
                                         <button class="tf-button w380" type="submit">Add</button>
-                                        <a href="#" class="tf-button style-3 w380" type="submit">Cancel</a>
+                                        <a href="#" class="tf-button style-3 w380">Cancel</a>
                                     </div>
                                 </form>
                                 <!-- /form-add-product -->

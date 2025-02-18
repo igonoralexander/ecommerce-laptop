@@ -198,4 +198,7 @@ return [
 
     'same_site' => 'lax',
 
+    'upload_max_size' => env('UPLOAD_MAX_SIZE', '5G'),
+
+
 ];
