@@ -23,10 +23,17 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function users()
+    public function admin()
     {
         //
-        return view('admin.user.add-new-user');
+        return view('admin.user.manager-admin');
+    }
+
+
+    public function user()
+    {
+        //
+        return view('admin.user.manage-user');
     }
 
     /**
@@ -35,9 +42,26 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function images()
     {
-       
+        return view('admin.media.gallery', [
+            'title' => 'Gallery Management',
+            'breadcrumbs' => [
+                ['url' => '#', 'label' => 'Users'],
+                ['url' => null, 'label' => 'All Images'],
+            ],   
+        ]);
+    }
+
+    public function videos()
+    {
+        return view('admin.media.gallery', [
+            'title' => 'Gallery Management',
+            'breadcrumbs' => [
+                ['url' => '#', 'label' => 'Users'],
+                ['url' => null, 'label' => 'All Videos'],
+            ],   
+        ]);
     }
 
     /**

@@ -22,6 +22,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset ('backend/css/animation.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('backend/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('backend/css/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
 
     @stack('styles')
 
@@ -81,6 +82,8 @@
     <script src="{{ asset ('backend/js/jquery.min.js') }}"></script>
     <script src="{{ asset ('backend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset ('backend/js/bootstrap-select.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    
     <script src="{{ asset ('backend/js/zoom.js') }}"></script>
     <script src="{{ asset ('backend/js/morris.min.js') }}"></script>
     <script src="{{ asset ('backend/js/raphael.min.js') }}"></script>
@@ -97,6 +100,7 @@
     <script src="{{ asset ('backend/js/apexcharts/line-chart-5.js') }}"></script>
     <script src="{{ asset ('backend/js/apexcharts/line-chart-6.js') }}"></script>
     <script src="{{ asset ('backend/js/apexcharts/line-chart-7.js') }}"></script>
+    <script src="{{ asset('backend/js/mixitup.js') }}"></script>
     <script src="{{ asset ('backend/js/switcher.js') }}"></script>
     <script defer src="{{ asset ('backend/js/theme-settings.js') }}"></script>
 
@@ -106,6 +110,7 @@
     @yield('script')
 
     <script src="{{ asset ('backend/js/main.js') }}"></script>
+
 
 </body>
 

@@ -43,6 +43,11 @@
                                         </fieldset>
                                     </div>
                                     <div class="wg-box mb-30">
+                                        <fieldset class="name">
+                                            <div class="body-title mb-10">Title <span class="tf-color-1">*</span></div>
+                                            <input class="mb-10" type="text" placeholder="Enter title" name="title" tabindex="0" value="" aria-required="true" required>
+                                            <div class="text-tiny text-surface-2">Do not exceed 50 characters when entering the video title.</div>
+                                        </fieldset>
                                         <fieldset>
                                             <div class="body-title mb-10">Upload Videos</div>
                                             <div class="upload-image mb-16">

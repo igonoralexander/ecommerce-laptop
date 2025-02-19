@@ -12,19 +12,7 @@
                         <div class="center">
                             <div class="center-item">
                                 <ul class="">
-
-                                    <li class="menu-item">
-                                        <a href="/" class="">
-                                            <div class="icon">
-                                                <svg width="24" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.1392 7.41658C5.73654 7.87694 6.38132 8.27855 7.06498 8.61284C7.30482 7.3722 7.67417 6.24668 8.1472 5.30063C8.29118 5.01266 8.44837 4.7351 8.61825 4.47262C7.20101 5.11026 5.99608 6.13656 5.1392 7.41658ZM12 2.25C8.3534 2.25 5.17543 4.25226 3.50379 7.21378C2.70535 8.62832 2.25 10.2621 2.25 12C2.25 12.8417 2.35682 13.6595 2.55803 14.4401C3.64146 18.6436 7.45701 21.75 12 21.75C16.543 21.75 20.3585 18.6436 21.442 14.4401C21.6432 13.6595 21.75 12.8417 21.75 12C21.75 10.2621 21.2947 8.62832 20.4962 7.21378C18.8246 4.25226 15.6466 2.25 12 2.25ZM12 3.75C11.1945 3.75 10.2633 4.4225 9.48884 5.97145C9.0479 6.85334 8.69814 7.95052 8.48423 9.18993C9.5902 9.55342 10.772 9.75 12 9.75C13.228 9.75 14.4098 9.55342 15.5158 9.18993C15.3019 7.95052 14.9521 6.85334 14.5112 5.97145C13.7367 4.4225 12.8055 3.75 12 3.75ZM16.935 8.61284C16.6952 7.3722 16.3258 6.24668 15.8528 5.30063C15.7088 5.01266 15.5516 4.7351 15.3817 4.47262C16.799 5.11026 18.0039 6.13656 18.8608 7.41657C18.2635 7.87693 17.6187 8.27855 16.935 8.61284ZM15.7017 10.7042C14.53 11.0591 13.2872 11.25 12 11.25C10.7128 11.25 9.46996 11.0591 8.29832 10.7042C8.26657 11.1256 8.25 11.5583 8.25 12C8.25 13.2235 8.37714 14.3782 8.60185 15.4155C9.70027 15.6349 10.8365 15.75 12 15.75C13.1635 15.75 14.2997 15.6349 15.3981 15.4155C15.6229 14.3782 15.75 13.2235 15.75 12C15.75 11.5583 15.7334 11.1256 15.7017 10.7042ZM17.0027 15.0136C17.1639 14.0617 17.25 13.0479 17.25 12C17.25 11.3733 17.2192 10.7588 17.16 10.1625C18.023 9.7801 18.8356 9.30479 19.5851 8.7493C20.0129 9.74621 20.25 10.8447 20.25 12C20.25 12.6024 20.1856 13.189 20.0634 13.7535C19.0944 14.2668 18.0705 14.6906 17.0027 15.0136ZM14.9409 17.0206C13.9826 17.1716 13.0004 17.25 12 17.25C10.9996 17.25 10.0174 17.1716 9.0591 17.0206C9.18976 17.3811 9.33365 17.7182 9.48884 18.0286C10.2633 19.5775 11.1945 20.25 12 20.25C12.8055 20.25 13.7367 19.5775 14.5112 18.0286C14.6664 17.7182 14.8102 17.3811 14.9409 17.0206ZM15.3819 19.5272C15.5517 19.2648 15.7089 18.9873 15.8528 18.6994C16.1562 18.0925 16.417 17.4118 16.6283 16.6742C17.5649 16.4364 18.4735 16.1281 19.348 15.7552C18.4955 17.42 17.0936 18.757 15.3819 19.5272ZM8.61812 19.5272C8.44828 19.2648 8.29114 18.9873 8.1472 18.6994C7.84377 18.0925 7.583 17.4118 7.37171 16.6742C6.4351 16.4364 5.52652 16.1281 4.65199 15.7552C5.50454 17.42 6.9064 18.757 8.61812 19.5272ZM3.93656 13.7535C4.90563 14.2668 5.92951 14.6906 6.99729 15.0136C6.83612 14.0617 6.75 13.0479 6.75 12C6.75 11.3733 6.7808 10.7588 6.84003 10.1625C5.97701 9.7801 5.16437 9.30479 4.41491 8.7493C3.98705 9.74621 3.75 10.8447 3.75 12C3.75 12.6024 3.81444 13.189 3.93656 13.7535Z" fill="#0A0A0C"/>
-                                                </svg>
-                                            </div>
-                                            <div class="text">Home</div>
-                                        </a>
-                                    </li>
-
-                                    <li class="menu-item active">
+                                    <li class="menu-item {{ Route::is('admin.dashboard') ? 'active' : '' }}">
                                         <a href="{{ route('admin.dashboard') }}" class="">
                                             <div class="icon">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,44 +23,95 @@
                                         </a>
                                     </li>
 
-                                    <li class="menu-item">
-                                        <a wire:navigate href="{{ route('admin.add-user') }}" class="menu-item-button">
+                                    <li class="menu-item has-children {{ Request::routeIs(
+                                                                                            'admin.manage-user',
+                                                                                            'admin.manage-admin') ? 'active' : '' }}">
+                                        <a href="javascript:void(0);" class="menu-item-button">
                                             <div class="icon"><i class="icon-user"></i></div>
                                             <div class="text">Users Management</div>
                                         </a>
+
+                                        <ul class="sub-menu" style="display: block;">
+                                            <li class="sub-menu-item  {{ Route::is('admin.manage-user') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.manage-user') }}">
+                                                    <div class="text">Add an Administrator</div>
+                                                </a>
+                                            </li>
+                                            <li class="sub-menu-item {{ Route::is('admin.manage-admin') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.manage-admin') }}">
+                                                    <div class="text">Add a Client</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+
                                     </li>
 
-                                    <li class="menu-item has-children">
+                                    <li class="menu-item has-children {{ Request::routeIs(
+                                                                                            'admin.images-management') }}',
+                                                                                            'admin.videos-management') ? 'active' : '' }}">
+                                                                                            
+                                                                                            
+                                        <a href="javascript:void(0); {{ route('admin.images-management') }}" class="menu-item-button">
+                                            <div class="icon">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 3C2.89543 3 2 3.89543 2 5V17C2 18.1046 2.89543 19 4 19H20C21.1046 19 22 18.1046 22 17V5C22 3.89543 21.1046 3 20 3H4ZM4 5H20V17H4V5ZM6 15L9 11L11 14L14 10L18 15H6Z" fill="#111111"/>
+                                                    <path d="M6 21C5.44772 21 5 20.5523 5 20C5 19.4477 5.44772 19 6 19H18C18.5523 19 19 19.4477 19 20C19 20.5523 18.5523 21 18 21H6Z" fill="#111111"/>
+                                                </svg>
+                                            </div>
+                                            <div class="text">Gallery Management</div>
+                                        </a>
+                                        <ul class="sub-menu" style="display: block;">
+                                            <li class="sub-menu-item {{ Route::is('admin.images-management') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.images-management') }}">
+                                                    <div class="text">Images</div>
+                                                </a>
+                                            </li>
+                                            <li class="sub-menu-item {{ Route::is('admin.videos-management') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.videos-management') }}">
+                                                    <div class="text">Videos</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    </li>
+
+                                    <li class="menu-item has-children {{ Request::routeIs(
+                                                                                            'admin.media-category-list',
+                                                                                            'admin.blog-category-list') ? 'active' : '' }}">
+
                                         <a href="javascript:void(0);" class="menu-item-button">
                                             <div class="icon"><i class="icon-layers"></i></div>
-                                            <div class="text"> Category</div>
+                                            <div class="text">Category</div>
                                         </a>
-                                        <ul class="sub-menu">
-                                            <li class="sub-menu-item">
-                                                <a href="{{ route('admin.media-category-list') }}" class="">
+                                        <ul class="sub-menu" style="display: block;">
+                                            <li class="sub-menu-item {{ Route::is('admin.media-category-list') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.media-category-list') }}">
                                                     <div class="text">Media Category</div>
                                                 </a>
                                             </li>
-                                            <li class="sub-menu-item">
-                                                <a href="new-category.html" class="">
+                                            <li class="sub-menu-item ">
+                                                <a href="">
                                                     <div class="text">Blog Category</div>
                                                 </a>
                                             </li>
                                         </ul>
                                     </li>
 
-                                    <li class="menu-item has-children">
+                                    <li class="menu-item has-children {{ Request::routeIs(
+                                                                                            'admin.media-category-list',
+                                                                                            'admin.blog-category-list') ? 'active' : '' }}">
+
                                         <a href="javascript:void(0);" class="menu-item-button">
                                             <div class="icon"><i class="icon-file-plus"></i></div>
                                             <div class="text">Clients Product</div>
                                         </a>
-                                        <ul class="sub-menu">
-                                            <li class="sub-menu-item">
-                                                <a href="{{ route('admin.add-images') }}" class="">
+                                        <ul class="sub-menu" style="display: block;">
+                                            <li class="sub-menu-item {{ Route::is('admin.add-images') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.add-images') }}">
                                                     <div class="text">Add Images </div>
                                                 </a>
                                             </li>
-                                            <li class="sub-menu-item">
+                                            <li class="sub-menu-item {{ Route::is('admin.add-videos') ? 'active' : '' }}">
                                                 <a href="{{ route('admin.add-videos') }}" class="">
                                                     <div class="text">Add Videos</div>
                                                 </a>
@@ -80,7 +119,7 @@
                                         </ul>
                                     </li>
                                  
-                                    <li class="menu-item has-children">
+                                    <li class="menu-item has-children ">
                                         <a href="javascript:void(0);" class="menu-item-button">
                                             <div class="icon">
                                                 <svg width="24" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">

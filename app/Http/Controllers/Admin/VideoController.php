@@ -101,7 +101,8 @@ class VideoController extends Controller
             UploadMedia::create([
                 'file_url' => env('AZURE_STORAGE_URL') . '/' . $containerName . '/' . $filePath,
                 'file_name' => $videoName,
-                'media_type' => $contentType, // Video MIME type
+                'title' => $request->title,
+                'media_type' => 'video', // Video MIME type
                 'category_id' => $categoryId,
                 'user_id' => $user->id,
             ]);

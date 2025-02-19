@@ -84,7 +84,8 @@ class PhotoController extends Controller
             UploadMedia::create([
                 'file_url' => env('AZURE_STORAGE_URL') . '/' . $containerName . '/' . $filePath,
                 'file_name' => $imageName,
-                'media_type' => $contentType,
+                'title' => $request->title,
+                'media_type' => 'image',
                 'category_id' => $categoryId,
                 'user_id' => $user->id, // Selected user
             ]);

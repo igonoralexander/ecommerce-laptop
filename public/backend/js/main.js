@@ -144,6 +144,18 @@
    
   }
 
+  var lightboxImage = function () {
+    if ($(".lightbox-image").length) {
+      $(".lightbox-image").fancybox({
+        openEffect: "fade",
+        closeEffect: "fade",
+        helpers: {
+          media: {}
+        }
+      });
+    }
+  };
+
   var preloader = function () {
     setTimeout(function () {
     $("#preload").fadeOut("slow", function () {
@@ -218,6 +230,7 @@
     tabs();
     collapse_menu();
     showpass();
+    lightboxImage();
     select_colors_theme();
     icon_function();
     box_search();

@@ -144,5 +144,25 @@
                                 </form>
                                 <!-- /add-new-user -->
                             @endif
+                            @push('scripts')
+    <script>
+        document.addEventListener('livewire:load', function () {
+            $(document).on("click", ".show-pass", function () {
+                $(this).toggleClass("active");
+                var input = $(this).closest(".password").find(".password-input");
+
+                if (input.attr("type") === "password") {
+                    input.attr("type", "text");
+                } else {
+                    input.attr("type", "password");
+                }
+            });
+        });
+
+        document.addEventListener('livewire:update', function () {
+            // Reinitialize any other JS if needed
+        });
+    </script>
+@endpush
 
 </div>
