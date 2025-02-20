@@ -70,7 +70,7 @@
                             <!-- Index View -->
                             @if ($action === 'create')
                                 <!-- add-new-user -->
-                                <form class="form-style-2" method = "POST" wire:submit.prevent="save" >
+                                <form class="form-style-2" method = "POST" wire:submit.prevent="saveUser" >
                                     @csrf
 
                                     <div class="wg-box">

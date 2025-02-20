@@ -32,18 +32,63 @@
                                         </a>
 
                                         <ul class="sub-menu" style="display: block;">
-                                            <li class="sub-menu-item  {{ Route::is('admin.manage-user') ? 'active' : '' }}">
-                                                <a href="{{ route('admin.manage-user') }}">
+                                            <li class="sub-menu-item  {{ Route::is('admin.manage-admin') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.manage-admin') }}">
                                                     <div class="text">Add an Administrator</div>
                                                 </a>
                                             </li>
-                                            <li class="sub-menu-item {{ Route::is('admin.manage-admin') ? 'active' : '' }}">
-                                                <a href="{{ route('admin.manage-admin') }}">
+                                            <li class="sub-menu-item {{ Route::is('admin.manage-user') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.manage-user') }}">
                                                     <div class="text">Add a Client</div>
                                                 </a>
                                             </li>
                                         </ul>
 
+                                    </li>
+
+                                    
+                                    <li class="menu-item has-children {{ Request::routeIs(
+                                                                                            'admin.media-category-list',
+                                                                                            'admin.blog-category-list') ? 'active' : '' }}">
+
+                                        <a href="javascript:void(0);" class="menu-item-button">
+                                            <div class="icon"><i class="icon-layers"></i></div>
+                                            <div class="text">Category</div>
+                                        </a>
+                                        <ul class="sub-menu" style="display: block;">
+                                            <li class="sub-menu-item {{ Route::is('admin.media-category-list') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.media-category-list') }}">
+                                                    <div class="text">Media Category</div>
+                                                </a>
+                                            </li>
+                                            <li class="sub-menu-item ">
+                                                <a href="">
+                                                    <div class="text">Blog Category</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="menu-item has-children {{ Request::routeIs(
+                                                                                            'admin.add-images',
+                                                                                            'admin.add-videos') ? 'active' : '' }}">
+
+                                        <a href="javascript:void(0);" class="menu-item-button">
+                                            <div class="icon"><i class="icon-file-plus"></i></div>
+                                            <div class="text">Clients Product</div>
+                                        </a>
+                                        <ul class="sub-menu" style="display: block;">
+                                            <li class="sub-menu-item {{ Route::is('admin.add-images') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.add-images') }}">
+                                                    <div class="text">Add Images </div>
+                                                </a>
+                                            </li>
+                                            <li class="sub-menu-item {{ Route::is('admin.add-videos') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.add-videos') }}" class="">
+                                                    <div class="text">Add Videos</div>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
 
                                     <li class="menu-item has-children {{ Request::routeIs(
@@ -73,50 +118,6 @@
                                             </li>
                                         </ul>
 
-                                    </li>
-
-                                    <li class="menu-item has-children {{ Request::routeIs(
-                                                                                            'admin.media-category-list',
-                                                                                            'admin.blog-category-list') ? 'active' : '' }}">
-
-                                        <a href="javascript:void(0);" class="menu-item-button">
-                                            <div class="icon"><i class="icon-layers"></i></div>
-                                            <div class="text">Category</div>
-                                        </a>
-                                        <ul class="sub-menu" style="display: block;">
-                                            <li class="sub-menu-item {{ Route::is('admin.media-category-list') ? 'active' : '' }}">
-                                                <a href="{{ route('admin.media-category-list') }}">
-                                                    <div class="text">Media Category</div>
-                                                </a>
-                                            </li>
-                                            <li class="sub-menu-item ">
-                                                <a href="">
-                                                    <div class="text">Blog Category</div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                    <li class="menu-item has-children {{ Request::routeIs(
-                                                                                            'admin.media-category-list',
-                                                                                            'admin.blog-category-list') ? 'active' : '' }}">
-
-                                        <a href="javascript:void(0);" class="menu-item-button">
-                                            <div class="icon"><i class="icon-file-plus"></i></div>
-                                            <div class="text">Clients Product</div>
-                                        </a>
-                                        <ul class="sub-menu" style="display: block;">
-                                            <li class="sub-menu-item {{ Route::is('admin.add-images') ? 'active' : '' }}">
-                                                <a href="{{ route('admin.add-images') }}">
-                                                    <div class="text">Add Images </div>
-                                                </a>
-                                            </li>
-                                            <li class="sub-menu-item {{ Route::is('admin.add-videos') ? 'active' : '' }}">
-                                                <a href="{{ route('admin.add-videos') }}" class="">
-                                                    <div class="text">Add Videos</div>
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </li>
                                  
                                     <li class="menu-item has-children ">

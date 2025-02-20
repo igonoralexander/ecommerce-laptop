@@ -5751,6 +5751,7 @@ select option {
 .activity-block{
 	position:relative;
 	margin-bottom:70px;
+  padding: 15px;
 }
 
 .mix{
@@ -5760,9 +5761,10 @@ select option {
 .activity-block .inner-box{
 	position:relative;
 	display: block;	
+  
 }
 
-.activity-block .image{
+.activity-block .image .video{
 	position: relative;
 	display: block;
 	width: 100%;
@@ -5770,13 +5772,13 @@ select option {
 	overflow: hidden;
 }
 
-.activity-block .image img{
+.activity-block .video .image img{
 	display: block;
 	width: 100%;
 	border-radius: 5px;
 }
 
-.activity-block .image .overlay{
+.activity-block .image .video .overlay{
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -5797,7 +5799,7 @@ select option {
 	transition:all 0.5s ease;
 }
 
-.activity-block .image .overlay .fa{
+.activity-block .video .image .overlay .fa{
 	position: absolute;
 	left: 50%;
 	top: 50%;

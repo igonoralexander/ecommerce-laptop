@@ -10,7 +10,7 @@ use App\Http\Livewire\Admin\MediaNewCategory;
 // Admin Routes
 Route::name('admin.')->group(function(){
         Route::get('user/management', [AdminController::class, 'user'])->name('manage-user');
-        Route::get('admin/management', [AdminController::class, 'admin'])->name('manage-admin');
+        Route::get('management', [AdminController::class, 'admin'])->name('manage-admin');
 
         Route::get('/gallery/images/management', [AdminController::class, 'images'])->name('images-management');
         Route::get('/gallery/videos/management', [AdminController::class, 'videos'])->name('videos-management');

@@ -56,13 +56,13 @@ class ManageUser extends Component
     {
         $this->resetForm();
         $this->setPageData('Add New User', [
-            ['url' => route('admin.add-user'), 'label' => 'Users'],
+            ['url' => route('admin.manage-user'), 'label' => 'Users'],
             ['url' => null, 'label' => 'Add New User'],
         ]);
         $this->action = 'create';
     }
 
-    public function save()
+    public function saveUser()
     {
         $this->validate();
 
@@ -71,7 +71,7 @@ class ManageUser extends Component
             'last_name' => $this->last_name,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'role' => 'admin'
+            'role' => 'user'
         ]);
 
         session()->flash('message', 'User created successfully.');
@@ -107,7 +107,7 @@ class ManageUser extends Component
         $this->email = $user->email;
 
         $this->setPageData('Edit User', [
-            ['url' => route('admin.add-user'), 'label' => 'Users'],
+            ['url' => route('admin.manage-user'), 'label' => 'Users'],
             ['url' => null, 'label' => 'Edit User'],
         ]);
 
@@ -135,7 +135,8 @@ class ManageUser extends Component
     public function render()
     {
         return view('livewire.admin.manage-user', [
-            'users' => User::paginate(9),
+            'users' => User::where('role', 'user')->paginate(10),
+
         ]);
     }
 }

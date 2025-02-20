@@ -26,7 +26,7 @@ class AdminController extends Controller
     public function admin()
     {
         //
-        return view('admin.user.manager-admin');
+        return view('admin.user.manage-admin');
     }
 
 
@@ -44,7 +44,7 @@ class AdminController extends Controller
      */
     public function images()
     {
-        return view('admin.media.gallery', [
+        return view('admin.media.images', [
             'title' => 'Gallery Management',
             'breadcrumbs' => [
                 ['url' => '#', 'label' => 'Users'],
@@ -55,7 +55,7 @@ class AdminController extends Controller
 
     public function videos()
     {
-        return view('admin.media.gallery', [
+        return view('admin.media.videos', [
             'title' => 'Gallery Management',
             'breadcrumbs' => [
                 ['url' => '#', 'label' => 'Users'],

@@ -4,31 +4,7 @@
 
 @section('style')
     <style>
-            .item {
-                position: relative;
-                width: 200px;
-                height: 200px;
-                overflow: hidden;
-            }
-
-            .item img, .item video {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 8px;
-            }
-
-            .delete-btn {
-                position: absolute;
-                bottom: 10px;
-                right: 10px;
-                background: red;
-                color: white;
-                border: none;
-                padding: 5px 10px;
-                cursor: pointer;
-                border-radius: 5px;
-            }
+           
     </style>
 @endsection
 @section('content')
@@ -39,7 +15,7 @@
                             <!-- main-content-wrap -->
                             <div class="main-content-wrap">
                                 @include('layouts.backend.inc.breadcrumbs')
-                                <livewire:admin.manage-gallery />
+                                <livewire:admin.manage-videos />
                             </div>
                             <!-- /main-content-wrap -->
                         </div>

@@ -1,4 +1,26 @@
 <div>
+
+@push('styles')
+    <style>
+       
+       .video-preview {
+    position: relative;
+    width: 100%; /* Full width */
+    padding-top: 100%; /* Ensures a square aspect ratio */
+    overflow: hidden;
+}
+
+.video-preview video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    object-fit: cover; /* Ensures the video fills the square */
+}
+
+    </style>
+@endpush
     <!-- Search & Filter -->
     <div class="wg-box">
         <div class="flex items-center justify-between gap10 flex-wrap">
@@ -29,18 +51,17 @@
                 <div class="filter-list row">
                     @foreach($media as $item)
                         <!--Activity Block-->
-                        <div class="activity-block mix all {{ $item->media_type }} col-md-4 col-sm-12">
+                        <div class="activity-block mix {{ $item->media_type }} col-md-4 col-sm-12">
                             <div class="inner-box">
-                                <figure class="image">
-                                        <img src="{{ $item->file_url }}" alt="">
-                                        <a href="{{ $item->file_url }}" class="lightbox-image overlay" data-fancybox="gallery-two" ><span class="icon fa fa-search-plus"></span></a>
+                                <figure class="video-preview">
+                                    <a href="{{ $item->file_url }}" data-fancybox="video-gallery" data-type="iframe" class="video-overlay">
+                                        <video width="100%" height="auto" controls muted>
+                                            <source src="{{ $item->file_url }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <span class="icon fa fa-play-circle"></span>
+                                    </a>
                                 </figure>
-                                <div class="caption-box">
-                                    <div class="cap-inner">
-                                        <h3><a href="#">{{ $item->title}}</a></h3>
-                                        <button wire:click="delete({{ $item->id }})" class="tf-button style-3 w180">Delete</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     @endforeach
@@ -48,7 +69,8 @@
 
             </div>
         </section> 
-    <!-- Pagination -->
+    
+        <!-- Pagination -->
     <div class="divider"></div>
     <br>
     <div class="flex items-center justify-between flex-wrap gap10">

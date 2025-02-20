@@ -17,7 +17,7 @@ use App\Models\User;
 
 
 
-class ManageGallery extends Component
+class ManageVideos extends Component
 {
 
     use WithPagination;
@@ -60,7 +60,7 @@ class ManageGallery extends Component
     public function render()
     {
         $media = UploadMedia::with(['user', 'category'])
-            ->where('media_type', 'image') // Ensure only videos are fetched
+            ->where('media_type', 'video') // Ensure only videos are fetched
             ->whereHas('user', function (Builder $query) {
                 $query->where('role', 'user');
             })
@@ -77,7 +77,7 @@ class ManageGallery extends Component
             ->latest()
             ->paginate($this->perPage);
 
-        return view('livewire.admin.manage-gallery', compact('media'));
+        return view('livewire.admin.manage-videos', compact('media'));
     }
 
     public function updatingSearch()
