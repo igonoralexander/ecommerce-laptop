@@ -588,3 +588,17 @@
                     </div>
                     <!-- /main-content -->
 @endsection
+
+
+@section('script')
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Welcome!',
+                text: "{{ session('success') }}",
+            });
+        </script>
+    @endif
+
+@endsection

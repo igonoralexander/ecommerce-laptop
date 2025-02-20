@@ -83,7 +83,8 @@
     <script src="{{ asset ('backend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset ('backend/js/bootstrap-select.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{ asset ('backend/js/zoom.js') }}"></script>
     <script src="{{ asset ('backend/js/morris.min.js') }}"></script>
     <script src="{{ asset ('backend/js/raphael.min.js') }}"></script>

@@ -7,6 +7,8 @@
 <head>
     <!-- Basic Page Needs -->
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
     <title>@yield('pageTitle')</title>
 
@@ -44,6 +46,10 @@
     <script src="{{ asset ('backend/js/jquery.min.js') }}"></script>
     <script src="{{ asset ('backend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset ('backend/js/bootstrap-select.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @yield('script')
+
     <script defer src="{{ asset ('backend/js/main.js') }}"></script>
 
 </body>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+// In web.php
+Route::post('/check-email', [RegisteredUserController::class, 'checkEmail']);
 
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
