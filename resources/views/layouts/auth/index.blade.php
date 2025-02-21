@@ -52,6 +52,17 @@
 
     <script defer src="{{ asset ('backend/js/main.js') }}"></script>
 
+    <script>
+        // Global SweetAlert mixin for all alerts
+        const SwalGlobal = Swal.mixin({
+            customClass: {
+                popup: 'swal-wide',
+                title: 'swal-title',
+                content: 'swal-text'
+            }
+        });
+    </script>
+
 </body>
 
 </html>

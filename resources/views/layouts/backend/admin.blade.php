@@ -22,7 +22,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset ('backend/css/animation.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('backend/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('backend/css/bootstrap-select.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/jquery.fancybox.min.css') }}" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 
     @stack('styles')
 
@@ -82,13 +84,13 @@
     <script src="{{ asset ('backend/js/jquery.min.js') }}"></script>
     <script src="{{ asset ('backend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset ('backend/js/bootstrap-select.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script src="{{ asset('backend/js/jquery.fancybox.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="{{ asset ('backend/js/zoom.js') }}"></script>
-    <script src="{{ asset ('backend/js/morris.min.js') }}"></script>
+    <!-- <script src="{{ asset ('backend/js/morris.min.js') }}"></script> -->
     <script src="{{ asset ('backend/js/raphael.min.js') }}"></script>
-    <script src="{{ asset ('backend/js/morris.js') }}"></script>
+    <!-- <script src="{{ asset ('backend/js/morris.js') }}"></script> -->
     <script src="{{ asset ('backend/js/jvectormap.min.js') }}"></script>
     <script src="{{ asset ('backend/js/jvectormap-us-lcc.js') }}"></script>
     <script src="{{ asset ('backend/js/jvectormap-data.js') }}"></script>
@@ -111,7 +113,16 @@
     @yield('script')
 
     <script src="{{ asset ('backend/js/main.js') }}"></script>
-
+    <script>
+        // Global SweetAlert mixin for all alerts
+        const SwalGlobal = Swal.mixin({
+            customClass: {
+                popup: 'swal-wide',
+                title: 'swal-title',
+                content: 'swal-text'
+            }
+        });
+    </script>
 
 </body>
 

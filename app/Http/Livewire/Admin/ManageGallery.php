@@ -8,12 +8,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Builder;
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
-
 use Livewire\WithPagination;
-
 use App\Models\UploadMedia;
-use App\Models\Category;
-use App\Models\User;
 
 
 

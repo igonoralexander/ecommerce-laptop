@@ -593,12 +593,29 @@
 @section('script')
     @if (session('success'))
         <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Welcome!',
-                text: "{{ session('success') }}",
+            document.addEventListener("DOMContentLoaded", function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: `{!! session('success') !!}`,
+                    toast: true,  // Enables Toast mode
+                    position: 'top-end',  // Positions at top-right
+                    showConfirmButton: false,  // Hides confirm button
+                    timer: 5000,  // Auto close after 3 seconds
+                    timerProgressBar: true,  // Shows progress bar
+                    background: 'white',  // white background
+                    color: 'black',  // black text for better contrast
+                    customClass: {
+                        title: 'swal-title-custom'  // Custom title class
+                    }
+                });
             });
         </script>
-    @endif
 
+        <style>
+            /* Increase title font size */
+            .swal-title-custom {
+                font-size: 16px !important;
+            }
+        </style>
+    @endif
 @endsection

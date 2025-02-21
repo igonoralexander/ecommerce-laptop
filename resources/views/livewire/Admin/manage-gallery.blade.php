@@ -23,31 +23,31 @@
         </div>
     </div>
 
-         <!--Activity Section-->
-         <section class="activity-section">
-            <div class="mixit-gallery">
-                <div class="filter-list row">
-                    @foreach($media as $item)
-                        <!--Activity Block-->
-                        <div class="activity-block mix all {{ $item->media_type }} col-md-4 col-sm-12">
-                            <div class="inner-box">
-                                <figure class="image">
-                                        <img src="{{ $item->file_url }}" alt="">
-                                        <a href="{{ $item->file_url }}" class="lightbox-image overlay" data-fancybox="gallery-two" ><span class="icon fa fa-search-plus"></span></a>
-                                </figure>
-                                <div class="caption-box">
-                                    <div class="cap-inner">
-                                        <h3><a href="#">{{ $item->title}}</a></h3>
-                                        <button wire:click="delete({{ $item->id }})" class="tf-button style-3 w180">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+    <div class="gallery-grid">
+        @foreach ($media as $item)
+            <div class="gallery-item">
+                <img src="{{ asset($item->file_url) }}" class="gallery-thumb">
+                <a href="{{ asset($item->file_url) }}" class="lightbox-image" data-fancybox="gallery">
+                    <div class="lightbox-trigger">    
+                        <i class="icon fa fa-search-plus"></i>
+                    </div>
 
+                </a>
+                <div class="gallery-actions">
+                    <a href="{{ asset($item->file_url) }}" download class="action-btn">
+                        <i class="fa fa-download"></i>
+                    </a>
+                    <button class="action-btn share-btn" data-url="{{ asset($item->file_url) }}">
+                        <i class="fa fa-share-alt"></i>
+                    </button>
+                    <button class="action-btn delete-btn" data-id="{{ $item->id }}">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
             </div>
-        </section> 
+        @endforeach
+    </div>
+
     <!-- Pagination -->
     <div class="divider"></div>
     <br>
@@ -59,13 +59,9 @@
         <!-- Livewire Pagination Controls -->
         <ul class="wg-pagination">
             @if ($media->onFirstPage())
-                <li class="disabled">
-                    <span><i class="icon-chevron-left"></i></span>
-                </li>
+                <li class="disabled"><span><i class="icon-chevron-left"></i></span></li>
             @else
-                <li>
-                    <a wire:click="previousPage" wire:loading.attr="disabled"><i class="icon-chevron-left"></i></a>
-                </li>
+                <li><a wire:click="previousPage" wire:loading.attr="disabled"><i class="icon-chevron-left"></i></a></li>
             @endif
 
             @foreach ($media->getUrlRange(1, $media->lastPage()) as $page => $url)
@@ -75,15 +71,14 @@
             @endforeach
 
             @if ($media->hasMorePages())
-                <li>
-                    <a wire:click="nextPage" wire:loading.attr="disabled"><i class="icon-chevron-right"></i></a>
-                </li>
+                <li><a wire:click="nextPage" wire:loading.attr="disabled"><i class="icon-chevron-right"></i></a></li>
             @else
-                <li class="disabled">
-                    <span><i class="icon-chevron-right"></i></span>
-                </li>
+                <li class="disabled"><span><i class="icon-chevron-right"></i></span></li>
             @endif
         </ul>
     </div>
 
+    @push('scripts')
+
+    @endpush
 </div>

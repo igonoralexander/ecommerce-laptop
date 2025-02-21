@@ -55,6 +55,17 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::USER)->with('success', 'Welcome ' . $user->first_name);
     }
 
+    
+    public function loginCheckEmail(Request $request)
+    {
+        // Validate email format before querying DB
+        $request->validate(['email' => 'required|email']);
+        
+        $emailExists = User::where('email', $request->email)->exists();
+        return response()->json(['available' => !$emailExists]); // If false, email exists
+    }
+
+
     // In RegisteredUserController.php
     public function checkEmail(Request $request)
     {

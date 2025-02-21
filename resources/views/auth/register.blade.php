@@ -91,7 +91,7 @@
 
             // Check if fields are empty
             if (!firstName || !lastName || !email || !password || !confirmPassword) {
-                Swal.fire({
+                SwalGlobal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Please fill in all required fields!',
@@ -102,7 +102,7 @@
             // Validate email format
             let emailPattern = /^[^@]+@\w+(\.\w+)+\w$/;
             if (!emailPattern.test(email)) {
-                Swal.fire({
+                SwalGlobal.fire({
                     icon: 'error',
                     title: 'Invalid Email',
                     text: 'Please enter a valid email address.',
@@ -112,7 +112,7 @@
 
             // Check password length
             if (password.length < 8) {
-                Swal.fire({
+                SwalGlobal.fire({
                     icon: 'error',
                     title: 'Weak Password',
                     text: 'Password must be at least 8 characters long.',
@@ -122,7 +122,7 @@
 
             // Check if passwords match
             if (password !== confirmPassword) {
-                Swal.fire({
+                SwalGlobal.fire({
                     icon: 'error',
                     title: 'Password Mismatch',
                     text: 'Passwords do not match. Please check and try again!',
@@ -133,7 +133,7 @@
             // Check email availability before proceeding
             checkEmailAvailability(email).then(isAvailable => {
                 if (!isAvailable) {
-                    Swal.fire({
+                    SwalGlobal.fire({
                         icon: 'error',
                         title: 'User already exists',
                         text: 'This email is already taken.',
@@ -142,7 +142,7 @@
                 }
 
                 // Proceed with registration if email is available
-                Swal.fire({
+                SwalGlobal.fire({
                     title: 'Are you sure?',
                     text: "Please confirm your registration details.",
                     icon: 'question',
@@ -157,7 +157,7 @@
                 });
             }).catch(error => {
                 console.error('Error checking email:', error);
-                Swal.fire({
+                SwalGlobal.fire({
                     icon: 'error',
                     title: 'Error',
                     text: 'Something went wrong. Please try again later.',

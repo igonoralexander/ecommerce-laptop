@@ -26,6 +26,9 @@ Route::get('/dashboard', function () {
 // In web.php
 Route::post('/check-email', [RegisteredUserController::class, 'checkEmail']);
 
+Route::post('/login-checkEmail', [RegisteredUserController::class, 'loginCheckEmail']);
+
+
 Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth'])->name('admin.dashboard');

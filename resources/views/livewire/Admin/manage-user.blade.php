@@ -144,7 +144,7 @@
                                 </form>
                                 <!-- /add-new-user -->
                             @endif
-                            @push('scripts')
+@push('scripts')
     <script>
         document.addEventListener('livewire:load', function () {
             $(document).on("click", ".show-pass", function () {
@@ -164,5 +164,4 @@
         });
     </script>
 @endpush
-
 </div>
