@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,12 @@ Route::get('/dashboard', function () {
 
 // In web.php
 Route::post('/check-email', [RegisteredUserController::class, 'checkEmail']);
-
 Route::post('/login-checkEmail', [RegisteredUserController::class, 'loginCheckEmail']);
+
+
+Route::delete('/gallery/delete/{id}', [AdminController::class, 'deleteMedia']);
+Route::get('/gallery/search', [AdminController::class, 'searchGallery'])->name('gallery.search');
+Route::get('/gallery/load', [AdminController::class, 'loadMoreMedia'])->name('gallery.load');
 
 
 Route::get('/admin/dashboard', function () {

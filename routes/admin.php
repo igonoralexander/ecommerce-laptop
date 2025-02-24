@@ -12,8 +12,8 @@ Route::name('admin.')->group(function(){
         Route::get('user/management', [AdminController::class, 'user'])->name('manage-user');
         Route::get('management', [AdminController::class, 'admin'])->name('manage-admin');
 
-        Route::get('/gallery/images/management', [AdminController::class, 'images'])->name('images-management');
-        Route::get('/gallery/videos/management', [AdminController::class, 'videos'])->name('videos-management');
+        Route::get('/gallery/management', [AdminController::class, 'gallery'])->name('gallery-management');
+        
         
         Route::get('media/category-list', [CategoryController::class, 'index'])->name('media-category-list'); 
         

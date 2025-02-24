@@ -40,7 +40,7 @@
                     <button class="action-btn share-btn" data-url="{{ asset($item->file_url) }}">
                         <i class="fa fa-share-alt"></i>
                     </button>
-                    <button class="action-btn delete-btn" data-id="{{ $item->id }}">
+                    <button type = "button" class="action-btn delete-btn" wire:click.prevent="confirmDelete({{ $item->id }})">
                         <i class="fa fa-trash"></i>
                     </button>
                 </div>
@@ -79,6 +79,29 @@
     </div>
 
     @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Livewire.on('confirmDelete', (data) => {
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You won't be able to revert this!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Yes, delete it!"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Livewire.emit('deleteMedia', data.mediaId); // Send the event to Livewire
+                        }
+                    });
+                });
+            });
 
+            Livewire.on('mediaDeleted', () => {
+                Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                Livewire.emit('refreshComponent');
+            });
+        </script>
     @endpush
 </div>

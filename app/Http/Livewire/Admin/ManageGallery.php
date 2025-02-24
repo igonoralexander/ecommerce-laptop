@@ -21,6 +21,14 @@ class ManageGallery extends Component
     public $search = '';
     public $perPage = 10;
 
+    protected $listeners = ['deleteMedia' => 'delete', 'refreshComponent' => '$refresh'];
+
+
+    public function confirmDelete($id)
+    {
+        $this->dispatchBrowserEvent('confirmDelete', ['mediaId' => $id]);
+    }
+
     public function delete($id)
     {
         $media = UploadMedia::findOrFail($id);
@@ -50,7 +58,12 @@ class ManageGallery extends Component
     
         // Delete media record from database
         $media->delete();
+
+         // Refresh the UI
+        $this->dispatchBrowserEvent('mediaDeleted');
+
         session()->flash('message', 'Media deleted successfully.');
+        $this->emit('refreshComponent');
     }
 
     public function render()

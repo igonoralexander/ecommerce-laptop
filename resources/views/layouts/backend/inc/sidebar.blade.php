@@ -23,6 +23,18 @@
                                         </a>
                                     </li>
 
+                                    <li class="menu-item {{ Route::is('admin.gallery-management') ? 'active' : '' }}">
+                                        <a href="{{ route('admin.gallery-management') }}" class="menu-item-button">
+                                            <div class="icon">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 3C2.89543 3 2 3.89543 2 5V17C2 18.1046 2.89543 19 4 19H20C21.1046 19 22 18.1046 22 17V5C22 3.89543 21.1046 3 20 3H4ZM4 5H20V17H4V5ZM6 15L9 11L11 14L14 10L18 15H6Z" fill="#111111"/>
+                                                    <path d="M6 21C5.44772 21 5 20.5523 5 20C5 19.4477 5.44772 19 6 19H18C18.5523 19 19 19.4477 19 20C19 20.5523 18.5523 21 18 21H6Z" fill="#111111"/>
+                                                </svg>
+                                            </div>
+                                            <div class="text">Gallery Management</div>
+                                        </a>
+                                    </li>
+
                                     <li class="menu-item has-children {{ Request::routeIs(
                                                                                             'admin.manage-user',
                                                                                             'admin.manage-admin') ? 'active' : '' }}">
@@ -34,12 +46,12 @@
                                         <ul class="sub-menu" style="display: block;">
                                             <li class="sub-menu-item  {{ Route::is('admin.manage-admin') ? 'active' : '' }}">
                                                 <a href="{{ route('admin.manage-admin') }}">
-                                                    <div class="text">Add an Administrator</div>
+                                                    <div class="text">Administrator</div>
                                                 </a>
                                             </li>
                                             <li class="sub-menu-item {{ Route::is('admin.manage-user') ? 'active' : '' }}">
                                                 <a href="{{ route('admin.manage-user') }}">
-                                                    <div class="text">Add a Client</div>
+                                                    <div class="text">Client</div>
                                                 </a>
                                             </li>
                                         </ul>
@@ -91,34 +103,7 @@
                                         </ul>
                                     </li>
 
-                                    <li class="menu-item has-children {{ Request::routeIs(
-                                                                                            'admin.images-management') }}',
-                                                                                            'admin.videos-management') ? 'active' : '' }}">
-                                                                                            
-                                                                                            
-                                        <a href="javascript:void(0); {{ route('admin.images-management') }}" class="menu-item-button">
-                                            <div class="icon">
-                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 3C2.89543 3 2 3.89543 2 5V17C2 18.1046 2.89543 19 4 19H20C21.1046 19 22 18.1046 22 17V5C22 3.89543 21.1046 3 20 3H4ZM4 5H20V17H4V5ZM6 15L9 11L11 14L14 10L18 15H6Z" fill="#111111"/>
-                                                    <path d="M6 21C5.44772 21 5 20.5523 5 20C5 19.4477 5.44772 19 6 19H18C18.5523 19 19 19.4477 19 20C19 20.5523 18.5523 21 18 21H6Z" fill="#111111"/>
-                                                </svg>
-                                            </div>
-                                            <div class="text">Gallery Management</div>
-                                        </a>
-                                        <ul class="sub-menu" style="display: block;">
-                                            <li class="sub-menu-item {{ Route::is('admin.images-management') ? 'active' : '' }}">
-                                                <a href="{{ route('admin.images-management') }}">
-                                                    <div class="text">Images</div>
-                                                </a>
-                                            </li>
-                                            <li class="sub-menu-item {{ Route::is('admin.videos-management') ? 'active' : '' }}">
-                                                <a href="{{ route('admin.videos-management') }}">
-                                                    <div class="text">Videos</div>
-                                                </a>
-                                            </li>
-                                        </ul>
-
-                                    </li>
+                                    
                                  
                                     <li class="menu-item has-children ">
                                         <a href="javascript:void(0);" class="menu-item-button">
