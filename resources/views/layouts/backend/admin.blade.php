@@ -13,6 +13,27 @@
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
     <title>@yield('pageTitle')</title>
 
+    <!-- Open Graph Meta Tags (Only if defined in the child view) -->
+    @hasSection('og_title')
+        <meta property="og:title" content="@yield('og_title')">
+    @endif
+
+    @hasSection('og_description')
+        <meta property="og:description" content="@yield('og_description')">
+    @endif
+
+    @hasSection('og_image')
+        <meta property="og:image" content="@yield('og_image')">
+    @endif
+
+    @hasSection('og_url')
+        <meta property="og:url" content="@yield('og_url')">
+    @endif
+
+    @hasSection('og_type')
+        <meta property="og:type" content="@yield('og_type')">
+    @endif
+
     <meta name="author" content="themesflat.com">
 
     <!-- Mobile Specific Metas -->
@@ -23,9 +44,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset ('backend/css/animation.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('backend/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset ('backend/css/bootstrap-select.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/jquery.fancybox.min.css') }}" >
+    <!-- <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/jquery.fancybox.min.css') }}" > -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
 
     @stack('styles')
 
@@ -83,9 +104,12 @@
 
     <!-- Javascript -->
     <script src="{{ asset ('backend/js/jquery.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset ('backend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset ('backend/js/bootstrap-select.min.js') }}"></script>
-    <script src="{{ asset('backend/js/jquery.fancybox.js') }}"></script>
+    <!-- <script src="{{ asset('backend/js/jquery.fancybox.js') }}"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="{{ asset ('backend/js/zoom.js') }}"></script>

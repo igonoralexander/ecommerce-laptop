@@ -118,7 +118,10 @@
 
             // Custom CSS styling for iframe wrapping element
             // You can use this to set custom iframe dimensions
-            css : {},
+            css : {
+                width: "100%",
+                height: "100vh" // Ensures full-screen height
+            },
 
             // Iframe tag attributes
             attr : {

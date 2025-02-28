@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\UploadMedia;
+use FFMpeg;
 
 class PhotoController extends Controller
 {
@@ -61,6 +62,7 @@ class PhotoController extends Controller
         foreach ($request->file('images') as $image) {
             $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
             $filePath = $folder . '/' . $imageName;
+            $downloadFilePath = $folder . '/download_' . $imageName; // File for downloading
             $contentType = $image->getMimeType();
 
             // Open File Stream
@@ -76,6 +78,18 @@ class PhotoController extends Controller
             // Upload to Azure Storage
             $blobClient->createBlockBlob($containerName, $filePath, $fileStream, $blobOptions);
 
+
+            // **Upload Downloadable File (Forced Download Content-Type)**
+            // Open File Stream
+            $fileStream = fopen($image->getRealPath(), 'r');
+            if (!$fileStream) {
+                throw new \Exception('Failed to open file for reading');
+            }
+
+            $downloadBlobOptions = new CreateBlockBlobOptions();
+            $downloadBlobOptions->setContentType('application/octet-stream');
+            $blobClient->createBlockBlob($containerName, $downloadFilePath, $fileStream, $downloadBlobOptions);
+            
             // Close File Stream
             if (is_resource($fileStream)) {
                 fclose($fileStream);
@@ -83,6 +97,7 @@ class PhotoController extends Controller
 
             UploadMedia::create([
                 'file_url' => env('AZURE_STORAGE_URL') . '/' . $containerName . '/' . $filePath,
+                'download_url' => env('AZURE_STORAGE_URL') . '/' . $containerName . '/' . $downloadFilePath,
                 'file_name' => $imageName,
                 'title' => $request->title,
                 'media_type' => 'image',

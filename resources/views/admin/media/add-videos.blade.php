@@ -16,7 +16,7 @@
                                 @endif
 
                                 <!-- form-add-product -->
-                                <form class="form-add-product" method = "POST" action = "{{ route('admin.video.store') }}" enctype = "multipart/form-data">
+                                <form id="upload-form" class="form-add-product" method = "POST" action = "{{ route('admin.video.store') }}" enctype = "multipart/form-data">
                                     @csrf
                                     
                                     <div class="wg-box mb-30">
@@ -75,7 +75,7 @@
                                         </fieldset>
                                     </div>
                                     <div class="cols gap10">
-                                        <button class="tf-button w380" type="submit"  onclick="return validateForm()">Add</button>
+                                        <button class="tf-button w380" type="submit"  onclick="return validateForm()">Upload</button>
                                         <a href="#" class="tf-button style-3 w380">Cancel</a>
                                     </div>
                                 </form>
@@ -97,6 +97,93 @@
 <!-- Video Preview & Live Validation -->
 @section('script')
 <script>
+    const CHUNK_SIZE = 5 * 1024 * 1024; // 5MB per chunk
+    let uploadedFiles = [];
+
+    async function uploadFileInChunks(file, index, totalFiles) {
+        const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+        const fileId = `${Date.now()}-${index}-${Math.random().toString(36).substring(7)}`;
+        let uploadedSize = 0;
+
+        // Display Swal.fire Progress
+        Swal.fire({
+            title: `Uploading ${file.name}`,
+            html: `<b>Uploading...</b> <br><div id="upload-progress" style="width: 100%; background: #ddd; height: 10px;">
+                        <div id="progress-bar" style="width: 0%; height: 100%; background: green;"></div>
+                   </div>
+                   <p id="progress-text">0%</p>`,
+            allowOutsideClick: false,
+            showConfirmButton: false
+        });
+
+
+        for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
+            const start = chunkIndex * CHUNK_SIZE;
+            const end = Math.min(start + CHUNK_SIZE, file.size);
+            const chunk = file.slice(start, end);
+
+            const formData = new FormData();
+            formData.append("file", chunk);
+            formData.append("file_name", file.name);
+            formData.append("chunk_index", chunkIndex);
+            formData.append("total_chunks", totalChunks);
+            formData.append("file_id", fileId);
+            formData.append("_token", document.querySelector('input[name="_token"]').value);
+
+            try {
+                const response = await fetch("{{ route('admin.video.upload.chunk') }}", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+                if (!result.success) {
+                    console.error(`Chunk ${chunkIndex + 1} failed for ${file.name}`);
+                    return;
+                }
+
+                uploadedSize += chunk.size;
+                let percentComplete = Math.round((uploadedSize / file.size) * 100);
+                document.getElementById("progress-bar").style.width = percentComplete + "%";
+                document.getElementById("progress-text").innerText = percentComplete + "%";
+            } catch (error) {
+                Swal.fire("Upload Error", `Error uploading file: ${error}`, "error");
+                return;
+            }
+        }
+
+        uploadedFiles.push(fileId);
+        console.log(`File "${file.name}" uploaded successfully.`);
+
+        if (uploadedFiles.length === totalFiles) {
+           Swal.fire({
+                icon: "success",
+                title: "Upload Completed!",
+                text: "Your videos have been successfully uploaded.",
+                confirmButtonText: "OK"
+            });
+        }
+    }
+
+    function handleFileSelection(event) {
+        const input = event.target;
+        const files = input.files;
+
+        if (files.length === 0) {
+            Swal.fire("No Files Selected", "Please select at least one video.", "warning");
+            return;
+        }
+
+        uploadedFiles = []; // Reset uploaded files list
+
+        for (let i = 0; i < files.length; i++) {
+            uploadFileInChunks(files[i], i, files.length);
+        }
+    }
+
+    document.getElementById("myFile").addEventListener("change", handleFileSelection);
+
+
     function previewVideos() {
         let input = document.getElementById('myFile');
         let fileNamesContainer = document.getElementById('file-names');
@@ -133,7 +220,6 @@
                     // Create a new error message element
                     let errorMessage = document.createElement("p");
                     errorMessage.style.color = "red";        // Apply red color
-                    errorMessage.style.fontWeight = "bold";  // Make the text bold
                     errorMessage.textContent = `${file.name} is not a valid video format.`;
                     
                     // Append the error message to the error container
@@ -165,7 +251,6 @@
         if (category === "") {
             errorCategory.innerHTML = "Please select a category.";
             errorCategory.style.color = "red";
-            errorCategory.style.fontWeight = "bold";
         } else {
             errorCategory.innerHTML = "";
         }
@@ -178,7 +263,6 @@
         if (user === "") {
             errorUser.innerHTML = "Please select a client.";
             errorUser.style.color = "red";
-            errorUser.style.fontWeight = "bold";
         } else {
             errorUser.innerHTML = "";
         }
@@ -202,19 +286,16 @@
         if (category === "") {
             errorCategory.innerHTML = "Please select a category.";
             errorCategory.style.color = "red";
-            errorCategory.style.fontWeight = "bold";
             isValid = false;
         }
         if (user === "") {
             errorUser.innerHTML = "Please select a client.";
             errorUser.style.color = "red";
-            errorUser.style.fontWeight = "bold";
             isValid = false;
         }
         if (files.length === 0) {
             errorVideo.innerHTML = "Please select at least one video.";
             errorVideo.style.color = "red";
-            errorVideo.style.fontWeight = "bold";
             isValid = false;
         }
 

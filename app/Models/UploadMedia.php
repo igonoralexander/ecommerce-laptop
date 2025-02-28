@@ -13,6 +13,7 @@ class UploadMedia extends Model
 
     protected $fillable = [
         'file_url',
+        'download_url',
         'title',
         'file_name',
         'media_type',

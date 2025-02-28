@@ -1,8 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\VideoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +35,16 @@ Route::post('/login-checkEmail', [RegisteredUserController::class, 'loginCheckEm
 Route::delete('/gallery/delete/{id}', [AdminController::class, 'deleteMedia']);
 Route::get('/gallery/search', [AdminController::class, 'searchGallery'])->name('gallery.search');
 Route::get('/gallery/load', [AdminController::class, 'loadMoreMedia'])->name('gallery.load');
+
+
+Route::post('/admin/video/upload-chunk', [VideoController::class, 'uploadChunk'])->name('admin.video.upload.chunk');
+
+Route::get('/share/media/{id}', function ($id) {
+    $media = \App\Models\UploadMedia::findOrFail($id);
+    $fileUrl = Storage::url($media->file_url); // Get the storage URL
+
+    return Response::redirectTo($fileUrl); // Redirect to actual file
+})->name('media.share');
 
 
 Route::get('/admin/dashboard', function () {

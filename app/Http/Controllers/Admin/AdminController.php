@@ -49,7 +49,7 @@ class AdminController extends Controller
      */
     public function gallery()
     {
-        $media = UploadMedia::latest()->paginate(10);
+        $media = UploadMedia::latest()->paginate(15);
         return view('admin.media.gallery', [
             'media' => $media,
             'title' => 'Gallery Management',
@@ -90,15 +90,14 @@ class AdminController extends Controller
     {
         $page = $request->query('page', 1);
         // Paginate media (10 per page)
-        $mediaPaginated = UploadMedia::latest()->paginate(10, ['*'], 'page', $page);
+        $mediaPaginated = UploadMedia::latest()->paginate(15, ['*'], 'page', $page);
 
         // Return only the media items as JSON
         return response()->json([
             'media' => $mediaPaginated->items(),
-            'next_page_url' => $mediaPaginated->nextPageUrl(),
+            'next_page' => $mediaPaginated->nextPageUrl() ? $page + 1 : null,
         ]);
     }
-
 
     public function deleteMedia($id): JsonResponse
     {
@@ -117,7 +116,9 @@ class AdminController extends Controller
         try {
             if ($media->media_type === 'image') {
                 $filePath = str_replace(env('AZURE_STORAGE_URL') . '/' . $imageContainer . '/', '', $media->file_url);
+                $downloadfilePath = str_replace(env('AZURE_STORAGE_URL') . '/' . $imageContainer . '/', '', $media->download_url);
                 $blobClient->deleteBlob($imageContainer, $filePath);
+                $blobClient->deleteBlob($imageContainer, $downloadfilePath);
             } elseif ($media->media_type === 'video') {
                 $filePath = str_replace(env('AZURE_STORAGE_URL') . '/' . $videoContainer . '/', '', $media->file_url);
                 $blobClient->deleteBlob($videoContainer, $filePath);

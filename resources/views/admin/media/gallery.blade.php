@@ -1,7 +1,6 @@
 @extends('layouts.backend.admin')
 @section('pageTitle', isset($pageTitle) ? $pageTitle: 'Admin Management')
 
-
 @section('style')
     <style>
             
@@ -38,33 +37,35 @@
 
                                             @if ($isImage)
                                             <!-- Image -->
-                                            <img src="{{ $item->file_url }}" class="gallery-thumb">
+                                            <img src="{{ $item->file_url }}" class="gallery-thumb"  loading="lazy">
                                             <a href="{{ $item->file_url }}" class="lightbox-image" data-fancybox="gallery">
                                                 <div class="lightbox-trigger">    
                                                     <i class="icon fa fa-search-plus"></i>
                                                 </div>
                                             </a>
                                             @elseif ($isVideo)
-                                            <!-- Video -->
-                                            <video class="gallery-thumb" controls>
-                                                <source src="{{ $item->file_url }}" type="video/{{ $fileExtension }}">
+                                            <!-- Videos -->
+                                            <video class="gallery-video" width="100%" height="auto" autoplay muted loop>
+                                                <source src="{{ $item->file_url }}" type="video/mp4">
                                                 Your browser does not support the video tag.
                                             </video>
-                                            <a href="{{ $item->file_url }}" class="lightbox-image" data-fancybox="gallery" data-type="video">
-                                                <div class="lightbox-trigger">
-                                                    <i class="icon fa fa-play"></i>
+                                            <a href="{{ $item->file_url }}" class="lightbox-video" data-fancybox="gallery" data-type="iframe" >    
+                                                <div class="lightbox-trigger">    
+                                                    <i class="icon fa fa-search-plus"></i>
                                                 </div>
                                             </a>
                                             @endif
 
                                             <!-- Action buttons -->
                                             <div class="gallery-actions">
-                                                <a href="{{ asset($item->file_url) }}" download class="action-btn">
+                                                <button type="button" class="action-btn download-btn">
                                                     <i class="fa fa-download"></i>
-                                                </a>
-                                                <button class="action-btn share-btn" data-url="{{ $item->file_url }}">
+                                                </button>
+
+                                                <button type="button" class="action-btn share-btn" data-id="{{ $item->id }}" data-url="{{ $item->file_url }}">
                                                     <i class="fa fa-share-alt"></i>
                                                 </button>
+
                                                 <button type="button" class="action-btn delete-btn" data-id="{{ $item->id }}">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
@@ -72,6 +73,15 @@
                                         </div>
                                     @endforeach
                                 </div>
+
+                                <div id="shareModal" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close-btn">&times;</span>
+                                        <h3>Share this media</h3>
+                                        <div id="socialLinks" class="social-icons"></div>
+                                    </div>
+                                </div>
+
                             </div>
                             <!-- /main-content-wrap -->
                         </div>
@@ -88,26 +98,57 @@
 @section('script')
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // --- Search functionality ---
+
+            // --- Variables ---
             let searchInput = document.querySelector("input[name='search']");
             let gallery = document.getElementById("gallery");
+            let shareModal = document.getElementById("shareModal");
+            let socialLinks = document.getElementById("socialLinks");
+            let closeBtn = document.querySelector(".close-btn");
+            
             let currentPage = 1;
-            let isSearching = false; // flag for search mode
+            let isSearching = false;
+            let loading = false;
+            let searchTimeout;
 
-            // Function to render media items (common for search & infinite scroll)
+            // Function to render media items
             function renderMediaItems(mediaArray, clear = false) {
-                if (clear) gallery.innerHTML = "";
+                if (clear) gallery.innerHTML = ""; // Clear gallery if needed
+
                 if (mediaArray.length === 0 && clear) {
                     gallery.innerHTML = "<p>No results found</p>";
                 } else {
                     mediaArray.forEach(item => {
+                        let fileExtension = item.file_url.split('.').pop().toLowerCase();
+                        let isImage = ['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(fileExtension);
+                        let isVideo = ['mp4', 'webm', 'ogg'].includes(fileExtension);
+
                         let mediaHtml = `
                             <div class="gallery-item" id="media-${item.id}">
-                                ${item.media_type === 'image'
-                                    ? `<img src="${item.file_url}" class="gallery-thumb">`
-                                    : `<video src="${item.file_url}" class="gallery-thumb" controls></video>`}
+                                ${isImage ? `
+                                    <!-- Image -->
+                                    <img src="${item.file_url}" class="gallery-thumb" loading="lazy">
+                                    <a href="${item.file_url}" class="lightbox-image" data-fancybox="gallery">
+                                        <div class="lightbox-trigger">    
+                                            <i class="icon fa fa-search-plus"></i>
+                                        </div>
+                                    </a>
+                                ` : isVideo ? `
+                                    <!-- Video -->
+                                    <video class="gallery-video" width="100%" height="auto" autoplay muted loop>
+                                        <source src="${item.file_url}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <a href="${item.file_url}" class="lightbox-video" data-fancybox="gallery" data-type="iframe">
+                                        <div class="lightbox-trigger">    
+                                            <i class="icon fa fa-search-plus"></i>
+                                        </div>
+                                    </a>
+                                ` : ''}
+                                
+                                <!-- Actions -->
                                 <div class="gallery-actions">
-                                    <a href="${item.file_url}" download class="action-btn">
+                                    <a href="${item.download_url}" class="action-btn" download>
                                         <i class="fa fa-download"></i>
                                     </a>
                                     <button class="action-btn share-btn" data-url="${item.file_url}">
@@ -119,32 +160,34 @@
                                 </div>
                             </div>
                         `;
+
                         gallery.innerHTML += mediaHtml;
                     });
+
                 }
             }
 
-            // Search event
+            // --- Search Functionality ---
             searchInput.addEventListener("input", function () {
-                let searchValue = this.value.trim().toLowerCase();
-                currentPage = 1; // reset pagination when searching
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    let searchValue = this.value.trim().toLowerCase();
+                    currentPage = 1; 
 
-                // If search is empty, load all media from page 1 using infinite scroll endpoint
-                if (searchValue === "") {
-                    isSearching = false;
-                    fetchMediaPage(1, true);
-                } else {
-                    isSearching = true;
-                    fetch(`/gallery/search?query=${encodeURIComponent(searchValue)}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            renderMediaItems(data.media, true);
-                        })
-                        .catch(error => console.error("Error fetching search results:", error));
-                }
+                    if (searchValue === "") {
+                        isSearching = false;
+                        fetchMediaPage(1, true);
+                    } else {
+                        isSearching = true;
+                        fetch(`/gallery/search?query=${encodeURIComponent(searchValue)}`)
+                            .then(response => response.json())
+                            .then(data => renderMediaItems(data.media, true))
+                            .catch(error => console.error("Error fetching search results:", error));
+                    }
+                }, 500); // Debounce delay
             });
 
-            // --- Delete functionality using event delegation ---
+            // --- Delete Functionality ---
             gallery.addEventListener("click", function (event) {
                 let button = event.target.closest(".delete-btn");
                 if (button) {
@@ -171,55 +214,81 @@
                             .then(response => response.json())
                             .then(data => {
                                 if (data.success) {
-                                    // Remove from UI
-                                    let mediaEl = document.getElementById(`media-${mediaId}`);
-                                    if (mediaEl) mediaEl.remove();
+                                    document.getElementById(`media-${mediaId}`).remove();
                                     SwalGlobal.fire("Deleted!", "The media has been deleted.", "success");
                                 } else {
                                     SwalGlobal.fire("Error!", data.message, "error");
                                 }
                             })
-                            .catch(error => {
-                                console.error("Error deleting media:", error);
-                                SwalGlobal.fire("Error!", "Could not delete media.", "error");
-                            });
+                            .catch(error => SwalGlobal.fire("Error!", "Could not delete media.", "error"));
                         }
                     });
                 }
             });
 
             // --- Infinite Scrolling ---
-            // Function to fetch a page of media via AJAX (only when not in search mode)
             function fetchMediaPage(page, clearExisting = false) {
-                if (isSearching) return; // do not load additional pages during search
+                if (isSearching || loading) return;
+
+                loading = true;
 
                 fetch(`/gallery/load?page=${page}`)
                     .then(response => response.json())
                     .then(data => {
-                        if (clearExisting) {
-                            gallery.innerHTML = "";
-                        }
+                        if (clearExisting) gallery.innerHTML = "";
                         renderMediaItems(data.media);
-                        // If no more pages, you might disable further loading (optional)
                     })
-                    .catch(error => console.error("Error loading media:", error));
+                    .catch(error => console.error("Error loading media:", error))
+                    .finally(() => loading = false);
             }
 
-            // Initially load page 1 if not searching
-            if (!isSearching) {
-                fetchMediaPage(1, true);
-            }
+            // Initial media load
+            fetchMediaPage(1, true);
 
-            // Listen for scroll events to trigger infinite scrolling
             window.addEventListener("scroll", function () {
-                if (isSearching) return; // do not trigger while searching
-
-                // When user scrolls near the bottom of the page
+                if (isSearching || loading) return;
                 if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 200) {
                     currentPage++;
                     fetchMediaPage(currentPage);
                 }
             });
+
+          
+           // Open Share Modal
+        document.addEventListener("click", function (event) {
+            let shareBtn = event.target.closest(".share-btn");
+            if (shareBtn) {
+                let fileUrl = shareBtn.getAttribute("data-url");
+                let text = encodeURIComponent("Check out this media: " + fileUrl);
+                let shareButtons = `
+                    <a href="https://wa.me/?text=${text}" target="_blank" class="social-icon whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=${fileUrl}" target="_blank" class="social-icon facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://twitter.com/intent/tweet?text=${text}" target="_blank" class="social-icon twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url=${fileUrl}&title=${text}" target="_blank" class="social-icon linkedin">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                `;
+                socialLinks.innerHTML = shareButtons;
+                shareModal.style.display = "flex";
+            }
         });
+        
+        closeBtn.addEventListener("click", function () {
+            shareModal.style.display = "none";
+        });
+        
+        window.addEventListener("click", function (event) {
+            if (event.target === shareModal) {
+                shareModal.style.display = "none";
+            }
+        });
+        });
+
     </script>
 @endsection
