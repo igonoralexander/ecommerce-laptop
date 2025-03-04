@@ -16,7 +16,7 @@ jobs:
       - name: Setup SSH Key
         run: |
           mkdir -p $HOME/.ssh  # Use $HOME instead of ~
-          echo "${{ secrets.AZURE_VM_SSH_KEY }}" > $HOME/.ssh/id_ed25519
+          echo "${{ secrets.AZURE_VM_KEY }}" > $HOME/.ssh/id_ed25519
           chmod 600 $HOME/.ssh/id_ed25519
           ssh-keyscan -H "${{ secrets.AZURE_VM_IP }}" >> $HOME/.ssh/known_hosts
           chmod 644 $HOME/.ssh/known_hosts  # Ensure correct permissions
