@@ -3,7 +3,7 @@ name: Deploy Laravel App to VM
 on:
   push:
     branches:
-      - main  # Run when pushing to the main branch
+      - main  # Runs on push to the main branch
 
 jobs:
   deploy:
@@ -13,35 +13,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Debug Secrets
-        run: |
-          if [ -z "${{ secrets.AZURE_VM_KEY }}" ]; then
-            echo "AZURE_VM_SSH_KEY is empty!"
-            exit 1
-          else
-            echo "AZURE_VM_SSH_KEY is set."
-          fi
-
       - name: Setup SSH Key
         run: |
-          mkdir -p $HOME/.ssh
-          chmod 700 $HOME/.ssh  # Secure .ssh directory
-          
-          echo "${{ secrets.AZURE_VM_KEY }}" > $HOME/.ssh/id_ed25519
-          chmod 600 $HOME/.ssh/id_ed25519
-          
-          ssh-keyscan -H "${{ secrets.AZURE_VM_IP }}" > $HOME/.ssh/known_hosts
-          chmod 644 $HOME/.ssh/known_hosts
-        shell: bash
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AZURE_VM_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.AZURE_VM_IP }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
 
-      - name: Debug SSH Setup
+      - name: Deploy to VM
         run: |
-          ls -al $HOME/.ssh
-          cat $HOME/.ssh/known_hosts
-
-      - name: Deploy Code to VM
-        run: |
-          ssh -i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }}" << 'EOF'
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} << 'EOF'
             cd /var/www/photography-website
             git pull origin main
             composer install --no-dev --optimize-autoloader
