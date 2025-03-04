@@ -1,0 +1,39 @@
+name: Deploy Laravel App to VM
+
+on:
+  push:
+    branches:
+      - main  # Run when pushing to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AZURE_VM_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.AZURE_VM_IP }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy Code to VM
+        run: |
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }}" << 'EOF'
+            cd /var/www/photography-website
+            git pull origin main
+            composer install --no-dev --optimize-autoloader
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan queue:restart
+
+            # Set correct permissions for Laravel
+            chown -R www-data:www-data /var/www/photography-website
+            chmod -R 775 /var/www/photography-website/storage /var/www/photography-website/bootstrap/cache
+
+            # Restart web server
+            sudo systemctl restart nginx
+          EOF
