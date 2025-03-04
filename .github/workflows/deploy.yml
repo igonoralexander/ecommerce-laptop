@@ -15,14 +15,15 @@ jobs:
 
       - name: Setup SSH Key
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.AZURE_VM_SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H "${{ secrets.AZURE_VM_IP }}" >> ~/.ssh/known_hosts
+          mkdir -p $HOME/.ssh  # Use $HOME instead of ~
+          echo "${{ secrets.AZURE_VM_SSH_KEY }}" > $HOME/.ssh/id_ed25519
+          chmod 600 $HOME/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.AZURE_VM_IP }}" >> $HOME/.ssh/known_hosts
+          chmod 644 $HOME/.ssh/known_hosts  # Ensure correct permissions
 
       - name: Deploy Code to VM
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }}" << 'EOF'
+          ssh -i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=no "${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }}" << 'EOF'
             cd /var/www/photography-website
             git pull origin main
             composer install --no-dev --optimize-autoloader
@@ -30,10 +31,10 @@ jobs:
             php artisan config:cache
             php artisan queue:restart
 
-            # Set correct permissions for Laravel
+            # Set correct permissions
             chown -R www-data:www-data /var/www/photography-website
             chmod -R 775 /var/www/photography-website/storage /var/www/photography-website/bootstrap/cache
 
-            # Restart web server
+            # Restart server
             sudo systemctl restart nginx
           EOF
