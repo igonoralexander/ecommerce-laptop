@@ -13,13 +13,31 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Debug Secrets
+        run: |
+          if [ -z "${{ secrets.AZURE_VM_KEY }}" ]; then
+            echo "AZURE_VM_SSH_KEY is empty!"
+            exit 1
+          else
+            echo "AZURE_VM_SSH_KEY is set."
+          fi
+
       - name: Setup SSH Key
         run: |
-          mkdir -p $HOME/.ssh  # Use $HOME instead of ~
+          mkdir -p $HOME/.ssh
+          chmod 700 $HOME/.ssh  # Secure .ssh directory
+          
           echo "${{ secrets.AZURE_VM_KEY }}" > $HOME/.ssh/id_ed25519
           chmod 600 $HOME/.ssh/id_ed25519
-          ssh-keyscan -H "${{ secrets.AZURE_VM_IP }}" >> $HOME/.ssh/known_hosts
-          chmod 644 $HOME/.ssh/known_hosts  # Ensure correct permissions
+          
+          ssh-keyscan -H "${{ secrets.AZURE_VM_IP }}" > $HOME/.ssh/known_hosts
+          chmod 644 $HOME/.ssh/known_hosts
+        shell: bash
+
+      - name: Debug SSH Setup
+        run: |
+          ls -al $HOME/.ssh
+          cat $HOME/.ssh/known_hosts
 
       - name: Deploy Code to VM
         run: |
@@ -30,11 +48,5 @@ jobs:
             php artisan migrate --force
             php artisan config:cache
             php artisan queue:restart
-
-            # Set correct permissions
-            chown -R www-data:www-data /var/www/photography-website
-            chmod -R 775 /var/www/photography-website/storage /var/www/photography-website/bootstrap/cache
-
-            # Restart server
             sudo systemctl restart nginx
           EOF
