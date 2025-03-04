@@ -13,17 +13,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup SSH Key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.AZURE_VM_SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H "${{ secrets.AZURE_VM_IP }}" >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
-
       - name: Deploy to VM
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.AZURE_VM_SSH_KEY }}
         run: |
-          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} << 'EOF'
+          # Start SSH agent
+          eval "$(ssh-agent -s)"
+          
+          # Add the private SSH key from GitHub Secrets
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+
+          # Add GitHub to known hosts to prevent confirmation prompt
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
+          # SSH into VM and deploy
+          ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} << 'EOF'
             cd /var/www/photography-website
             git pull origin main
             composer install --no-dev --optimize-autoloader
