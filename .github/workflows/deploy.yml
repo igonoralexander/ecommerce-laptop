@@ -13,6 +13,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Ensure SSH directory exists
+        run: mkdir -p ~/.ssh && touch ~/.ssh/known_hosts
+
       - name: Deploy to VM
         env:
           SSH_PRIVATE_KEY: ${{ secrets.AZURE_VM_SSH_KEY }}
@@ -23,7 +26,7 @@ jobs:
           # Add the private SSH key from GitHub Secrets
           echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
 
-          # Add GitHub to known hosts to prevent confirmation prompt
+          # Ensure GitHub is a known host
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
           # SSH into VM and deploy
