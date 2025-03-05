@@ -3,8 +3,7 @@ name: Deploy Laravel App to VM
 on:
   push:
     branches:
-      - main  # Runs on push to the main branch
-
+      - main  # Runs push to the main branch
 jobs:
   deploy:
     runs-on: ubuntu-latest
