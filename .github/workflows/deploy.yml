@@ -20,14 +20,14 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.AZURE_VM_SSH_KEY }}
         run: |
-          # Start SSH agent
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
           eval "$(ssh-agent -s)"
-          
-          # Add the private SSH key from GitHub Secrets
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+          ssh-add ~/.ssh/id_ed25519
 
-          # Ensure GitHub is a known host
-          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+          # Add VM to known hosts
+          ssh-keyscan -H ${{ secrets.AZURE_VM_IP }} >> ~/.ssh/known_hosts
 
           # SSH into VM and deploy
           ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} << 'EOF'
