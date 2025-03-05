@@ -21,16 +21,23 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.AZURE_VM_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/id_ed25519
 
+          # Debugging SSH Key Addition
+          ssh-add -l || echo "❌ No SSH key added!"
+
           # Add VM to known hosts
           ssh-keyscan -H ${{ secrets.AZURE_VM_IP }} >> ~/.ssh/known_hosts
 
+          # Debug SSH Connection
+          ssh -o StrictHostKeyChecking=no -v ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} "echo ✅ SSH Connection Successful"
+
           # SSH into VM and deploy
           ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} << 'EOF'
+            set -e  # Stop on error
             cd /var/www/photography-website
             git pull origin main
             composer install --no-dev --optimize-autoloader
