@@ -20,21 +20,21 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.AZURE_VM_SSH_KEY }}
         run: |
-          # Start SSH Agent and persist the environment
+          # Start SSH Agent
           eval "$(ssh-agent -s)" 
           echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-add ~/.ssh/id_rsa
-
+      
           # Debugging SSH Key Addition
-          ssh-add -l || (echo "❌ No SSH key added!" && exit 1)
-
+          ssh-add -l || (echo "❌ No SSH key added!" && exit 2)
+      
           # Add VM to known hosts
-          ssh-keyscan -H ${{ secrets.AZURE_VM_IP }} >> ~/.ssh/known_hosts
-
+          ssh-keyscan -H ${{ secrets.AZURE_VM_IP }} >> ~/.ssh/known_hosts || (echo "❌ Failed to add VM to known hosts!" && exit 3)
+      
           # Debug SSH Connection
-          ssh -o StrictHostKeyChecking=no -v ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} "echo ✅ SSH Connection Successful" || (echo "❌ SSH Connection Failed!" && exit 1)
-
+          ssh -o StrictHostKeyChecking=no -v ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} "echo ✅ SSH Connection Successful" || (echo "❌ SSH Connection Failed!" && exit 4)
+      
       - name: SSH into VM and Deploy
         env:
           SSH_PRIVATE_KEY: ${{ secrets.AZURE_VM_SSH_KEY }}
