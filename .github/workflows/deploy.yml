@@ -28,9 +28,6 @@ jobs:
       
           # Debugging SSH Key Addition
           ssh-add -l || (echo "❌ No SSH key added!" && exit 2)
-      
-          # Add VM to known hosts
-          ssh-keyscan -H ${{ secrets.AZURE_VM_IP }} >> ~/.ssh/known_hosts | (echo "❌ Failed to add VM to known hosts!" && exit 3)
 
           # Debug SSH Connection
           ssh -o StrictHostKeyChecking=no -v ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} "echo ✅ SSH Connection Successful" || (echo "❌ SSH Connection Failed!" && exit 4)
