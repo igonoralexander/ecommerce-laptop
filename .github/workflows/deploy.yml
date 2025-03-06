@@ -29,6 +29,9 @@ jobs:
           # Debugging SSH Key Addition
           ssh-add -l || (echo "❌ No SSH key added!" && exit 2)
       
+          # Add VM to known hosts
+          ssh-keyscan -H ${{ secrets.AZURE_VM_IP }} >> ~/.ssh/known_hosts | (echo "❌ Failed to add VM to known hosts!" && exit 3)
+
           # Debug SSH Connection
           ssh -o StrictHostKeyChecking=no -v ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} "echo ✅ SSH Connection Successful" || (echo "❌ SSH Connection Failed!" && exit 4)
           
@@ -39,9 +42,10 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} << 'EOF'
             set -e  # Stop on error
             cd /var/www/photography-website
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
+            git pull origin main --rebase
             composer install --no-dev --optimize-autoloader
-            php artisan migrate --force
             php artisan config:cache
             php artisan queue:restart
             sudo systemctl restart nginx
