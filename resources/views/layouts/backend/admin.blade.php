@@ -109,26 +109,8 @@
     <script src="{{ asset ('backend/js/bootstrap-select.min.js') }}"></script>
     <!-- <script src="{{ asset('backend/js/jquery.fancybox.js') }}"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script src="{{ asset ('backend/js/zoom.js') }}"></script>
-    <!-- <script src="{{ asset ('backend/js/morris.min.js') }}"></script> -->
-    <script src="{{ asset ('backend/js/raphael.min.js') }}"></script>
-    <!-- <script src="{{ asset ('backend/js/morris.js') }}"></script> -->
-    <script src="{{ asset ('backend/js/jvectormap.min.js') }}"></script>
-    <script src="{{ asset ('backend/js/jvectormap-us-lcc.js') }}"></script>
-    <script src="{{ asset ('backend/js/jvectormap-data.js') }}"></script>
-    <script src="{{ asset ('backend/js/jvectormap.js') }}"></script>
-    <script src="{{ asset ('backend/js/apexcharts/apexcharts.js') }}"></script>
-    <script src="{{ asset ('backend/js/apexcharts/line-chart-1.js') }}"></script>
-    <script src="{{ asset ('backend/js/apexcharts/line-chart-2.js') }}"></script>
-    <script src="{{ asset ('backend/js/apexcharts/line-chart-3.js') }}"></script>
-    <script src="{{ asset ('backend/js/apexcharts/line-chart-4.js') }}"></script>
-    <script src="{{ asset ('backend/js/apexcharts/line-chart-5.js') }}"></script>
-    <script src="{{ asset ('backend/js/apexcharts/line-chart-6.js') }}"></script>
-    <script src="{{ asset ('backend/js/apexcharts/line-chart-7.js') }}"></script>
-    <script src="{{ asset('backend/js/mixitup.js') }}"></script>
     <script src="{{ asset ('backend/js/switcher.js') }}"></script>
     <script defer src="{{ asset ('backend/js/theme-settings.js') }}"></script>
 
