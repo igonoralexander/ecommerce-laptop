@@ -45,5 +45,7 @@ jobs:
             composer install --no-dev --optimize-autoloader
             php artisan config:cache
             php artisan queue:restart
+            php artisan optimize
+            php artisan migrate
             sudo systemctl restart nginx
           EOF

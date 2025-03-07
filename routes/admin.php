@@ -26,6 +26,7 @@ Route::name('admin.')->group(function(){
         Route::get('faq/edit/{faq}', [FaqController::class, 'edit'])->name('faq.edit');
         Route::post('faq/store', [FaqController::class, 'store'])->name('faq.store');
         Route::put('faq/update/{faq}', [FaqController::class, 'update'])->name('faq.update');
+        Route::delete('faq/delete/{faq}', [FaqController::class, 'destroy'])->name('faq.delete');
 
         Route::get('add/videos', [VideoController::class, 'index'])->name('add-videos');
         Route::post('videos', [VideoController::class, 'store'])->name('video.store');

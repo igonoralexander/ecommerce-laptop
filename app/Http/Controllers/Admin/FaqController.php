@@ -99,8 +99,7 @@ class FaqController extends Controller
 
     public function destroy(FAQ $faq)
     {
-        //
-        $faq = FAQ::find($faq->id);
+        $faq = FAQ::findOrFail($faq->id); // Ensure FAQ exists
         $faq->delete();
 
         return response()->json(['success' => true, 'message' => 'FAQ has been deleted successfully']);

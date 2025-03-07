@@ -44,7 +44,7 @@
                                                             <a  class="item edit" href="{{ route ('admin.faq.edit', $faq->id) }}" ><i class="icon-edit-3"></i></a>
                                                         </div>
                                                         <div class="item trash">
-                                                            <a class="item trash" href="#" ><i class="icon-trash-2"></i></a>
+                                                            <a class="item trash delete-faq-btn" href="#" data-id="{{ $faq->id }}"><i class="icon-trash-2"></i></a>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -55,8 +55,6 @@
                                     
                                 </div>
                                 <!-- /all-user -->   
-
-
         </div>
     </div>
     <div class="bottom-page">
@@ -67,6 +65,40 @@
 
 @section('script')
 <script>
+    $(document).ready(function() {
+        $(document).on('click', '.delete-faq-btn', function(e) {
+            e.preventDefault();
+
+            var faqId = $(this).data('id'); // Get FAQ ID
+
+            SwalGlobal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to undo this action!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/admin/faq/delete/' + faqId, // Correct URL
+                        type: 'POST',
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            _method: 'DELETE'
+                        },
+                        success: function(response) {
+                            SwalGlobal.fire('Deleted!', response.message, 'success');
+                        },
+                        error: function(xhr) {
+                            SwalGlobal.fire('Error!', 'Something went wrong.', 'error');
+                        }
+                    });
+                }
+            });
+        });
+    });
 
 </script>
 @endsection
