@@ -5,7 +5,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\Admin\VideoController;
-use App\Http\Livewire\Admin\MediaNewCategory;
+use App\Http\Controllers\Admin\FaqController;
+use App\Models\Faq;
 
 // Admin Routes
 Route::name('admin.')->group(function(){
@@ -17,8 +18,14 @@ Route::name('admin.')->group(function(){
         
         Route::get('media/category-list', [CategoryController::class, 'index'])->name('media-category-list'); 
         
-        Route::get('add/images', [PhotoController::class, 'index'])->name('add-images');
+        Route::get('images/add', [PhotoController::class, 'index'])->name('add-images');
         Route::post('images', [PhotoController::class, 'store'])->name('photo.store');
+
+        Route::get('faq/add', [FaqController::class, 'create'])->name('add-faqs');
+        Route::get('faqs', [FaqController::class, 'index'])->name('faqs');
+        Route::get('faq/edit/{faq}', [FaqController::class, 'edit'])->name('faq.edit');
+        Route::post('faq/store', [FaqController::class, 'store'])->name('faq.store');
+        Route::put('faq/update/{faq}', [FaqController::class, 'update'])->name('faq.update');
 
         Route::get('add/videos', [VideoController::class, 'index'])->name('add-videos');
         Route::post('videos', [VideoController::class, 'store'])->name('video.store');

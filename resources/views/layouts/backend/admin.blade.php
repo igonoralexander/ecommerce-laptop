@@ -10,6 +10,7 @@
     <!-- Basic Page Needs -->
     <meta charset="utf-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
     <title>@yield('pageTitle')</title>
 
@@ -103,11 +104,9 @@
     <!-- /#wrapper -->
 
     <!-- Javascript -->
-    <script src="{{ asset ('backend/js/jquery.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{ asset ('backend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset ('backend/js/bootstrap-select.min.js') }}"></script>
-    <!-- <script src="{{ asset('backend/js/jquery.fancybox.js') }}"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset ('backend/js/zoom.js') }}"></script>
