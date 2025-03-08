@@ -1,5 +1,5 @@
 @extends('layouts.backend.admin')
-@section('pageTitle', isset($pageTitle) ? $pageTitle: 'Admin Management')
+@section('pageTitle', isset($pageTitle) ? $pageTitle: $settings->site_name . ' - Admin Management')
 
 @section('content')
 <div class="main-content">

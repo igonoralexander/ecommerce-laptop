@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\Admin\VideoController;
+use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Models\Faq;
 
@@ -30,6 +31,9 @@ Route::name('admin.')->group(function(){
 
         Route::get('add/videos', [VideoController::class, 'index'])->name('add-videos');
         Route::post('videos', [VideoController::class, 'store'])->name('video.store');
+
+
+        Route::resource('site-settings', SiteSettingsController::class);
 
 
     });
