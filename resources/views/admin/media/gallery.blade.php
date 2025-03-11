@@ -38,7 +38,11 @@
                                             @if ($isImage)
                                             <!-- Image -->
                                             <img src="{{ $item->file_url }}" class="gallery-thumb"  loading="lazy">
-                                           
+                                            <a href="{{ $item->file_url }}" class="lightbox-image" data-fancybox="gallery">
+                                                <div class="lightbox-trigger">    
+                                                    <i class="icon fa fa-search-plus"></i>
+                                                </div>
+                                            </a>
                                             @elseif ($isVideo)
                                             <!-- Videos -->
                                             <video class="gallery-video" width="100%" height="auto" autoplay muted loop>
