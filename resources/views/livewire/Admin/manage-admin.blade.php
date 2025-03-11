@@ -158,10 +158,6 @@
                 }
             });
         });
-
-        document.addEventListener('livewire:update', function () {
-            // Reinitialize any other JS if needed
-        });
     </script>
 @endpush
 
