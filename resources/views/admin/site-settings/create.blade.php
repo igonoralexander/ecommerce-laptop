@@ -62,7 +62,7 @@
                             <div class="cols gap24">
                                 <fieldset class="mb-24">
                                     <div class="body-title mb-10">Address<span class="tf-color-1">*</span></div>
-                                    <input class="flex-grow" type="address" placeholder="Address" name="address" required>
+                                    <input class="flex-grow" type="text" placeholder="Address" name="address" required>
                                 </fieldset>
                                 <fieldset class="mb-24">
                                     <div class="body-title mb-10">Country<span class="tf-color-1">*</span></div>
