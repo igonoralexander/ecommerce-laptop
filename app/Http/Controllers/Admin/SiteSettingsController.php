@@ -20,7 +20,7 @@ class SiteSettingsController extends Controller
     
         // If no settings exist, redirect to creation page with an error message
         if (!$siteSettings) {
-            return redirect('/admin/site-settings')
+            return view('admin.site-settings.create')
                 ->with('error', 'No site settings found. Please create settings first.');
         }
     
