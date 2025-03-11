@@ -18,11 +18,17 @@ class SiteSettingsController extends Controller
         // Fetch the first site settings record
         $siteSettings = SiteSetting::first();
     
-        // If no settings exist, redirect to creation page with an error message
+       // If no settings exist, redirect to creation page with an error message
         if (!$siteSettings) {
-            return view('admin.site-settings.create')
-                ->with('error', 'No site settings found. Please create settings first.');
+            return view('admin.site-settings.create', [
+                'title' => 'Site Settings',
+                'breadcrumbs' => [
+                    ['url' => '#', 'label' => 'Settings'],
+                    ['url' => null, 'label' => 'Create Site Settings'],
+                ],   
+            ])->with('error', 'No site settings found. Please create settings first.');
         }
+
     
         // Decode JSON fields before passing to the view
         $siteSettings->social_links = json_decode($siteSettings->social_links, true);
