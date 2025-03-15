@@ -44,4 +44,10 @@ class Category extends Model
     {
         return $this->hasMany(UploadMedia::class, 'category_id', 'id');
     }
+
+    public function packages()
+    {
+        return $this->hasMany(Package::class, 'category_id', 'id');
+    }
+
 }

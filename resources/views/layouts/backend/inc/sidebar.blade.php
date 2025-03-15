@@ -81,6 +81,57 @@
                                         </ul>
                                     </li>
 
+                               
+                                    <li class="menu-item has-children {{ Request::routeIs('admin.packages.index', 'admin.packages.create') ? 'active' : '' }}">
+                                        <a href="javascript:void(0);" class="menu-item-button">
+                                            <div class="icon">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 3C2.89543 3 2 3.89543 2 5V17C2 18.1046 2.89543 19 4 19H20C21.1046 19 22 18.1046 22 17V5C22 3.89543 21.1046 3 20 3H4ZM4 5H20V17H4V5ZM6 15L9 11L11 14L14 10L18 15H6Z" fill="#111111"/>
+                                                    <path d="M6 21C5.44772 21 5 20.5523 5 20C5 19.4477 5.44772 19 6 19H18C18.5523 19 19 19.4477 19 20C19 20.5523 18.5523 21 18 21H6Z" fill="#111111"/>
+                                                </svg>
+                                            </div>
+                                            <div class="text">Packages</div>
+                                        </a>
+                                        <ul class="sub-menu" style="display: block;">
+                                            <li class="sub-menu-item {{ Route::is('admin.packages.index') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.packages.index') }}">
+                                                    <div class="text">View All</div>
+                                                </a>
+                                            </li>
+                                            <li class="sub-menu-item {{ Route::is('admin.packages.create') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.packages.create') }}">
+                                                    <div class="text">Add</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="menu-item has-children {{ Request::routeIs('admin.bookings.index', 'admin.bookings.create') ? 'active' : '' }}">
+                                        <a href="javascript:void(0);" class="menu-item-button">
+                                            <div class="icon">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6 2H18C18.5523 2 19 2.44772 19 3V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V3C5 2.44772 5.44772 2 6 2ZM6 8H18C18.5523 8 19 8.44772 19 9V17C19 17.5523 18.5523 18 18 18H6C5.44772 18 5 17.5523 5 17V9C5 8.44772 5.44772 8 6 8ZM16 13L14 15L12 13L10 15L8 13" fill="#111111"/>
+                                                    <path d="M6 21C5.44772 21 5 20.5523 5 20C5 19.4477 5.44772 19 6 19H18C18.5523 19 19 19.4477 19 20C19 20.5523 18.5523 21 18 21H6Z" fill="#111111"/>
+
+                                                </svg>
+                                            </div>
+                                            <div class="text">Bookings</div>
+                                        </a>
+                                        <ul class="sub-menu" style="display: block;">
+                                            <li class="sub-menu-item {{ Route::is('admin.bookings.index') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.bookings.index') }}">
+                                                    <div class="text">View All</div>
+                                                </a>
+                                            </li>
+                                            <li class="sub-menu-item {{ Route::is('admin.bookings.create') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.bookings.create') }}">
+                                                    <div class="text">Add</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+
                                     <li class="menu-item has-children {{ Request::routeIs(
                                                                                             'admin.add-images',
                                                                                             'admin.add-videos') ? 'active' : '' }}">
@@ -102,8 +153,6 @@
                                             </li>
                                         </ul>
                                     </li>
-
-                                    
                                  
                                     <li class="menu-item has-children ">
                                         <a href="javascript:void(0);" class="menu-item-button">
@@ -134,8 +183,8 @@
                                     </li>
 
                                     <li class="menu-item has-children {{ Request::routeIs(
-                                                                                            'admin.add-images',
-                                                                                            'admin.add-videos') ? 'active' : '' }}">
+                                                                                            'admin.faqs',
+                                                                                            'admin.add-faqs') ? 'active' : '' }}">
 
                                         <a href="javascript:void(0);" class="menu-item-button">
                                             <div class="icon">

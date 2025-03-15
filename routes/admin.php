@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BookingsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\Admin\VideoController;
 use App\Http\Controllers\Admin\SiteSettingsController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\PackagesController;
 use App\Models\Faq;
 
 // Admin Routes
@@ -34,6 +36,7 @@ Route::name('admin.')->group(function(){
 
 
         Route::resource('site-settings', SiteSettingsController::class);
-
+        Route::resource('packages', PackagesController::class);
+        Route::resource('bookings', BookingsController::class);
 
     });

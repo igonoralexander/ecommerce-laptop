@@ -591,63 +591,63 @@
 
 
 @section('script')
-@if (session('success')) 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            Swal.fire({
-                icon: 'success',
-                title: `{!! session('success') !!}`,
-                toast: true,  
-                position: 'top',  // Keeps it at the top
-                showConfirmButton: false,  
-                timer: 3000, 
-                timerProgressBar: true,  
-                background: 'white',  
-                color: 'black',  
-                width: '200px', 
-                padding: '5px', 
-                backdrop: false,
-                customClass: {
-                    popup: 'swal-custom-popup',  
-                    title: 'swal-title-custom'
-                }
+    @if (session('success')) 
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: `{!! session('success') !!}`,
+                    toast: true,  
+                    position: 'top',  // Keeps it at the top
+                    showConfirmButton: false,  
+                    timer: 7000, 
+                    timerProgressBar: true,  
+                    background: 'white',  
+                    color: 'black',  
+                    width: '200px', 
+                    padding: '5px', 
+                    backdrop: false,
+                    customClass: {
+                        popup: 'swal-custom-popup',  
+                        title: 'swal-title-custom'
+                    }
+                });
+
+                // Removing SweetAlert's overlay 
+                setTimeout(() => {
+                    document.querySelector('.swal2-container').style.background = 'transparent';
+                }, 10);
             });
+        </script>
 
-             // 🔥 Remove SweetAlert's overlay manually
-             setTimeout(() => {
-                document.querySelector('.swal2-container').style.background = 'transparent';
-            }, 10);
-        });
-    </script>
+        <style>
 
-    <style>
+                /* Forcefully remove the dark overlay */
+                .swal2-container {
+                background: transparent !important; /* Prevents the dark background */
+                pointer-events: none !important; /* Ensures clicks go through */
+            }
 
-            /* Forcefully remove the dark overlay */
-            .swal2-container {
-            background: transparent !important; /* 🔥 Prevents the dark background */
-            pointer-events: none !important; /* Ensures clicks go through */
-        }
-
-        /* Reduce height, fix alignment */
-        .swal-custom-popup {
-            font-size: 14px !important;
-            width: 200px !important; /* Set smaller width */
-            height: 40px !important; /* Reduce height */
-            padding: 5px !important;
-            border-radius: 8px !important; /* Rounded corners */
- box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important; /* 🔥 Softer shadow instead of overlay */
-            /* Center at the top */
-            position: fixed !important;
-            top: 15px !important; /* Adjust spacing from top */
-            left: 50% !important;
-            transform: translateX(-50%) !important; /* Center horizontally */
-        }
-        
-        .swal-title-custom {
-            font-size: 13px !important;
-            line-height: 1.2 !important; /* Reduce spacing inside */
-        }
-    </style>
-@endif
+            /* Reduce height, fix alignment */
+            .swal-custom-popup {
+                font-size: 14px !important;
+                width: 200px !important; /* Set smaller width */
+                height: 40px !important; /* Reduce height */
+                padding: 5px !important;
+                border-radius: 8px !important; /* Rounded corners */
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important; /* Softer shadow instead of overlay */
+                /* Center at the top */
+                position: fixed !important;
+                top: 15px !important; /* Adjust spacing from top */
+                left: 50% !important;
+                transform: translateX(-50%) !important; /* Center horizontally */
+            }
+            
+            .swal-title-custom {
+                font-size: 13px !important;
+                line-height: 1.2 !important; /* Reduce spacing inside */
+            }
+        </style>
+    @endif
 
 @endsection

@@ -28,12 +28,9 @@ class SiteSettingsController extends Controller
                 ],   
             ])->with('error', 'No site settings found. Please create settings first.');
         }
-
-    
         // Decode JSON fields before passing to the view
         $siteSettings->social_links = json_decode($siteSettings->social_links, true);
     
-        // Return the view with data
         return view('admin.site-settings.index', compact('siteSettings'))->with([
             'title' => 'Site Settings',
             'breadcrumbs' => [

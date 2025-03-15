@@ -48,6 +48,10 @@
     <!-- <link rel="stylesheet" type="text/css" href="{{ asset('backend/css/jquery.fancybox.min.css') }}" > -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Include SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.0/dist/sweetalert2.min.css" rel="stylesheet">
+
+
 
     @stack('styles')
 
@@ -109,6 +113,7 @@
     <script src="{{ asset ('backend/js/bootstrap-select.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tiny.cloud/1/98c6zzvvvtceziovup2bpqzd2wagxppu9xihyguo8jmch9o5/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="{{ asset ('backend/js/zoom.js') }}"></script>
     <script src="{{ asset ('backend/js/switcher.js') }}"></script>
     <script defer src="{{ asset ('backend/js/theme-settings.js') }}"></script>

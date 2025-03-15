@@ -1,5 +1,5 @@
 @extends('layouts.auth.index')
-@section('pageTitle', isset($pageTitle) ? $pageTitle: 'Admin - Login')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : ($settings ? $settings->site_name : 'Genius Photography') . ' - Admin Login')
 
 @section('content')
         <!-- #wrapper -->
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="right">
-                        <img src="" alt="">
+                        <img src="{{asset('frontend/images/img_2.jpg')}}" alt="">
                     </div>
                 </div>
             </div>
