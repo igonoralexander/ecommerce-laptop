@@ -51,8 +51,12 @@
                             </fieldset>
                             <div class="flex justify-between items-center">
                                 <div class="flex gap10">
-                                    <input class="tf-check" type="checkbox" id="signed">
-                                    <label class="body-text text-white" for="signed">Agree with Privacy Policy</label>
+                                    <label class="body-text text-white" for="signed">
+                                    By registering, you agree with our 
+                                    <a href="https://example.com/terms-and-conditions" target="_blank">Terms and Conditions</a> 
+                                    and 
+                                    <a href="https://example.com/privacy-policy" target="_blank">Privacy Policy</a>.
+                                    </label>
                                 </div>
                             </div>
                             <button type="button" class="tf-button w-full" onclick="confirmRegistration()">Register</button>

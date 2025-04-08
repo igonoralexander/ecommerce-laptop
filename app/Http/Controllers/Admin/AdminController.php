@@ -18,6 +18,11 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function dashboard()
+    {
+        return view('admin.dashboard');
+    }
+
     public function index()
     {
         return view('admin.index');

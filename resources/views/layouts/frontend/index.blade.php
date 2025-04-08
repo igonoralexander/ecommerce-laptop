@@ -23,8 +23,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset ('frontend/css/styles.css') }}"/>
 
     <!-- Favicon and Touch Icons  -->
-    <link rel="shortcut icon" href="images/logo/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="images/logo/favicon.png">
+    <link rel="shortcut icon" href="{{ asset('frontend/images/logo/favicon.png')}}">
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('frontend/images/logo/favicon.png')}}">
 
 </head>
 
@@ -63,14 +63,12 @@
     @include('layouts.frontend.inc.login')
 
     @include('layouts.frontend.inc.search')
-
-    @include('layouts.frontend.inc.toolbar-side')
-
     
 
     <!-- Javascript -->
     <script type="text/javascript" src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/jquery.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/swiper-bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/carousel.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/bootstrap-select.min.js') }}"></script>
@@ -79,7 +77,23 @@
     <script type="text/javascript" src="{{ asset('frontend/js/count-down.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/wow.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/multiple-modal.js') }}"></script>
+
+    @yield('scripts')
+
     <script type="text/javascript" src="{{ asset('frontend/js/main.js') }}"></script>
+
+    <script>
+        // Global SweetAlert mixin for all alerts
+        const SwalGlobal = Swal.mixin({
+            customClass: {
+                popup: 'swal-wide',
+                title: 'swal-title',
+                content: 'swal-text'
+            }
+        });
+    </script>
+
+
 </body>
 
 </html>

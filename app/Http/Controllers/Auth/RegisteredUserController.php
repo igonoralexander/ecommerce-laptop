@@ -52,7 +52,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::USER)->with('success', 'Welcome ' . $user->first_name);
+        return redirect(RouteServiceProvider::USER())->with('success', 'Welcome ' . $user->first_name);
     }
 
     

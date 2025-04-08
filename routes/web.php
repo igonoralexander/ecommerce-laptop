@@ -7,6 +7,7 @@ Use Iilluminate\view;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\VideoController;
+use App\Models\Package;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +24,26 @@ Route::get('/', function () {
     return view('frontend.index');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+
+Route::get('/booking', function () {
+    $packages = Package::all();
+    return view('frontend.pages.booking', compact('packages'));
+});
+
+
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
+    ->middleware(['auth', 'role:admin'])
+    ->name('admin.dashboard');
+
+
+Route::middleware(['auth', 'dynamic.user.prefix'])->group(function () {
+        
+    Route::get('/{user_prefix}/dashboard', function () {
+            return view('dashboard');
+        })->name('user.dashboard');
+        
+        require base_path('routes/client.php');
+    });
 
 // In web.php
 Route::post('/check-email', [RegisteredUserController::class, 'checkEmail']);
@@ -45,10 +63,5 @@ Route::get('/share/media/{id}', function ($id) {
 
     return Response::redirectTo($fileUrl); // Redirect to actual file
 })->name('media.share');
-
-
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth'])->name('admin.dashboard');
 
 require __DIR__.'/auth.php';

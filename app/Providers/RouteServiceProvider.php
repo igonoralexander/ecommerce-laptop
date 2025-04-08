@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -17,7 +21,17 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const USER = '/dashboard';
+    public static function USER()
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $prefix = Str::slug("{$user->first_name}-{$user->last_name}"); 
+            return "/{$prefix}/dashboard";
+        }
+        
+        return '/login'; // Fallback if no user is logged in
+    }
+
     public const ADMIN = '/admin/dashboard';
 
     /**
@@ -51,7 +65,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::prefix('admin')
                 ->middleware(['web', 'auth', 'role:admin'])
                 ->namespace($this->namespace)
-                ->group(base_path('routes/admin.php'));
+                ->group(base_path('routes/admin.php'));            
         });
     }
 

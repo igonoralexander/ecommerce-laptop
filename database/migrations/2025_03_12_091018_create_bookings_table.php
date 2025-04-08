@@ -24,7 +24,6 @@ class CreateBookingsTable extends Migration
             $table->date('date');
             $table->time('time');
             $table->enum('status', ['pending', 'confirmed', 'completed', 'canceled'])->default('pending');
-
             $table->foreign('client_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('booked_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');

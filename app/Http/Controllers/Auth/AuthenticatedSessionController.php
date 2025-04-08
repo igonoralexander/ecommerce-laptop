@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
         // Redirect based on role
         return $user->role === 'admin' 
                 ? redirect()->intended(RouteServiceProvider::ADMIN)->with('success', 'Login Successful')
-                : redirect()->intended(RouteServiceProvider::USER);
+                : redirect()->intended(RouteServiceProvider::USER());
     }
 
     /**

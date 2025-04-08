@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Mail;
 
 use App\Models\Category;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class EmailController extends Controller
 {

@@ -1,22 +1,32 @@
 <!-- toolbar-bottom -->
 <div class="tf-toolbar-bottom type-1150">
         <div class="toolbar-item">
-            <a href="#toolbarShopmb" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft">
+            <a href="/gallery" >
                 <div class="toolbar-icon">
                     <i class="icon-shop"></i>
                 </div>
-                <div class="toolbar-label">Shop</div>
+                <div class="toolbar-label">Gallery</div>
             </a>
         </div>
         
         <div class="toolbar-item">
-            <a href="#canvasSearch" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft">
-                <div class="toolbar-icon">
-                    <i class="icon-search"></i>
-                </div>
-                <div class="toolbar-label">Search</div>
-            </a>
+            @if(auth()->check()) <!-- Check if the user is logged in -->
+                <a href="{{ route('client.bookings.create', ['user_prefix' => $user_prefix]) }}">
+                    <div class="toolbar-icon">
+                        <i class="icon-search"></i>
+                    </div>
+                    <div class="toolbar-label">Book Now</div>
+                </a>
+            @else
+                <a href="/booking">
+                    <div class="toolbar-icon">
+                        <i class="icon-search"></i>
+                    </div>
+                    <div class="toolbar-label">Book Now</div>
+                </a>
+            @endif
         </div>
+
         <div class="toolbar-item">
             <a href="#login" data-bs-toggle="modal">
                 <div class="toolbar-icon">
@@ -34,14 +44,6 @@
                 <div class="toolbar-label">Wishlist</div>
             </a>
         </div>
-        <div class="toolbar-item">
-            <a href="#shoppingCart" data-bs-toggle="modal">
-                <div class="toolbar-icon">
-                    <i class="icon-bag"></i>
-                    <div class="toolbar-count">1</div>
-                </div>
-                <div class="toolbar-label">Cart</div>
-            </a>
-        </div>
+       
     </div>
     <!-- /toolbar-bottom -->
