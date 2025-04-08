@@ -22,7 +22,6 @@ use App\Models\Events;
 use App\Models\Volunters;
 use App\Models\Contact;
 use App\Models\Gallery;
-use App\Models\Testimonial;
 use App\Models\TermsCondition;
 use App\Models\PrivacyPolicy;
 use App\Models\WhyChooseUs;
@@ -50,8 +49,7 @@ class ViewServiceProvider extends ServiceProvider
             $settings = SiteSetting::first();
 
             $view->with([
-                'settings' => $settings,  
-                'testimonial' => Testimonial::all(),
+                'settings' => $settings,
             ]);
         });
     }

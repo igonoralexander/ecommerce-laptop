@@ -30,6 +30,11 @@
                                 </div>
                             </div>
                             <fieldset class="email">
+                                <div class="body-title mb-10 text-white">Phone Number <span class="tf-color-1">*</span></div>
+                                <input class="flex-grow" type="text" placeholder="Enter your phone number" name="phone_number" id="phone_number" value="{{old('phone_number')}}" required>
+                            </fieldset>
+
+                            <fieldset class="email">
                                 <div class="body-title mb-10 text-white">Email address <span class="tf-color-1">*</span></div>
                                 <input class="flex-grow" type="email" placeholder="Enter your email address" name="email" id="email" value="{{old('email')}}" required>
                             </fieldset>
@@ -53,9 +58,9 @@
                                 <div class="flex gap10">
                                     <label class="body-text text-white" for="signed">
                                     By registering, you agree with our 
-                                    <a href="https://example.com/terms-and-conditions" target="_blank">Terms and Conditions</a> 
+                                    <a href="https://example.com/terms-and-conditions" target="_blank" style = "color:red;">Terms and Conditions</a> 
                                     and 
-                                    <a href="https://example.com/privacy-policy" target="_blank">Privacy Policy</a>.
+                                    <a href="https://example.com/privacy-policy" target="_blank" style = "color:red;">Privacy Policy</a>.
                                     </label>
                                 </div>
                             </div>
@@ -90,11 +95,12 @@
             let firstName = document.getElementById("first_name").value.trim();
             let lastName = document.getElementById("last_name").value.trim();
             let email = document.getElementById("email").value.trim();
+            let phoneNumber = document.getElementById("phone_number").value.trim();
             let password = document.getElementById("password").value.trim();
             let confirmPassword = document.getElementById("password_confirmation").value.trim();
 
             // Check if fields are empty
-            if (!firstName || !lastName || !email || !password || !confirmPassword) {
+            if (!firstName || !lastName || !email || !phoneNumber || !password || !confirmPassword) {
                 SwalGlobal.fire({
                     icon: 'error',
                     title: 'Oops...',
