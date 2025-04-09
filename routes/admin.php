@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\LaptopController;
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BookingsController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PhotoController;
@@ -35,8 +37,8 @@ Route::name('admin.')->group(function(){
         Route::post('videos', [VideoController::class, 'store'])->name('video.store');
 
 
+        Route::resource('brand', BrandController::class);
+        Route::resource('laptop', LaptopController::class);
         Route::resource('site-settings', SiteSettingsController::class);
-        Route::resource('packages', PackagesController::class);
-        Route::resource('bookings', BookingsController::class);
 
     });
