@@ -18,9 +18,11 @@ class CreateLaptopsTable extends Migration
             $table->unsignedBigInteger('brand_id');
             
             $table->string('name'); // Name of the laptop
+            $table->string('slug');
             $table->text('description'); // Description of the laptop
             $table->text('specifications'); // Detailed specifications of the laptop
             $table->decimal('price', 10, 2); // Price of the laptop
+            $table->decimal('sale_price', 10, 2);
             $table->integer('stock_quantity'); // Number of units in stock
             $table->timestamps();
 

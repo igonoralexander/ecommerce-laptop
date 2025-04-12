@@ -47,20 +47,20 @@
 
                                     <li class="menu-item has-children {{ Request::routeIs(
                                                                                             'admin.laptop.index',
-                                                                                            'admin.laptop-create') ? 'active' : '' }}">
+                                                                                            'admin.laptop.create') ? 'active' : '' }}">
 
                                         <a href="javascript:void(0);" class="menu-item-button">
                                             <div class="icon"><i class="icon-file-plus"></i></div>
                                             <div class="text">Laptops</div>
                                         </a>
                                         <ul class="sub-menu" style="display: block;">
-                                            <li class="sub-menu-item {{ Route::is('admin.add-images') ? 'active' : '' }}">
-                                                <a href="{{ route('admin.add-images') }}">
+                                            <li class="sub-menu-item {{ Route::is('admin.laptop.create') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.laptop.create') }}">
                                                     <div class="text">Add Laptops </div>
                                                 </a>
                                             </li>
-                                            <li class="sub-menu-item {{ Route::is('admin.add-videos') ? 'active' : '' }}">
-                                                <a href="{{ route('admin.add-videos') }}" class="">
+                                            <li class="sub-menu-item {{ Route::is('admin.laptop.index') ? 'active' : '' }}">
+                                                <a href="{{ route('admin.laptop.index') }}" class="">
                                                     <div class="text">All Laptops</div>
                                                 </a>
                                             </li>

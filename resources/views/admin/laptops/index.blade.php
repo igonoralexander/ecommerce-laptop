@@ -7,7 +7,7 @@
         <div class="main-content-wrap">
             @include('layouts.backend.inc.breadcrumbs')
 
-              <!-- all-brand -->
+              <!-- all-laptop -->
               <div class="wg-box">
                                     <div class="flex items-center justify-between gap10 flex-wrap">
                                         <div class="wg-filter flex-grow">
@@ -20,7 +20,7 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <a class="tf-button style-1 w208" href="{{ route('admin.brand.create') }}"><i class="icon-plus"></i>Add new</a>
+                                        <a class="tf-button style-1 w208" href="{{ route('admin.laptop.create') }}"><i class="icon-plus"></i>Add new</a>
                                     </div>
                                     <div class="wg-table table-all-user">
                                         <ul class="table-title flex gap20 mb-14">
@@ -28,28 +28,44 @@
                                                 <div class="body-title">Name</div>
                                             </li>    
                                             <li>
+                                                <div class="body-title">Brand</div>
+                                            </li>
+                                            <li>
+                                                <div class="body-title">Price</div>
+                                            </li>        
+                                            <li>
+                                                <div class="body-title">Selling Price</div>
+                                            </li>    
+                                            <li>
+                                                <div class="body-title">Stock</div>
+                                            </li>    
+                                            <li>
                                                 <div class="body-title">Action</div>
                                             </li>
                                         </ul>
                                         <ul class="flex flex-column">
-                                            @foreach($brands as $brand)
+                                            @foreach($laptops as $laptop)
                                                 <li class="wg-product item- g20">
                                                     <div class="name">
-                                                        @if($brand->image)
+                                                        @if($laptop->images->isNotEmpty())
                                                             <div class="image">
-                                                                <img src="{{ asset($brand->image) }}" alt="{{ $brand->name }}">
+                                                                <img src="{{ asset('storage/' . $laptop->images->first()->image) }}" alt="{{ $laptop->name }}">
                                                             </div>
                                                         @endif
                                                         <div class="title line-clamp-2 mb-0">
-                                                            <a href="#" class="body-title-2">{{ $brand->name }} </a>
+                                                            <a href="#" class="body-title-2">{{ $laptop->name }} </a>
                                                         </div>
                                                     </div>
+                                                    <div class="body-text">{{ $laptop->brand->name }}</div>
+                                                    <div class="body-text">{{ $laptop->price }}</div>
+                                                    <div class="body-text">{{ $laptop->sale_price }}</div>
+                                                    <div class="body-text">{{ $laptop->stock_quantity }}</div>
                                                     <div class="list-icon-function">
                                                         <div class="item edit">
-                                                            <a  class="item edit" href="{{ route ('admin.brand.edit', $brand->id) }}" ><i class="icon-edit-3"></i></a>
+                                                            <a  class="item edit" href="{{ route ('admin.laptop.edit', $laptop->id) }}" ><i class="icon-edit-3"></i></a>
                                                         </div>
                                                         <div class="item trash">
-                                                            <a class="item trash delete-brand-btn" href="#" data-id="{{ $brand->id }}"><i class="icon-trash-2"></i></a>
+                                                            <a class="item trash delete-laptop-btn" href="#" data-id="{{ $laptop->id }}"><i class="icon-trash-2"></i></a>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -71,11 +87,11 @@
 @section('script')
 <script>
     $(document).ready(function() {
-        $(document).on('click', '.delete-brand-btn', function(e) {
+        $(document).on('click', '.delete-laptop-btn', function(e) {
             e.preventDefault();
 
-            var brandId = $(this).data('id');
-            var deleteUrl = "{{ url('admin/brand') }}/" + brandId;
+            var laptopId = $(this).data('id');
+            var deleteUrl = "{{ url('admin/laptop') }}/" + laptopId;
 
             SwalGlobal.fire({
                 title: 'Are you sure?',

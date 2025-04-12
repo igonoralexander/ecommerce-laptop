@@ -18,4 +18,10 @@ class Brand extends Model
         'description',
         'image',
     ];
+
+    public function laptops()
+    {
+        return $this->hasMany(Laptop::class, 'laptop_id');
+    }
+
 }
