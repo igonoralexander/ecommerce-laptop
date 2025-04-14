@@ -17,10 +17,10 @@
                             <nav class="box-navigation text-center">
                                 <ul class="box-nav-ul d-flex align-items-center justify-content-center gap-30">
                                   
-                                    <li class="menu-item"><a href="#" class="item-link text_blue-1">Home</a></li>
+                                    <li class="menu-item"><a href="/" class="item-link text_blue-1">Home</a></li>
 
                                     <li class="menu-item">
-                                        <a href="#" class="item-link text_blue-1">Products<i class="icon icon-arrow-down"></i></a>
+                                        <a href="{{ route('products.shop')}}" class="item-link text_blue-1">Products<i class="icon"></i></a>
                                     </li>
                                     <li class="menu-item position-relative">
                                         <a href="#" class="item-link">Pages<i class="icon icon-arrow-down"></i></a>
@@ -121,6 +121,12 @@
                         <ul class="nav-icon d-flex justify-content-end align-items-center gap-20">
                             <li class="nav-search"><a href="#canvasSearch" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft" class="nav-icon-item text_blue-1"><i class="icon icon-search"></i></a></li>
                             <li class="nav-account"><a href="#login" data-bs-toggle="modal" class="nav-icon-item text_blue-1"><i class="icon icon-account"></i></a></li>
+                            <li class="nav-wishlist"><a href="wishlist.html" class="nav-icon-item"><i class="icon icon-heart"></i><span class="count-box">0</span></a></li>
+                            <li class="nav-cart">
+                                <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-bag"></i>
+                                    <span class="count-box" id="cartItemCount">{{ count(session('cart', [])) }}</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

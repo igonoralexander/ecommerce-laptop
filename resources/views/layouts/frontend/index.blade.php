@@ -64,6 +64,11 @@
 
     @include('layouts.frontend.inc.search')
     
+    @include('layouts.frontend.inc.add-to-cart')
+
+    @include('layouts.frontend.inc.quick-view')
+
+    @include('layouts.frontend.inc.shopping-cart')
 
     <!-- Javascript -->
     <script type="text/javascript" src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
@@ -92,7 +97,130 @@
             }
         });
     </script>
+    <script>
+        $(document).ready(function () {
 
+            // Open Quick Add Modal with Dynamic Product Data
+            $('.btn-open-quick-add').on('click', function (e) {
+                e.preventDefault();
+                let button = $(this);
+
+                $.ajax({
+                    url: '{{ route("modal.quick.add") }}', // You’ll create this route
+                    method: 'GET',
+                    data: {
+                        product_id: button.data('product-id')
+                    },
+                    success: function (html) {
+                        $('#quickAddContent').html(html);
+                        $('#quickAddContent input[name="quantity"]').val(1); // reset quantity
+                        $('#quick_add').modal('show');
+                    }
+                });
+            });
+
+            // Add to Cart (delegated since modal content is dynamic)
+            $(document).on('click', '.btn-add-to-cart', function (e) {
+                e.preventDefault();
+
+                let button = $(this);
+                let modal = button.closest('.modal');
+                let quantity = parseInt(modal.find('input[name="quantity"]').val()) || 1;
+
+                let productData = {
+                    laptop_id: button.data('product-id'),
+                    name: button.data('name'),
+                    price: button.data('price'),
+                    sale_price: button.data('sale-price'),
+                    image: button.data('image'),
+                    quantity: quantity
+                };
+
+                $.ajax({
+                    url: '{{ route("cart.add") }}',
+                    type: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        product: productData
+                    },
+                    success: function (response) {
+                        $('#shoppingCart').modal('show');
+                        $('.tf-mini-cart-items').html(response.cart_html);
+                        $('.tf-totals-total-value').text(`₦${response.cart_subtotal}`);
+                        $('#cartItemCount').text(response.cart_count); // cart badge update
+                    },
+                    error: function () {
+                        alert('Something went wrong while adding the item.');
+                    }
+                });
+            });
+
+            // Quantity Increase/Decrease in Cart Modal
+            $(document).on('click', '.plus-btn, .minus-btn', function () {
+                let index = $(this).data('index'); // product id (laptop_id)
+                let input = $(this).siblings('input.quantity-input');
+                let currentQty = parseInt(input.val()) || 1;
+                let newQty = currentQty;
+
+                if ($(this).hasClass('plus-btn')) {
+                    newQty = currentQty + 1;
+                } else if ($(this).hasClass('minus-btn') && currentQty > 1) {
+                    newQty = currentQty - 1;
+                }
+
+                input.val(newQty).trigger('change'); // trigger change event to update quantity in session
+            });
+
+            // --- Update Quantity in Cart via AJAX ---
+            $(document).on('change', '.tf-mini-cart-item .quantity-input', function () {
+                let index = $(this).data('index'); // product id
+                let newQuantity = parseInt($(this).val()) || 1;
+
+                $.ajax({
+                    url: '{{ route("cart.update.quantity") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        index: index,
+                        quantity: newQuantity
+                    },
+                    success: function (response) {
+                        // Update cart items, subtotal, and header count
+                        $('.tf-mini-cart-items').html(response.cart_html);
+                        $('.tf-totals-total-value').text(`₦${response.cart_subtotal}`);
+                        $('#cartItemCount').text(response.cart_count);
+                    },
+                    error: function () {
+                        alert('Failed to update quantity.');
+                    }
+                });
+            });
+
+
+            // --- Remove Item from Cart ---
+            $(document).on('click', '.tf-mini-cart-remove', function () {
+                let index = $(this).data('index'); // product id
+                $.ajax({
+                    url: '{{ route("cart.remove") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        index: index
+                    },
+                    success: function (response) {
+                        // Update cart items, subtotal, and header count
+                        $('.tf-mini-cart-items').html(response.cart_html);
+                        $('.tf-totals-total-value').text(`₦${response.cart_subtotal}`);
+                        $('#cartItemCount').text(response.cart_count);
+                    },
+                    error: function () {
+                        alert('Failed to remove item.');
+                    }
+                });
+
+            });
+        });
+    </script>
 
 </body>
 

@@ -10,21 +10,12 @@
         </div>
         
         <div class="toolbar-item">
-            @if(auth()->check()) <!-- Check if the user is logged in -->
-                <a href="{{ route('client.bookings.create', ['user_prefix' => $user_prefix]) }}">
+                <a href="{{ route('products.shop')}}">
                     <div class="toolbar-icon">
                         <i class="icon-search"></i>
                     </div>
-                    <div class="toolbar-label">Book Now</div>
+                    <div class="toolbar-label">Products</div>
                 </a>
-            @else
-                <a href="/booking">
-                    <div class="toolbar-icon">
-                        <i class="icon-search"></i>
-                    </div>
-                    <div class="toolbar-label">Book Now</div>
-                </a>
-            @endif
         </div>
 
         <div class="toolbar-item">

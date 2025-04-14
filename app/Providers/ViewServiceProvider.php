@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
+
 use App\Models\SiteSetting;
 use App\Models\ContactUs;
 use App\Models\Client;
@@ -28,6 +30,9 @@ use App\Models\WhyChooseUs;
 use App\Models\CoreValue;
 use App\Models\FAQ;
 
+use App\Models\Laptop;
+
+
 class ViewServiceProvider extends ServiceProvider
 {
     /**
@@ -47,9 +52,17 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             // Fetch necessary data
             $settings = SiteSetting::first();
+            $products = Laptop::with(['brand', 'images'])->latest()->get();
+            $cartItems = Session::get('cart', []);
+            $subtotal = collect($cartItems)->sum(function ($item) {
+                return $item['sale_price'] * $item['quantity'];
+            });
 
             $view->with([
                 'settings' => $settings,
+                'modalProducts' => $products,
+                'cartItems' => $cartItems,
+                'cartSubtotal' => number_format($subtotal, 2)
             ]);
         });
     }

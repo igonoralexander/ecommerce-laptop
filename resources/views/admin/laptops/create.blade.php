@@ -167,14 +167,14 @@
         let form = document.getElementById('productForm');
         let formData = new FormData(form);
 
-        Swal.fire({
+        SwalGlobal.fire({
             title: 'Adding Product...',
             text: 'Please wait while we save your product.',
             icon: 'info',
             showConfirmButton: false,
             allowOutsideClick: false,
             didOpen: () => {
-                Swal.showLoading();
+                SwalGlobal.showLoading();
             }
         });
 
@@ -187,9 +187,9 @@
         })
         .then(response => response.json())
         .then(data => {
-            Swal.close();
+            SwalGlobal.close();
             if (data.success) {
-                Swal.fire({
+                SwalGlobal.fire({
                     title: 'Success!',
                     text: data.message || 'Laptop added successfully.',
                     icon: 'success'
@@ -197,7 +197,7 @@
                     window.location.reload();
                 });
             } else {
-                Swal.fire({
+                SwalGlobal.fire({
                     title: 'Failed!',
                     text: data.message || 'Something went wrong.',
                     icon: 'error'
@@ -206,7 +206,7 @@
         })
         .catch(error => {
             console.error(error);
-            Swal.fire({
+            SwalGlobal.fire({
                 title: 'Error!',
                 text: 'An error occurred. Please try again later.',
                 icon: 'error'
