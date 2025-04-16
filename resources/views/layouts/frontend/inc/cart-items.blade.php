@@ -2,7 +2,13 @@
     @foreach ($cartItems as $laptop_id => $item)
         <div class="tf-mini-cart-item" data-index="{{ $laptop_id }}">
             <div class="tf-mini-cart-image">
-                <a href="#"><img src="{{ $item['image'] }}" alt="{{ $item['name'] }}"></a>
+                <a href="#">
+                    @auth
+                        <img src="{{ Storage::url($item['image']) }}" alt="{{ $item['name'] }}">
+                    @else
+                        <img src="{{ asset($item['image']) }}" alt="{{ $item['name'] }}">
+                    @endauth
+                </a>
             </div>
             <div class="tf-mini-cart-info">
                 <a class="title link" href="#">{{ $item['name'] }}</a>

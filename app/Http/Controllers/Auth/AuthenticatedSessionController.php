@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Cart;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use App\Models\CartItem;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -34,6 +37,31 @@ class AuthenticatedSessionController extends Controller
 
         // Get authenticated user
         $user = Auth::user();
+
+        // Sync guest session cart to DB
+        if ($request->session()->has('cart')) {
+            $sessionCart = $request->session()->get('cart');
+
+            $cart = Cart::firstOrCreate([
+                'user_id' => $user->id,
+                'status' => 'active',
+            ]);
+
+            foreach ($sessionCart as $laptop_id => $item) {
+                $existing = $cart->items()->where('laptop_id', $laptop_id)->first();
+                if ($existing) {
+                    $existing->increment('quantity', $item['quantity']);
+                } else {
+                    $cart->items()->create([
+                        'laptop_id' => $laptop_id,
+                        'quantity' => $item['quantity'],
+                        'sale_price' => $item['sale_price'],
+                    ]);
+                }
+            }
+
+            $request->session()->forget('cart'); // Clear session cart
+        }
 
         // Redirect based on role
         return $user->role === 'admin' 

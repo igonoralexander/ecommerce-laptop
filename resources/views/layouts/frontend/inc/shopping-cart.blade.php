@@ -24,7 +24,8 @@
                                     <div class="tf-mini-cart-sroll tf-mini-cart-items">
                                         
                                         @include('layouts.frontend.inc.cart-items', ['cartItems' => $cartItems])
-                                            
+                                        
+ 
                                     </div>
                                 </div>
                                 <div class="tf-mini-cart-bottom">

@@ -16,11 +16,11 @@ class CreateCartItemsTable extends Migration
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
             
-            $table->unsignedBigInteger('cart_id'); // Who made the booking (photographer or client)
+            $table->unsignedBigInteger('cart_id');
             $table->unsignedBigInteger('laptop_id');
 
             $table->integer('quantity'); // Quantity of the laptop in the cart
-            $table->decimal('price_at_time', 10, 2); // Price of the laptop at the time it was added to the cart
+            $table->decimal('sale_price', 10, 2); // Price of the laptop at the time it was added to the cart
             $table->timestamps();
 
             $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');

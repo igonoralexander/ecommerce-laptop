@@ -7,13 +7,15 @@
                     <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
                 </div>
                 <div class="tf-login-form">
-                    <form class="" action="my-account.html" accept-charset="utf-8">
+                    <form class="" method = "POST" action="{{ route('login') }}" accept-charset="utf-8">
+                        @csrf
+
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="email"  name="">
+                            <input class="tf-field-input tf-input" placeholder=" " type="email"  name="email" required>
                             <label class="tf-field-label" for="">Email *</label>
                         </div>
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="password"  name="">
+                            <input class="tf-field-input tf-input" placeholder=" " type="password"  name="password" required>
                             <label class="tf-field-label" for="">Password *</label>
                         </div>
                         <div>
@@ -35,6 +37,8 @@
             </div>
         </div>
     </div>
+
+    <!-- modal forgot password -->
     <div class="modal modalCentered fade form-sign-in modal-part-content" id="forgotPassword">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -43,12 +47,14 @@
                     <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
                 </div>
                 <div class="tf-login-form">
-                    <form class="">
+                    <form method="POST" action="{{ route('password.email') }}" class="">
+                        @csrf
+
                         <div>
                             <p>Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails</p>
                         </div>
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="email"  name="">
+                            <input class="tf-field-input tf-input" placeholder=" " type="email"  name="email" required>
                             <label class="tf-field-label" for="">Email *</label>
                         </div>
                         <div>
@@ -64,6 +70,8 @@
             </div>
         </div>
     </div>
+
+    <!-- modal register -->
     <div class="modal modalCentered fade form-sign-in modal-part-content" id="register">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -72,26 +80,36 @@
                     <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
                 </div>
                 <div class="tf-login-form">
-                    <form class="">
+                    <form class="" method="POST" action="{{ route('register') }}">
+                        @csrf
+
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="text"  name="">
+                            <input class="tf-field-input tf-input" placeholder=" " type="text"  name="first_name">
                             <label class="tf-field-label" for="">First name</label>
                         </div>
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="text"  name="">
+                            <input class="tf-field-input tf-input" placeholder=" " type="text"  name="last_name">
                             <label class="tf-field-label" for="">Last name</label>
                         </div>
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="email"  name="">
+                            <input class="tf-field-input tf-input" placeholder=" " type="text"  name="phone_number">
+                            <label class="tf-field-label" for="">Phone Number</label>
+                        </div>
+                        <div class="tf-field style-1">
+                            <input class="tf-field-input tf-input" placeholder=" " type="email"  name="email">
                             <label class="tf-field-label" for="">Email *</label>
                         </div>
                         <div class="tf-field style-1">
-                            <input class="tf-field-input tf-input" placeholder=" " type="password"  name="">
+                            <input class="tf-field-input tf-input" placeholder=" " type="password"  name="password">
                             <label class="tf-field-label" for="">Password *</label>
+                        </div>
+                        <div class="tf-field style-1">
+                            <input class="tf-field-input tf-input" placeholder=" " type="password" name="password_confirmation" required>
+                            <label class="tf-field-label" for="password_confirmation">Confirm Password *</label>
                         </div>
                         <div class="bottom"> 
                             <div class="w-100">
-                                <a href="register.html" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Register</span></a>
+                                <button type="submit" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Register</span></button>
                             </div>
                             <div class="w-100">
                                 <a href="#login" data-bs-toggle="modal" class="btn-link fw-6 w-100 link">

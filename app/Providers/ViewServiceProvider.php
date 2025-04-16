@@ -18,6 +18,8 @@ use App\Models\ServicesSection;
 use App\Models\Project;
 use App\Models\BlogCategory;
 use App\Models\AboutSection;
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\ParallaxSection;
 use App\Models\Causes;
 use App\Models\Events;
@@ -31,7 +33,7 @@ use App\Models\CoreValue;
 use App\Models\FAQ;
 
 use App\Models\Laptop;
-
+use Illuminate\Support\Facades\Auth;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -50,18 +52,68 @@ class ViewServiceProvider extends ServiceProvider
     {
         // Use View::composer to pass data to all views
         View::composer('*', function ($view) {
-            // Fetch necessary data
+
+            $cartCount = 0;
+            $cartItems = [];
+
+            // Global settings
             $settings = SiteSetting::first();
             $products = Laptop::with(['brand', 'images'])->latest()->get();
-            $cartItems = Session::get('cart', []);
+
+            if (Auth::check()) {
+                // For logged-in users
+                $user = Auth::user();
+    
+                $cart = Cart::where('user_id', $user->id)
+                    ->where('status', 'active')
+                    ->first();
+    
+                
+
+                if ($cart) {
+
+                    
+
+                    $cartItemModels = CartItem::with('laptop')
+                        ->where('cart_id', $cart->id)
+                        ->get();
+
+                        $cartCount = $cartItemModels->sum('quantity');
+
+                        $cartItems = $cartItemModels->mapWithKeys(function ($item) {
+
+                        // Use relationship, fallback to image path if needed
+                        $image = $item->laptop->main_image ?? $item->laptop->images->first()->image ?? '/images/default.jpg';
+
+                            return [
+                                $item->laptop_id => [
+                                    'id' => $item->laptop_id,
+                                    'name' => $item->laptop->title,
+                                    'quantity' => $item->quantity,
+                                    'sale_price' => $item->sale_price,
+                                    'image' => $image,
+                                ]
+                            ];
+                    })->toArray();
+                }
+
+            } else {
+                // For guests
+                $cartItems = Session::get('cart', []);
+                $cartCount = collect($cartItems)->sum('quantity');
+            }
+
+             // Calculate subtotal
             $subtotal = collect($cartItems)->sum(function ($item) {
                 return $item['sale_price'] * $item['quantity'];
             });
 
+              // Share with all views
             $view->with([
                 'settings' => $settings,
                 'modalProducts' => $products,
                 'cartItems' => $cartItems,
+                'cartCount' => $cartCount,
                 'cartSubtotal' => number_format($subtotal, 2)
             ]);
         });

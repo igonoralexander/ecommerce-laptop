@@ -144,13 +144,25 @@
                         product: productData
                     },
                     success: function (response) {
+                        SwalGlobal.fire({
+                            icon: 'success',
+                            title: 'Added to Cart!',
+                            text: response.message ?? 'Item added successfully!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
                         $('#shoppingCart').modal('show');
                         $('.tf-mini-cart-items').html(response.cart_html);
                         $('.tf-totals-total-value').text(`₦${response.cart_subtotal}`);
                         $('#cartItemCount').text(response.cart_count); // cart badge update
                     },
-                    error: function () {
-                        alert('Something went wrong while adding the item.');
+                    error: function (xhr) {
+                        SwalGlobal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: xhr.responseJSON?.message ?? 'Failed to add item to cart.'
+                        });
                     }
                 });
             });
@@ -213,8 +225,12 @@
                         $('.tf-totals-total-value').text(`₦${response.cart_subtotal}`);
                         $('#cartItemCount').text(response.cart_count);
                     },
-                    error: function () {
-                        alert('Failed to remove item.');
+                    error: function (xhr) {
+                        SwalGlobal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: xhr.responseJSON?.message ?? 'Failed to add item to cart.'
+                        });
                     }
                 });
 
