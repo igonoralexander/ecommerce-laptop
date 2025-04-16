@@ -38,7 +38,12 @@
     <!-- /preload -->
     <div id="wrapper">
         
-        @include('layouts.frontend.inc.top-bar')
+        @if (!in_array(Route::currentRouteName(), [
+            'shop', 'checkout', 'cart'
+            ]))
+
+                @include('layouts.frontend.inc.top-bar')
+        @endif
 
         @include('layouts.frontend.inc.header')
 
@@ -97,6 +102,7 @@
             }
         });
     </script>
+
     <script>
         $(document).ready(function () {
 

@@ -1,16 +1,16 @@
 <!-- toolbar-bottom -->
 <div class="tf-toolbar-bottom type-1150">
         <div class="toolbar-item">
-            <a href="/gallery" >
+            <a href="/" >
                 <div class="toolbar-icon">
                     <i class="icon-shop"></i>
                 </div>
-                <div class="toolbar-label">Gallery</div>
+                <div class="toolbar-label">Home</div>
             </a>
         </div>
         
         <div class="toolbar-item">
-                <a href="{{ route('products.shop')}}">
+                <a href="{{ route('shop')}}">
                     <div class="toolbar-icon">
                         <i class="icon-search"></i>
                     </div>

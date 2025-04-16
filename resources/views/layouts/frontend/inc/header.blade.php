@@ -1,6 +1,6 @@
-        <!-- header -->
-        <header id="header" class="header-default header-style-3 header-uppercase">
-            <div class="container-full px_15 lg-px_40">
+<!-- header -->
+<header id="header" class="header-default">
+            <div class="px_15 lg-px_40">
                 <div class="row wrapper-header align-items-center">
                     <div class="col-md-4 col-3 tf-lg-hidden">
                         <a href="#mobileMenu" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft">
@@ -9,18 +9,19 @@
                             </svg>
                         </a>
                     </div>
-                    <div class="col-xl-9 col-md-4 col-6">
-                        <div class="wrap-header-left">
-                            <a href="index.html" class="logo-header">
-                                <img src="images/logo/logo-blue.svg" alt="logo" class="logo">
-                            </a>
+                    <div class="col-xl-3 col-md-4 col-6">
+                        <a href="/" class="logo-header">
+                            <img src="{{ asset('frontend/images/logo/logo.svg') }}" alt="logo" class="logo">
+                        </a>
+                    </div>
+                    <div class="col-xl-6 tf-md-hidden">
                             <nav class="box-navigation text-center">
                                 <ul class="box-nav-ul d-flex align-items-center justify-content-center gap-30">
                                   
                                     <li class="menu-item"><a href="/" class="item-link text_blue-1">Home</a></li>
 
                                     <li class="menu-item">
-                                        <a href="{{ route('products.shop')}}" class="item-link text_blue-1">Products<i class="icon"></i></a>
+                                        <a href="{{ route('shop')}}" class="item-link text_blue-1">Products<i class="icon"></i></a>
                                     </li>
                                     <li class="menu-item position-relative">
                                         <a href="#" class="item-link">Pages<i class="icon icon-arrow-down"></i></a>
@@ -29,37 +30,15 @@
                                                 <li>
                                                     <a href="about-us.html" class="menu-link-text link text_black-2">About us</a>
                                                 </li>
-                                                <li class="menu-item-2">
-                                                    <a href="#" class="menu-link-text link text_black-2">Brands</a>
-                                                    <div class="sub-menu submenu-default">
-                                                        <ul class="menu-list">
-                                                            <li>
-                                                                <a href="brands.html" class="menu-link-text link text_black-2 position-relative">Brands
-                                                                    <div class="demo-label"><span class="demo-new">New</span></div> 
-                                                                </a>
-                                                            </li>
-                                                            <li><a href="brands-v2.html" class="menu-link-text link text_black-2">Brand V2</a></li>
-                                                        </ul>
-                                                    </div>
+                                            
+                                                <li>
+                                                    <a href="about-us.html" class="menu-link-text link text_black-2">Contact</a>
                                                 </li>
-                                                <li class="menu-item-2">
-                                                    <a href="#" class="menu-link-text link text_black-2">Contact</a>
-                                                    <div class="sub-menu submenu-default">
-                                                        <ul class="menu-list">
-                                                            <li><a href="contact-1.html" class="menu-link-text link text_black-2">Contact 1</a></li>
-                                                            <li><a href="contact-2.html" class="menu-link-text link text_black-2">Contact 2</a></li>
-                                                        </ul>
-                                                    </div>
+                                                
+                                                <li>
+                                                    <a href="about-us.html" class="menu-link-text link text_black-2">FAQ</a>
                                                 </li>
-                                                <li class="menu-item-2">
-                                                    <a href="#" class="menu-link-text link text_black-2">FAQ</a>
-                                                    <div class="sub-menu submenu-default">
-                                                        <ul class="menu-list">
-                                                            <li><a href="faq-1.html" class="menu-link-text link text_black-2">FAQ 01</a></li>
-                                                            <li><a href="faq-2.html" class="menu-link-text link text_black-2">FAQ 02</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
+
                                                 <li class="menu-item-2">
                                                     <a href="#" class="menu-link-text link text_black-2">Store</a>
                                                     <div class="sub-menu submenu-default">
@@ -69,53 +48,26 @@
                                                         </ul>
                                                     </div>
                                                 </li>
-                                                <li><a href="timeline.html" class="menu-link-text link text_black-2 position-relative">Timeline <div class="demo-label"><span class="demo-new">New</span></div> </a></li>
-                                                <li><a href="view-cart.html" class="menu-link-text link text_black-2 position-relative">View cart</a></li>
-                                                <li><a href="checkout.html" class="menu-link-text link text_black-2 position-relative">Check out</a></li>
-                                                <li class="menu-item-2">
-                                                    <a href="#" class="menu-link-text link text_black-2">Payment</a>
-                                                    <div class="sub-menu submenu-default">
-                                                        <ul class="menu-list">
-                                                            <li><a href="payment-confirmation.html" class="menu-link-text link text_black-2">Payment Confirmation</a></li>
-                                                            <li><a href="payment-failure.html" class="menu-link-text link text_black-2">Payment Failure</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <li class="menu-item-2">
-                                                    <a href="#" class="menu-link-text link text_black-2">My account</a>
-                                                    <div class="sub-menu submenu-default">
-                                                        <ul class="menu-list">
-                                                            <li><a href="my-account.html" class="menu-link-text link text_black-2">My account</a></li>
-                                                            <li><a href="my-account-orders.html" class="menu-link-text link text_black-2">My order</a></li>
-                                                            <li><a href="my-account-orders-details.html" class="menu-link-text link text_black-2">My order details</a></li>
-                                                            <li><a href="my-account-address.html" class="menu-link-text link text_black-2">My address</a></li>
-                                                            <li><a href="my-account-edit.html" class="menu-link-text link text_black-2">My account details</a></li>
-                                                            <li><a href="my-account-wishlist.html" class="menu-link-text link text_black-2">My wishlist</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <li><a href="invoice.html" class="menu-link-text link text_black-2 position-relative">Invoice</a></li>
-                                            <li><a href="404.html" class="menu-link-text link text_black-2 position-relative">404</a></li>
-    
                                             </ul>
                                         </div>
                                     </li>
+
                                     <li class="menu-item position-relative">
-                                        <a href="#" class="item-link text_blue-1">Blog<i class="icon icon-arrow-down"></i></a>
+                                        <a href="#" class="item-link text_blue-1">My Account<i class="icon icon-arrow-down"></i></a>
                                         <div class="sub-menu submenu-default">
                                             <ul class="menu-list">
-                                                <li><a href="blog-grid.html" class="menu-link-text link text_black-2">Grid layout</a></li>
-                                                <li><a href="blog-sidebar-left.html" class="menu-link-text link text_black-2">Left sidebar</a></li>
-                                                <li><a href="blog-sidebar-right.html" class="menu-link-text link text_black-2">Right sidebar</a></li>
-                                                <li><a href="blog-list.html" class="menu-link-text link text_black-2">Blog list</a></li>
-                                                <li><a href="blog-detail.html" class="menu-link-text link text_black-2">Single Post</a></li>
+                                                <li><a href="my-account.html" class="menu-link-text link text_black-2">My account</a></li>
+                                                <li><a href="my-account-orders.html" class="menu-link-text link text_black-2">My order</a></li>
+                                                <li><a href="my-account-orders-details.html" class="menu-link-text link text_black-2">My order details</a></li>
+                                                <li><a href="my-account-address.html" class="menu-link-text link text_black-2">My address</a></li>
+                                                <li><a href="my-account-edit.html" class="menu-link-text link text_black-2">My account details</a></li>
+                                                <li><a href="my-account-wishlist.html" class="menu-link-text link text_black-2">My wishlist</a></li>
                                             </ul>
                                         </div>
                                     </li>
                                     
                                 </ul>
                             </nav>
-                        </div>
                     </div>
                     <div class="col-xl-3 col-md-4 col-3">
                         <ul class="nav-icon d-flex justify-content-end align-items-center gap-20">
@@ -131,5 +83,5 @@
                     </div>
                 </div>
             </div>
-        </header>
-        <!-- /header -->
+</header>
+<!-- /header -->

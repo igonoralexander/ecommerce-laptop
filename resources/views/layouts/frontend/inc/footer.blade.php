@@ -1,5 +1,5 @@
  <!-- Footer -->
- <footer id="footer" class="footer background-black bg_green-4">
+ <footer id="footer" class="footer background-black">
             <div class="footer-wrap wow fadeIn" data-wow-delay="0s">
                 <div class="footer-body">
                     <div class="container">
@@ -8,7 +8,7 @@
                                 <div class="footer-infor">
                                     <div class="footer-logo">
                                         <a href="index.html">
-                                            <img src="images/logo/logo-white.svg" alt="">
+                                            <img src="{{ asset('frontend/images/logo/logo-white.svg') }}" alt="">
                                         </a>
                                     </div>
                                     <ul>
@@ -47,19 +47,10 @@
                                         <a href="delivery-return.html" class="footer-menu_item">  Returns + Exchanges </a>
                                     </li>
                                     <li> 
-                                        <a href="shipping-delivery.html" class="footer-menu_item">Shipping</a>
-                                    </li>
-                                    <li> 
                                         <a href="terms-conditions.html" class="footer-menu_item">Terms &amp; Conditions</a>
                                     </li>
                                     <li> 
                                         <a href="faq-1.html" class="footer-menu_item">FAQ’s</a>
-                                    </li>
-                                    <li> 
-                                        <a href="compare.html" class="footer-menu_item">Compare</a>
-                                    </li>
-                                    <li> 
-                                        <a href="wishlist.html" class="footer-menu_item">My Wishlist</a>
                                     </li>
                                 </ul>
                             </div>
@@ -72,16 +63,16 @@
                                 </div>
                                 <ul class="footer-menu-list tf-collapse-content">
                                     <li>
-                                        <a href="about-us.html" class="footer-menu_item">Our Story</a>
+                                        <a href="/about" class="footer-menu_item">Our Story</a>
                                     </li>
                                     <li> 
                                         <a href="our-store.html" class="footer-menu_item">Visit Our Store</a>
                                     </li>
                                     <li> 
-                                        <a href="contact-1.html" class="footer-menu_item">Contact Us</a>
+                                        <a href="/contact" class="footer-menu_item">Contact Us</a>
                                     </li>
                                     <li> 
-                                        <a href="login.html" class="footer-menu_item">Account</a>
+                                        <a href="/login" class="footer-menu_item">Account</a>
                                     </li>
                                 </ul>
                             </div>

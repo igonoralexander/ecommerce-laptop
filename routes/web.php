@@ -7,6 +7,7 @@ Use Iilluminate\view;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\ShopController;
 use App\Models\Package;
 
@@ -24,13 +25,6 @@ use App\Models\Package;
 Route::get('/', function () {
     return view('frontend.index');
 });
-
-
-Route::get('/booking', function () {
-    $packages = Package::all();
-    return view('frontend.pages.booking', compact('packages'));
-});
-
 
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
     ->middleware(['auth', 'role:admin'])
@@ -57,7 +51,9 @@ Route::get('/gallery/load', [AdminController::class, 'loadMoreMedia'])->name('ga
 
 //Shopping Route
 
-Route::get('/products', [ShopController::class, 'ShopProducts'])->name('products.shop');
+Route::get('/shop', [ShopController::class, 'ShopProducts'])->name('shop');
+
+Route::get('/checkout', [FrontEndController::class, 'checkout'])->name('checkout');
 
 Route::get('/modal/quick-add', [CartController::class, 'quickAdd'])->name('modal.quick.add');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
