@@ -48,11 +48,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function media()
-    {
-        return $this->hasMany(UploadMedia::class,  'user_id', 'id');
-    }
-
     public function availabilties()
     {
         return $this->hasMany(Availability::class);
@@ -63,27 +58,10 @@ class User extends Authenticatable
         return $this->hasMany(Payment::class);
     }
 
-     /**
-     * A user can have many bookings.
-     */
-    public function bookings()
+    public function orders()
     {
-        return $this->hasMany(Booking::class, 'client_id', 'id');
+        return $this->hasMany(Order::class);
     }
 
-    /**
-     * A user can have multiple invoices.
-     */
-    public function invoices()
-    {
-        return $this->hasMany(Invoice::class, 'invoice_id', 'id');
-    }
 
-    /**
-     * A user can have multiple contracts.
-     */
-    public function contracts()
-    {
-        return $this->hasMany(Contract::class, 'contract_id', 'id');
-    }
 }

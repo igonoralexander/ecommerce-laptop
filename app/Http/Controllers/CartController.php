@@ -24,7 +24,7 @@ class CartController extends Controller
                 $user = Auth::user();
                 
 
-                // Step 1: Get or create user's cart
+                // Get or create user's cart
                 $cart = Cart::firstOrCreate([
                     'user_id' => $user->id,
                     'status' => 'active',

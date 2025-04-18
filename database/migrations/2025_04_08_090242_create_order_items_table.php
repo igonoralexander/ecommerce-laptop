@@ -20,8 +20,8 @@ class CreateOrderItemsTable extends Migration
             $table->unsignedBigInteger('laptop_id');
 
             $table->integer('quantity'); // Number of laptops in this order item
-            $table->decimal('price_at_time', 10, 2); // Price of the laptop at the time of order
-            
+            $table->decimal('price', 10, 2);
+            $table->decimal('subtotal', 10, 2);
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');

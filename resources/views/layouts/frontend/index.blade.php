@@ -39,7 +39,7 @@
     <div id="wrapper">
         
         @if (!in_array(Route::currentRouteName(), [
-            'shop', 'checkout', 'cart'
+            'shop', 'checkout', 'cart', 'thank.you'
             ]))
 
                 @include('layouts.frontend.inc.top-bar')

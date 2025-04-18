@@ -19,8 +19,10 @@ class CreateOrdersTable extends Migration
 
             $table->string('guest_email')->nullable(); // Store guest user's email
             $table->string('guest_name')->nullable(); // Store guest user's name
+            $table->string('guest_phone_number')->nullable(); // Store guest user's name
             $table->text('guest_address')->nullable(); // Store guest user's address
             $table->decimal('total_price', 10, 2); // Total price of the order
+            $table->text('order_notes')->nullable(); // Store guest user's name
             $table->string('status')->default('pending'); // Status of the order (e.g., pending, completed, shipped)
             $table->timestamps();
 
