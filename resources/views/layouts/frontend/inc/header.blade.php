@@ -28,25 +28,15 @@
                                         <div class="sub-menu submenu-default">
                                             <ul class="menu-list">
                                                 <li>
-                                                    <a href="about-us.html" class="menu-link-text link text_black-2">About us</a>
+                                                    <a href="/about" class="menu-link-text link text_black-2">About us</a>
                                                 </li>
                                             
                                                 <li>
-                                                    <a href="about-us.html" class="menu-link-text link text_black-2">Contact</a>
+                                                    <a href="/contact" class="menu-link-text link text_black-2">Contact</a>
                                                 </li>
                                                 
                                                 <li>
-                                                    <a href="about-us.html" class="menu-link-text link text_black-2">FAQ</a>
-                                                </li>
-
-                                                <li class="menu-item-2">
-                                                    <a href="#" class="menu-link-text link text_black-2">Store</a>
-                                                    <div class="sub-menu submenu-default">
-                                                        <ul class="menu-list">
-                                                            <li><a href="our-store.html" class="menu-link-text link text_black-2">Our store</a></li>
-                                                            <li><a href="store-locations.html" class="menu-link-text link text_black-2">Store locator</a></li>
-                                                        </ul>
-                                                    </div>
+                                                    <a href="/faq" class="menu-link-text link text_black-2">FAQ</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -58,7 +48,6 @@
                                             <ul class="menu-list">
                                                 <li><a href="my-account.html" class="menu-link-text link text_black-2">My account</a></li>
                                                 <li><a href="my-account-orders.html" class="menu-link-text link text_black-2">My order</a></li>
-                                                <li><a href="my-account-orders-details.html" class="menu-link-text link text_black-2">My order details</a></li>
                                                 <li><a href="my-account-address.html" class="menu-link-text link text_black-2">My address</a></li>
                                                 <li><a href="my-account-edit.html" class="menu-link-text link text_black-2">My account details</a></li>
                                                 <li><a href="my-account-wishlist.html" class="menu-link-text link text_black-2">My wishlist</a></li>

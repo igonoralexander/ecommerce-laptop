@@ -10,7 +10,7 @@
             </div>
         </div>
         <!-- /page-title -->
-
+    @if(count($cartItems) > 0)
         <!-- page-cart -->
         <section class="flat-spacing-11">
             <div class="container">
@@ -143,7 +143,15 @@
             </div>
         </section>
         <!-- page-cart -->
-
+    @else
+        <!-- Optional: Empty cart message -->
+        <section class="flat-spacing-11">
+            <div class="container text-center py-5">
+                <h4>Your cart is empty</h4>
+                <a href="{{ route('shop') }}" class="tf-btn radius-3 btn-fill mt-3">Continue Shopping</a>
+            </div>
+        </section>
+    @endif
 @endsection
 
 

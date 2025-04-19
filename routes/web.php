@@ -50,6 +50,7 @@ Route::post('/login-checkEmail', [RegisteredUserController::class, 'loginCheckEm
 Route::get('/shop', [ShopController::class, 'ShopProducts'])->name('shop');
 
 Route::get('/checkout', [FrontEndController::class, 'checkout'])->name('checkout');
+Route::get('/contact', [FrontEndController::class, 'contact'])->name('contact');
 
 
 Route::post('/checkout/place-order', [CheckoutController::class, 'placeOrder'])->name('checkout.placeOrder');

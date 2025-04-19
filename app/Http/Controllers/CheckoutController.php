@@ -36,7 +36,7 @@ class CheckoutController extends Controller
                 $order->guest_name  = $request->first_name . ' ' . $request->last_name;
                 $order->guest_email = $request->email;
                 $order->guest_phone_number = $request->phone_number;
-                $order->guest_address = $request->address;
+                $order->address = $request->address;
             } else {
                 $order->user_id = Auth::id();
                 $order->address = $request->address;

@@ -33,7 +33,7 @@
                                     </a>
 
                                     <div class="list-product-btn absolute-2">
-                                        <a href="#quick_add" data-bs-toggle="modal" class="box-icon bg_white quick-add tf-btn-loading btn-open-quick-add" data-product-id="{{ $product->id }}">
+                                        <a href="#quick_view" data-bs-toggle="modal" class="box-icon bg_white quickview tf-btn-loading btn-open-quick-add" data-product-id="{{ $product->id }}">
                                             <span class="icon icon-view"></span>
                                             <span class="tooltip">Quick View</span>
                                         </a>

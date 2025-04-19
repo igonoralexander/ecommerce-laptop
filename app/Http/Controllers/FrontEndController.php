@@ -40,29 +40,34 @@ class FrontEndController extends Controller
             'user' => $user
         ]);
 
-    } else {
-        // Guest cart
-        $sessionCart = session()->get('cart', []);
-        $cartItems = [];
+        } else {
+            // Guest cart
+            $sessionCart = session()->get('cart', []);
+            $cartItems = [];
 
-        foreach ($sessionCart as $item) {
-            $cartItems[] = [
-                'id' => $item['laptop_id'], 
-                'name' => $item['name'],
-                'image' => $item['image'],
-                'quantity' => $item['quantity'],
-                'sale_price' => $item['sale_price'],
-                'subtotal' => $item['quantity'] * $item['sale_price'],
-            ];
+            foreach ($sessionCart as $item) {
+                $cartItems[] = [
+                    'id' => $item['laptop_id'], 
+                    'name' => $item['name'],
+                    'image' => $item['image'],
+                    'quantity' => $item['quantity'],
+                    'sale_price' => $item['sale_price'],
+                    'subtotal' => $item['quantity'] * $item['sale_price'],
+                ];
+            }
+
+            $cartSubtotal = collect($cartItems)->sum('subtotal');
+
+                return view('frontend.pages.checkout', [
+                    'cartItems' => $cartItems,
+                    'cartSubtotal' => $cartSubtotal,
+                    'user' => null
+                ]);
         }
+    }
 
-        $cartSubtotal = collect($cartItems)->sum('subtotal');
-
-            return view('frontend.pages.checkout', [
-                'cartItems' => $cartItems,
-                'cartSubtotal' => $cartSubtotal,
-                'user' => null
-            ]);
-        }
+    public function contact()
+    {
+        return view('frontend.pages.contact');
     }
 }

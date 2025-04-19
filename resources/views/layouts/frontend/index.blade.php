@@ -39,7 +39,7 @@
     <div id="wrapper">
         
         @if (!in_array(Route::currentRouteName(), [
-            'shop', 'checkout', 'cart', 'thank.you'
+            'shop', 'checkout', 'cart', 'contact', 'thank.you'
             ]))
 
                 @include('layouts.frontend.inc.top-bar')
@@ -121,9 +121,35 @@
                         $('#quickAddContent').html(html);
                         $('#quickAddContent input[name="quantity"]').val(1); // reset quantity
                         $('#quick_add').modal('show');
+
+                        // Re-initializing Swiper here
+                        new Swiper('.tf-single-slide', {
+                            navigation: {
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
+                            },
+                            loop: true,
+                            slidesPerView: 1,
+                        });
+            
                     }
                 });
             });
+
+            // Use event delegation on a stable parent like #quickAddContent
+            $('#quickAddContent').on('click', '.btn-quantity', function () {
+                let input = $(this).siblings('input[name="quantity"]');
+                let currentVal = parseInt(input.val());
+
+                if ($(this).hasClass('plus-btn')) {
+                    input.val(currentVal + 1);
+                } else if ($(this).hasClass('minus-btn')) {
+                    if (currentVal > 1) {
+                        input.val(currentVal - 1);
+                    }
+                }
+            });
+
 
             // Add to Cart (delegated since modal content is dynamic)
             $(document).on('click', '.btn-add-to-cart', function (e) {

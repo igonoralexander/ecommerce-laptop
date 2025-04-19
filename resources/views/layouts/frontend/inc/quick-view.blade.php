@@ -1,5 +1,5 @@
 <!-- modal quick_view -->
-<div class="modal fade modalDemo" id="quick_view">
+<div class="modal fade modalDemo" >
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="header">

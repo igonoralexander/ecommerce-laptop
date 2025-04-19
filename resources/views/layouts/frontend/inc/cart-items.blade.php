@@ -25,5 +25,4 @@
         </div>
     @endforeach
 @else
-    <p>No item in cart.</p>
 @endif
