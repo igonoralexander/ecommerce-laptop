@@ -48,6 +48,8 @@ Route::post('/login-checkEmail', [RegisteredUserController::class, 'loginCheckEm
 //Shopping Route
 
 Route::get('/shop', [ShopController::class, 'ShopProducts'])->name('shop');
+Route::get('/product/{slug}', [ShopController::class, 'productDetail'])->name('product.detail');
+
 
 Route::get('/checkout', [FrontEndController::class, 'checkout'])->name('checkout');
 Route::get('/contact', [FrontEndController::class, 'contact'])->name('contact');

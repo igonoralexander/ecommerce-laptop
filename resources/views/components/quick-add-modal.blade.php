@@ -25,7 +25,7 @@
                         <div class="tf-product-info-wrap position-relative">
                             <div class="tf-product-info-list">
                                 <div class="tf-product-info-title">
-                                    <h5><a class="link" href="product-detail.html">{{ $product->name }}</a></h5>
+                                    <h5><a class="link" href="{{ route('product.detail', $product->slug) }}">{{ $product->name }}</a></h5>
                                 </div>
                                 <div class="tf-product-info-badges">
                                     <div class="badges text-uppercase">Best seller</div>
@@ -35,29 +35,31 @@
                                     </div>
                                 </div>
                                 <div class="tf-product-info-price">
-                                    <div class="price">₦{{ $product->sale_price }}</div>
+                                    <div class="price" id="sale-price" data-price="{{ $product->sale_price }}">
+                                    ₦{{ $product->sale_price }}</div>
                                 </div>
                                 <div class="tf-product-description">
-                                    <p>Nunc arcu faucibus a et lorem eu a mauris adipiscing conubia ac aptent ligula
-                                        facilisis a auctor habitant parturient a a.Interdum fermentum.</p>
+                                    <p> {!! $product->description !!}</p>
                                 </div>
                                 <div class="tf-product-info-quantity">
                                     <div class="quantity-title fw-6">Quantity</div>
                                     <div class="wg-quantity">
-                                        <span class="btn-quantity minus-btn">-</span>
-                                        <input type="text" name="quantity" value="1">
-                                        <span class="btn-quantity plus-btn">+</span>
+                                        <span class="btn-quantity btn-decrease minus-btn">-</span>
+                                        <input type="text" id="quantity-input" name="quantity" value="1">
+                                        <span class="btn-quantity btn-increase plus-btn">+</span>
                                     </div>
                                 </div>
                                 <div class="tf-product-info-buy-button">
                                     <form class="">
-                                        <a href="#" class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"
+                                        <a href="#"
+                                            class="tf-btn btn-fill justify-content-center fw-6 fs-16 flex-grow-1 animate-hover-btn btn-add-to-cart"
                                             data-product-id="{{ $product->id }}"
                                             data-name="{{ $product->name }}"
                                             data-price="{{ $product->price }}"
                                             data-sale-price="{{ $product->sale_price }}"
                                             data-image="{{ asset('storage/' . ($mainImage->image ?? 'default.jpg')) }}">
-                                            <span>Add to cart</span>
+                                            <span>Add to cart -&nbsp;</span><span
+                                            class="tf-qty-price" id="total-price">₦{{ $product->sale_price }}</span>
                                         </a>
                                         <a href="javascript:void(0);"
                                             class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action">
@@ -71,7 +73,7 @@
                                     </form>
                                 </div>
                                 <div>
-                                    <a href="product-detail.html" class="tf-btn fw-6 btn-line">View full details<i
+                                    <a href="{{ route('product.detail', $product->slug) }}" class="tf-btn fw-6 btn-line">View full details<i
                                             class="icon icon-arrow1-top-left"></i></a>
                                 </div>
                             </div>

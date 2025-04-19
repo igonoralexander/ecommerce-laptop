@@ -26,14 +26,15 @@
                             <div class="card-product" data-price="{{ $product->sale_price }}" data-color="orange black white">
                                 <div class="card-product-wrapper">
 
-                                    <a href="product-detail.html" class="product-img">
+                                    <a href="{{ route('product.detail', $product->slug) }}" class="product-img">
                                         <img class="lazyload img-product" data-src="{{ asset('storage/' . ($mainImage->image)) }}" src="{{ asset('storage/' . ($mainImage->image)) }}" alt="{{$product->name}}">
                                         
                                         <img class="lazyload img-hover" data-src="{{ asset('storage/' . ($hoverImage->image)) }}" src="{{ asset('storage/' . ($hoverImage->image)) }}" alt="{{$product->name}}">
                                     </a>
 
                                     <div class="list-product-btn absolute-2">
-                                        <a href="#quick_view" data-bs-toggle="modal" class="box-icon bg_white quickview tf-btn-loading btn-open-quick-add" data-product-id="{{ $product->id }}">
+                                        <a href="#quick_view" data-bs-toggle="modal"
+                                            class="box-icon bg_white quickview tf-btn-loading btn-open-quick-add" data-product-id="{{ $product->id }}">
                                             <span class="icon icon-view"></span>
                                             <span class="tooltip">Quick View</span>
                                         </a>
@@ -45,12 +46,11 @@
                                     </div>
                                 </div>
                                 <div class="card-product-info">
-                                    <a href="product-detail.html" class="title link">{{ $product->name }}</a>
+                                    <a href="{{ route('product.detail', $product->slug) }}" class="title link">{{ $product->name }}</a>
                                     <span class="price">NGN {{ $product->sale_price }}</span>
                                 </div>
                             </div>
                         @endforeach
-                
                     </div>
                     <!-- pagination -->
                     <ul class="tf-pagination-wrap tf-pagination-list tf-pagination-btn">

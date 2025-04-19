@@ -47,10 +47,8 @@
                                         <div class="sub-menu submenu-default">
                                             <ul class="menu-list">
                                                 <li><a href="my-account.html" class="menu-link-text link text_black-2">My account</a></li>
-                                                <li><a href="my-account-orders.html" class="menu-link-text link text_black-2">My order</a></li>
-                                                <li><a href="my-account-address.html" class="menu-link-text link text_black-2">My address</a></li>
-                                                <li><a href="my-account-edit.html" class="menu-link-text link text_black-2">My account details</a></li>
-                                                <li><a href="my-account-wishlist.html" class="menu-link-text link text_black-2">My wishlist</a></li>
+                                                <li><a href="my-account-orders.html" class="menu-link-text link text_black-2">Orders</a></li>
+                                                <li><a href="my-account-wishlist.html" class="menu-link-text link text_black-2">Wishlist</a></li>
                                             </ul>
                                         </div>
                                     </li>
@@ -64,7 +62,7 @@
                             <li class="nav-account"><a href="#login" data-bs-toggle="modal" class="nav-icon-item text_blue-1"><i class="icon icon-account"></i></a></li>
                             <li class="nav-wishlist"><a href="wishlist.html" class="nav-icon-item"><i class="icon icon-heart"></i><span class="count-box">0</span></a></li>
                             <li class="nav-cart">
-                                <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item"><i class="icon icon-bag"></i>
+                                <a href="#shoppingCart" data-bs-toggle="modal" class="nav-icon-item"><i class="fas fa-shopping-cart"></i>
                                     <span class="count-box" id="cartItemCount">{{ $cartCount }}</span>
                                 </a>
                             </li>

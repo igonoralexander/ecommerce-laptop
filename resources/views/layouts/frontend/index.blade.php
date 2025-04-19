@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{{ asset ('frontend/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset ('frontend/css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset ('frontend/css/animate.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="{{ asset ('frontend/css/styles.css') }}"/>
 
@@ -39,7 +39,7 @@
     <div id="wrapper">
         
         @if (!in_array(Route::currentRouteName(), [
-            'shop', 'checkout', 'cart', 'contact', 'thank.you'
+            'shop', 'checkout', 'cart', 'product.detail', 'contact', 'thank.you'
             ]))
 
                 @include('layouts.frontend.inc.top-bar')
@@ -48,6 +48,8 @@
         @include('layouts.frontend.inc.header')
 
         @yield('content')
+
+        @include('layouts.frontend.inc.ask-question')
 
         @include('layouts.frontend.inc.footer')
         
@@ -267,6 +269,41 @@
                 });
 
             });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const salePrice = parseFloat(document.getElementById('sale-price').dataset.price);
+            const quantityInput = document.getElementById('quantity-input');
+            const totalPriceDisplay = document.getElementById('total-price');
+            const increaseBtn = document.querySelector('.btn-increase');
+            const decreaseBtn = document.querySelector('.btn-decrease');
+
+            function updateTotalPrice() {
+                let quantity = parseInt(quantityInput.value);
+                if (isNaN(quantity) || quantity < 1) {
+                    quantity = 1;
+                    quantityInput.value = 1;
+                }
+                const total = salePrice * quantity;
+                totalPriceDisplay.textContent = `₦${total.toLocaleString()}`;
+            }
+
+            quantityInput.addEventListener('input', updateTotalPrice);
+            increaseBtn.addEventListener('click', () => {
+                quantityInput.value = parseInt(quantityInput.value) + 1;
+                updateTotalPrice();
+            });
+            decreaseBtn.addEventListener('click', () => {
+                let value = parseInt(quantityInput.value);
+                if (value > 1) {
+                    quantityInput.value = value - 1;
+                    updateTotalPrice();
+                }
+            });
+
+            updateTotalPrice(); // initial calculation
         });
     </script>
 
