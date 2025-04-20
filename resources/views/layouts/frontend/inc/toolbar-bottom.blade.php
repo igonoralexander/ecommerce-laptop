@@ -1,31 +1,45 @@
 <!-- toolbar-bottom -->
 <div class="tf-toolbar-bottom type-1150">
-        <div class="toolbar-item">
-            <a href="/" >
+        <div class="toolbar-item" >
+            <a href="#toolbarShopmb" data-bs-toggle="offcanvas" aria-controls="offcanvasLeft">
                 <div class="toolbar-icon">
                     <i class="icon-shop"></i>
                 </div>
-                <div class="toolbar-label">Home</div>
+                <div class="toolbar-label">Shop</div>
             </a>
         </div>
         
         <div class="toolbar-item">
-                <a href="{{ route('shop')}}">
+                <a href="">
                     <div class="toolbar-icon">
                         <i class="icon-search"></i>
                     </div>
-                    <div class="toolbar-label">Products</div>
+                    <div class="toolbar-label">Search</div>
                 </a>
         </div>
 
-        <div class="toolbar-item">
-            <a href="#login" data-bs-toggle="modal">
-                <div class="toolbar-icon">
-                    <i class="icon-account"></i>
-                </div>
-                <div class="toolbar-label">Account</div>
-            </a>
-        </div>
+        @auth
+
+            <div class="toolbar-item">
+                <a href="/dashboard">
+                    <div class="toolbar-icon">
+                        <i class="icon-account"></i>
+                    </div>
+                    <div class="toolbar-label">Dashboard</div>
+                </a>
+            </div>
+        @else
+        
+            <div class="toolbar-item">
+                <a href="#login" data-bs-toggle="modal">
+                    <div class="toolbar-icon">
+                        <i class="icon-account"></i>
+                    </div>
+                    <div class="toolbar-label">Account</div>
+                </a>
+            </div>
+        @endauth
+
         <div class="toolbar-item">
             <a href="wishlist.html">
                 <div class="toolbar-icon">
@@ -33,6 +47,16 @@
                     <div class="toolbar-count">0</div>
                 </div>
                 <div class="toolbar-label">Wishlist</div>
+            </a>
+        </div>
+
+        <div class="toolbar-item">
+            <a href="#shoppingCart" data-bs-toggle="modal">
+                <div class="toolbar-icon">
+                    <i class="icon-bag"></i>
+                    <div class="toolbar-count" id="cartItemCount">{{ $cartCount }}</div>
+                </div>
+                <div class="toolbar-label" >Cart</div>
             </a>
         </div>
        

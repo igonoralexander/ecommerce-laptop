@@ -26,7 +26,7 @@ class RouteServiceProvider extends ServiceProvider
         if (Auth::check()) {
             $user = Auth::user();
             $prefix = Str::slug("{$user->first_name}-{$user->last_name}"); 
-            return "/{$prefix}/dashboard";
+            return "/";
         }
         
         return '/login'; // Fallback if no user is logged in

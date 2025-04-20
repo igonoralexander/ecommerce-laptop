@@ -17,11 +17,10 @@
                         <div class="wrap-sidebar-account">
                             <ul class="my-account-nav">
                                 <li><span class="my-account-nav-item active">Dashboard</span></li>
-                                <li><a href="{{ route('client.management', ['user_prefix' => $user_prefix]) }}" class="my-account-nav-item">My Profile</a></li>
-                                <li><a href="{{ route('client.bookings.index', ['user_prefix' => $user_prefix]) }}" class="my-account-nav-item">Bookings</a></li>
+                                <li><a href="{{ route('client.management') }}" class="my-account-nav-item">My Account</a></li>
                                 <li><a href="my-account-address.html" class="my-account-nav-item">Address</a></li>
                                 <li><a href="my-account-edit.html" class="my-account-nav-item">Account Details</a></li>
-                                <li><a href="{{ route('client.change-password', ['user_prefix' => $user_prefix]) }}" class="my-account-nav-item">Change Password</a></li>
+                                <li><a href="{{ route('client.change-password') }}" class="my-account-nav-item">Change Password</a></li>
                                 <li><a href="my-account-wishlist.html" class="my-account-nav-item">Wishlist</a></li>
 
 

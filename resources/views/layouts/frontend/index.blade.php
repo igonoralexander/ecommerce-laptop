@@ -65,6 +65,8 @@
     
     @include('layouts.frontend.inc.toolbar-bottom')
 
+    @include('layouts.frontend.inc.toolbar-side')
+
     @include('layouts.frontend.inc.mobile-menu')
 
     @include('layouts.frontend.inc.login')
@@ -83,16 +85,20 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/swiper-bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/carousel.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend/js/count-down.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/bootstrap-select.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/lazysize.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/bootstrap-select.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('frontend/js/count-down.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('frontend/js/drift.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/wow.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('frontend/js/multiple-modal.js') }}"></script>
 
     @yield('scripts')
 
     <script type="text/javascript" src="{{ asset('frontend/js/main.js') }}"></script>
+    
+    <script type="module" src="{{ asset('frontend/js/model-viewer.min.js')}}"></script>
+    <script type="module" src="{{ asset('frontend/js/zoom.js')}}"></script>
 
     <script>
         // Global SweetAlert mixin for all alerts

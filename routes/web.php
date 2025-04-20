@@ -32,9 +32,8 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
     ->name('admin.dashboard');
 
 
-Route::middleware(['auth', 'dynamic.user.prefix'])->group(function () {
-        
-    Route::get('/{user_prefix}/dashboard', function () {
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
             return view('dashboard');
         })->name('user.dashboard');
         

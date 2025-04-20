@@ -18,6 +18,7 @@ use App\Models\ServicesSection;
 use App\Models\Project;
 use App\Models\BlogCategory;
 use App\Models\AboutSection;
+use App\Models\Brand;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\ParallaxSection;
@@ -58,6 +59,7 @@ class ViewServiceProvider extends ServiceProvider
 
             // Global settings
             $settings = SiteSetting::first();
+            $brands = Brand::all();
             $products = Laptop::with(['brand', 'images'])->latest()->get();
 
             if (Auth::check()) {
@@ -67,13 +69,8 @@ class ViewServiceProvider extends ServiceProvider
                 $cart = Cart::where('user_id', $user->id)
                     ->where('status', 'active')
                     ->first();
-    
-                
 
                 if ($cart) {
-
-                    
-
                     $cartItemModels = CartItem::with('laptop')
                         ->where('cart_id', $cart->id)
                         ->get();
@@ -97,25 +94,26 @@ class ViewServiceProvider extends ServiceProvider
                     })->toArray();
                 }
 
-            } else {
-                // For guests
-                $cartItems = Session::get('cart', []);
-                $cartCount = collect($cartItems)->sum('quantity');
-            }
+                } else {
+                    // For guests
+                    $cartItems = Session::get('cart', []);
+                    $cartCount = collect($cartItems)->sum('quantity');
+                }
 
-             // Calculate subtotal
-            $subtotal = collect($cartItems)->sum(function ($item) {
-                return $item['sale_price'] * $item['quantity'];
-            });
+                // Calculate subtotal
+                $subtotal = collect($cartItems)->sum(function ($item) {
+                    return $item['sale_price'] * $item['quantity'];
+                });
 
-              // Share with all views
-            $view->with([
-                'settings' => $settings,
-                'modalProducts' => $products,
-                'cartItems' => $cartItems,
-                'cartCount' => $cartCount,
-                'cartSubtotal' => number_format($subtotal, 2)
-            ]);
+                // Share with all views
+                $view->with([
+                    'settings' => $settings,
+                    'brands' => $brands,
+                    'modalProducts' => $products,
+                    'cartItems' => $cartItems,
+                    'cartCount' => $cartCount,
+                    'cartSubtotal' => number_format($subtotal, 2)
+                ]);
         });
     }
 }

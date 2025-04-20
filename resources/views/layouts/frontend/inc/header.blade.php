@@ -21,8 +21,9 @@
                                     <li class="menu-item"><a href="/" class="item-link text_blue-1">Home</a></li>
 
                                     <li class="menu-item">
-                                        <a href="{{ route('shop')}}" class="item-link text_blue-1">Products<i class="icon"></i></a>
+                                        <a href="{{ route('shop')}}" class="item-link text_blue-1">Laptops<i class="icon"></i></a>
                                     </li>
+
                                     <li class="menu-item position-relative">
                                         <a href="#" class="item-link">Pages<i class="icon icon-arrow-down"></i></a>
                                         <div class="sub-menu submenu-default">

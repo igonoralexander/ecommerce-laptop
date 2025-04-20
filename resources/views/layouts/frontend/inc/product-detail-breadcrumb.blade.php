@@ -3,7 +3,7 @@
     <div class="container">
         <div class="tf-breadcrumb-wrap d-flex justify-content-between flex-wrap align-items-center">
             <div class="tf-breadcrumb-list">
-                <a href="index.html" class="text">Home</a>
+                <a href="/" class="text">Home</a>
                 <i class="icon icon-arrow-right"></i>
                 <a href="#" class="text">{{ ($product->brand->name) }}</a>
                 <i class="icon icon-arrow-right"></i>
