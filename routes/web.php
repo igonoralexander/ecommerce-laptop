@@ -60,6 +60,7 @@ Route::post('/checkout/place-order', [CheckoutController::class, 'placeOrder'])-
 Route::get('/thank-you', [CheckoutController::class, 'thankYou'])->name('thank.you');
 
 Route::get('/modal/quick-add', [CartController::class, 'quickAdd'])->name('modal.quick.add');
+Route::get('/cart', [CartController::class, 'viewCart'])->name('cart');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/update-quantity', [CartController::class, 'updateQuantity'])->name('cart.update.quantity');
 Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');

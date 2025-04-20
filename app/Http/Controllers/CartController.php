@@ -35,8 +35,15 @@ class CartController extends Controller
                     ->first();
 
                 if ($cartItem) {
-                    $cartItem->quantity += $quantity;
-                    $cartItem->save();
+                     // Product already in cart - reject
+                    return response()->json([
+                        'message' => 'Product already in cart.'
+                    ], 409);
+
+                    // Increase the quantity even if product already in cart
+                    // $cartItem->quantity += $quantity;
+                    // $cartItem->save();
+
                 } else {
                     CartItem::create([
                         'user_id' => $user->id,
@@ -53,9 +60,17 @@ class CartController extends Controller
                 $cart = session()->get('cart', []);
                 $product = $request->input('product');
 
-                // Update quantity if exists
+             
                 if (isset($cart[$product['laptop_id']])) {
-                    $cart[$product['laptop_id']]['quantity'] += $product['quantity'];
+                    
+                    // If item already exists in session cart, reject it
+                    return response()->json([
+                        'message' => 'Product already in cart.'
+                    ], 409);
+
+                    // Update quantity if exists
+                    // $cart[$product['laptop_id']]['quantity'] += $product['quantity'];
+
                 } else {
                     $cart[$product['laptop_id']] = $product;
                 }
@@ -199,6 +214,21 @@ class CartController extends Controller
         }
     }
 
+    public function viewCart()
+    {
+        if (Auth::check()) {
+            $cartItems = $this->getUserCartArray(Auth::id());
+        } else {
+            $cartItems = session()->get('cart', []);
+        }
+
+        $subtotal = collect($cartItems)->sum(function ($item) {
+            return $item['sale_price'] * $item['quantity'];
+        });
+
+        return view('frontend.pages.view-cart', compact('cartItems', 'subtotal'));
+    }
+
     private function getUserCartArray($userId)
     {
 
@@ -217,6 +247,7 @@ class CartController extends Controller
             ->mapWithKeys(function ($item) {
                 return [
                     $item->laptop_id => [
+                        'laptop_id' => $item->laptop_id,
                         'id' => $item->laptop_id,
                         'name' => $item->laptop->title,
                         'quantity' => $item->quantity,

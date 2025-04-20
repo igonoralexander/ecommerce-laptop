@@ -15,9 +15,9 @@
                 <div class="price fw-6">₦{{ $item['sale_price'] ?? $item['price'] }}</div>
                 <div class="tf-mini-cart-btns">
                     <div class="wg-quantity small">
-                        <span class="btn-quantity minus-btn" data-index="{{ $laptop_id }}">-</span>
+                        <span class="btn-quantity minusbtn" data-index="{{ $laptop_id }}">-</span>
                         <input type="text" class="quantity-input" data-index="{{ $laptop_id }}" value="{{ $item['quantity'] }}">
-                        <span class="btn-quantity plus-btn" data-index="{{ $laptop_id }}">+</span>
+                        <span class="btn-quantity plusbtn" data-index="{{ $laptop_id }}">+</span>
                     </div>
                     <div class="tf-mini-cart-remove" data-index="{{ $laptop_id }}">Remove</div>
                 </div>
@@ -25,4 +25,8 @@
         </div>
     @endforeach
 @else
+    <div class="text-center p-4">
+        <p class="fw-6 fs-5 mb-3">🛒 No items found in your cart.</p>
+        <a href="{{ route('shop') }}" class="tf-btn btn-fill radius-3">Return to Shop</a>
+    </div>
 @endif

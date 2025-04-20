@@ -3,7 +3,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="header">
-                    <div class="title fw-5">Shopping cart</div>
+                    <div class="title fw-5">Shopping cart <span  id="cartCountSpan">({{ $cartCount }})</span> </div>
                     <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
                 </div>
                 <div class="wrap">
@@ -19,7 +19,7 @@
                             </div>
                             <div class="tf-progress-msg"><span class="fw-6">Get items delivered at your door steps. Free Shipping</span></div>
                         </div>
-                        @if(count($cartItems) > 0)
+                        
                             <div class="tf-mini-cart-wrap">
                                 <div class="tf-mini-cart-main">
                                     <div class="tf-mini-cart-sroll tf-mini-cart-items">
@@ -46,17 +46,12 @@
                                                         </label>
                                                     </div>
                                                     <div class="tf-mini-cart-view-checkout">
-                                                        <a href="view-cart.html" class="tf-btn btn-outline radius-3 link w-100 justify-content-center">View cart</a>
+                                                        <a href="/cart" class="tf-btn btn-outline radius-3 link w-100 justify-content-center">View cart</a>
                                                         <a href="/checkout" class="tf-btn btn-fill animate-hover-btn radius-3 w-100 justify-content-center"><span>Check out</span></a>
                                                     </div>
                                     </div>
                                 </div>
-                        @else
-                            <div class="text-center p-4">
-                                <p class="fw-6 fs-5 mb-3">🛒 No items found in your cart.</p>
-                                <a href="{{ route('shop') }}" class="tf-btn btn-fill radius-3">Return to Shop</a>
-                            </div>
-                        @endif
+                       
                 </div>
             </div>
         </div>

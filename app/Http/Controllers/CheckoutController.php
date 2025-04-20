@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
@@ -45,8 +47,11 @@ class CheckoutController extends Controller
             $order->order_notes = $request->order_notes ?? null;
             $order->status = 'pending';
 
-            // Calculate total from cart
-            $cartItems = session('cart', []);
+            // Get cart items
+            $cartItems = $isGuest
+            ? session('cart', [])
+            : $this->getUserCartArray(Auth::id());
+           
             $order->total_price = str_replace(',', '', $request->total_price);
 
 
@@ -64,7 +69,16 @@ class CheckoutController extends Controller
             }
 
             // Clear cart
-            session()->forget('cart');
+            if ($isGuest) {
+                session()->forget('cart');
+            } else {
+                // Delete cart items and cart from DB
+                $cart = Cart::where('user_id', Auth::id())->where('status', 'active')->first();
+                if ($cart) {
+                    CartItem::where('cart_id', $cart->id)->delete();
+                    $cart->delete();
+                }
+            }
 
             DB::commit();
 
@@ -97,5 +111,33 @@ class CheckoutController extends Controller
         return view('frontend.pages.thankyou', compact('thankyou_name'));
     }
 
+    private function getUserCartArray($userId)
+    {
+
+        $cart = Cart::where('user_id', $userId)
+            ->where('status', 'active')
+            ->first();
+
+        if (!$cart) {
+            return [];
+        }
+
+
+        return CartItem::with('laptop')
+            ->where('cart_id', $cart->id)
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [
+                    $item->laptop_id => [
+                        'laptop_id' => $item->laptop_id,
+                        'id' => $item->laptop_id,
+                        'name' => $item->laptop->title,
+                        'quantity' => $item->quantity,
+                        'sale_price' => $item->sale_price,
+                        'image' => $item->laptop->main_image,
+                    ]
+                ];
+            })->toArray();
+    }
 
 }

@@ -152,7 +152,6 @@
                 }
             });
 
-
             // Add to Cart (delegated since modal content is dynamic)
             $(document).on('click', '.btn-add-to-cart', function (e) {
                 e.preventDefault();
@@ -187,37 +186,46 @@
                         });
 
                         $('#shoppingCart').modal('show');
+
+                        if ($('.tf-mini-cart-items').length === 0) {
+                            $('body').append('<div class="tf-mini-cart-items"></div>');
+                        }
+
                         $('.tf-mini-cart-items').html(response.cart_html);
                         $('.tf-totals-total-value').text(`₦${response.cart_subtotal}`);
-                        $('#cartItemCount').text(response.cart_count); // cart badge update
+                        $('#cartItemCount').text(response.cart_count);
+                        $('#cartCountSpan').text(`(${response.cart_count})`);
                     },
                     error: function (xhr) {
                         SwalGlobal.fire({
                             icon: 'error',
-                            title: 'Error',
-                            text: xhr.responseJSON?.message ?? 'Failed to add item to cart.'
+                            title: 'Oops!',
+                            text: xhr.status === 409
+                                ? 'Product already in cart.'
+                                : (xhr.responseJSON?.message ?? 'Failed to add item to cart.'),
+                            showConfirmButton: true,
                         });
                     }
                 });
             });
 
             // Quantity Increase/Decrease in Cart Modal
-            $(document).on('click', '.plus-btn, .minus-btn', function () {
+            $(document).on('click', '.plusbtn, .minusbtn', function () {
                 let index = $(this).data('index'); // product id (laptop_id)
                 let input = $(this).siblings('input.quantity-input');
                 let currentQty = parseInt(input.val()) || 1;
                 let newQty = currentQty;
 
-                if ($(this).hasClass('plus-btn')) {
+                if ($(this).hasClass('plusbtn')) {
                     newQty = currentQty + 1;
-                } else if ($(this).hasClass('minus-btn') && currentQty > 1) {
+                } else if ($(this).hasClass('minusbtn') && currentQty > 1) {
                     newQty = currentQty - 1;
                 }
 
                 input.val(newQty).trigger('change'); // trigger change event to update quantity in session
             });
 
-            // --- Update Quantity in Cart via AJAX ---
+            // --- Update Quantity in Cart---
             $(document).on('change', '.tf-mini-cart-item .quantity-input', function () {
                 let index = $(this).data('index'); // product id
                 let newQuantity = parseInt($(this).val()) || 1;
@@ -241,7 +249,6 @@
                     }
                 });
             });
-
 
             // --- Remove Item from Cart ---
             $(document).on('click', '.tf-mini-cart-remove', function () {
