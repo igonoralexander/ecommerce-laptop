@@ -13,7 +13,7 @@ class ShopController extends Controller
     //
     public function ShopProducts()
     {
-        $products = Laptop::with(['brand', 'images'])->latest()->get();
+        $products = Laptop::with(['brand', 'images'])->latest()->paginate(12);
         return view('frontend.pages.product-shop', compact('products'));
     }
 

@@ -52,25 +52,45 @@
                             </div>
                         @endforeach
                     </div>
+
                     <!-- pagination -->
                     <ul class="tf-pagination-wrap tf-pagination-list tf-pagination-btn">
-                        <li class="active">
-                            <a href="#" class="pagination-link">1</a>
-                        </li>
-                        <li>
-                            <a href="#" class="pagination-link animate-hover-btn">2</a>
-                        </li>
-                        <li>
-                            <a href="#" class="pagination-link animate-hover-btn">3</a>
-                        </li>
-                        <li>
-                            <a href="#" class="pagination-link animate-hover-btn">4</a>
-                        </li>
-                        <li>
-                            <a href="#" class="pagination-link animate-hover-btn">
-                                <span class="icon icon-arrow-right"></span>
-                            </a>
-                        </li>
+                        {{-- Previous Page Link --}}
+                        @if ($products->onFirstPage())
+                            <li class="disabled">
+                                <span class="pagination-link animate-hover-btn">
+                                    <span class="icon icon-arrow-left"></span>
+                                </span>
+                            </li>
+                        @else
+                            <li>
+                                <a href="{{ $products->previousPageUrl() }}" class="pagination-link animate-hover-btn">
+                                    <span class="icon icon-arrow-left"></span>
+                                </a>
+                            </li>
+                        @endif
+
+                        {{-- Pagination Elements --}}
+                        @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+                            <li class="{{ $page == $products->currentPage() ? 'active' : '' }}">
+                                <a href="{{ $url }}" class="pagination-link">{{ $page }}</a>
+                            </li>
+                        @endforeach
+
+                        {{-- Next Page Link --}}
+                        @if ($products->hasMorePages())
+                            <li>
+                                <a href="{{ $products->nextPageUrl() }}" class="pagination-link animate-hover-btn">
+                                    <span class="icon icon-arrow-right"></span>
+                                </a>
+                            </li>
+                        @else
+                            <li class="disabled">
+                                <span class="pagination-link animate-hover-btn">
+                                    <span class="icon icon-arrow-right"></span>
+                                </span>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>

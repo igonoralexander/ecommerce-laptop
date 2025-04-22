@@ -78,6 +78,8 @@
     @include('layouts.frontend.inc.quick-view')
 
     @include('layouts.frontend.inc.shopping-cart')
+    
+    @include('components.filter')
 
     <!-- Javascript -->
     <script type="text/javascript" src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>

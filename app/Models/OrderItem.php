@@ -17,4 +17,9 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function laptop()
+    {
+        return $this->belongsTo(Laptop::class);
+    }
 }
