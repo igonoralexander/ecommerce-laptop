@@ -11,6 +11,19 @@ use Illuminate\Support\Facades\Auth;
 class FrontEndController extends Controller
 {
     //
+
+    public function homepage()
+    {
+        return view('frontend.index', [
+        
+            'featuredProduct' => Laptop::with('images')->skip(1)->first(),
+            'trendingLaptops' => Laptop::trending()->get(),
+            'hotDeals' => Laptop::hotDeals()->get(),
+            'latestLaptops' => Laptop::latest()->get(),
+            'bestSellers' => Laptop::bestSellers()->get(),
+        ]);
+    }
+
     public function checkout()
     {
         if (Auth::check()) {

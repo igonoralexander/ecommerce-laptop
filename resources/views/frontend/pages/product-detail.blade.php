@@ -93,7 +93,9 @@
                                                 data-sale-price="{{ $product->sale_price }}"
                                                 data-image="{{ asset('storage/' . ($mainImage->image ?? 'default.jpg')) }}">
                                                 <span>Add to cart -&nbsp;</span><span
-                                                    class="tf-qty-price" id="total-price">₦{{ $product->sale_price }}</span></a>
+                                                    class="tf-qty-price" id="total-price">₦{{ $product->sale_price }}</span>
+                                            </a>
+                                            
                                             <a href="javascript:void(0);"
                                                 class="tf-product-btn-wishlist hover-tooltip box-icon bg_white wishlist btn-icon-action">
                                                 <span class="icon icon-heart"></span>

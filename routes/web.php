@@ -23,9 +23,7 @@ use App\Models\Package;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
+Route::get('/', [FrontEndController::class, 'homepage'])->name('home');
 
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
     ->middleware(['auth', 'role:admin'])

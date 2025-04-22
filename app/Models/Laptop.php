@@ -25,4 +25,29 @@ class Laptop extends Model
         return $this->hasMany(LaptopImage::class);
     }
 
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'laptop_id');
+    }
+    
+    public function scopeTrending($query)
+    {
+        return $query->where('is_trending', true);
+    }
+
+    public function scopeHotDeals($query)
+    {
+        return $query->where('is_hot_deal', true);
+    }
+
+    public function scopeLatest($query)
+    {
+        return $query->latest()->take(8);
+    }
+
+    public function scopeBestSellers($query)
+    {
+        return $query->withCount('orderItems')->orderByDesc('order_items_count')->take(8);
+    }
+
 }

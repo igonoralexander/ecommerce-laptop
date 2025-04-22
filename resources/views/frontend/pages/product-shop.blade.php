@@ -12,7 +12,7 @@
         <!-- /page-title -->
         
         <section class="flat-spacing-1">
-            <div class="container-full">
+            <div class="container">
                 <div class="wrapper-control-shop">
                     <div class="meta-filter-shop"></div>
                     <div class="grid-layout wrapper-shop" data-grid="grid-4">
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="card-product-info">
                                     <a href="{{ route('product.detail', $product->slug) }}" class="title link">{{ $product->name }}</a>
-                                    <span class="price">NGN {{ $product->sale_price }}</span>
+                                    <span class="price">₦{{ number_format($product->sale_price, 0) }}</span>
                                 </div>
                             </div>
                         @endforeach

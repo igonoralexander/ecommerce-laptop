@@ -35,8 +35,10 @@
                                     </div>
                                 </div>
                                 <div class="tf-product-info-price">
-                                    <div class="price" id="sale-price" data-price="{{ $product->sale_price }}">
-                                    ₦{{ $product->sale_price }}</div>
+                                    <div class="price-on-sale"
+                                        id="sale-price" data-price="{{ $product->sale_price }}">
+                                        ₦{{ $product->sale_price }}
+                                    </div>
                                 </div>
                                 <div class="tf-product-description">
                                     <p> {!! $product->description !!}</p>
