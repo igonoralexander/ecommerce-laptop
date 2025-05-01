@@ -6,10 +6,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  VM_USER: '$(AZURE_VM_USER)'
-  VM_IP: '$(AZURE_VM_IP)'
-  SSH_KEY: '$(AZURE_VM_SSH_KEY)'
+
 
 steps:
   - task: Checkout@1
@@ -21,6 +18,11 @@ steps:
       chmod 600 ~/.ssh/id_rsa
       ssh-keyscan -H $VM_IP >> ~/.ssh/known_hosts
     displayName: 'Prepare SSH Key'
+
+    env:
+      VM_USER: '$(AZURE_VM_USER)'
+      VM_IP: '$(AZURE_VM_IP)'
+      SSH_KEY: '$(AZURE_VM_SSH_KEY)'
 
   - script: |
       ssh -o StrictHostKeyChecking=no $VM_USER@$VM_IP << 'EOF'
