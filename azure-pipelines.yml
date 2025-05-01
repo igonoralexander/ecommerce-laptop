@@ -25,7 +25,7 @@ steps:
   - script: |
       ssh -o StrictHostKeyChecking=no $VM_USER@$VM_IP << 'EOF'
         set -e
-        cd /var/www/photography-website
+        cd /var/www/ecommerce-laptop
         git fetch origin main
         git reset --hard origin/main
         git pull origin main --rebase
