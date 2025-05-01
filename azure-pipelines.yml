@@ -9,7 +9,7 @@ pool:
 variables:
   VM_USER: '$(AZURE_VM_USER)'
   VM_IP: '$(AZURE_VM_IP)'
-  SSH_KEY: '$(AZURE_VM_SSH_KEY)'  # Set this as a pipeline secret variable
+  SSH_KEY: '$(AZURE_VM_SSH_KEY)'
 
 steps:
   - task: Checkout@1
