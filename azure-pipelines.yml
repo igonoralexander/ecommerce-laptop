@@ -4,7 +4,7 @@ trigger:
       - main
 
 pool:
-  name: Default  # Uses your self-hosted agent
+  name: Default
 
 steps:
   - checkout: self
