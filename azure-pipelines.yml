@@ -3,7 +3,6 @@ trigger:
     include:
       - main
 
-
 variables:
   AZURE_VM_USER: 'azureuser'
   AZURE_VM_IP: '172.212.201.240'
@@ -11,11 +10,11 @@ variables:
 pool:
   vmImage: 'ubuntu-latest'
 
-
-
 steps:
   - task: Checkout@1
     displayName: 'Checkout Code'
+
+ 
 
   - script: |
       mkdir -p ~/.ssh
