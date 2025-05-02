@@ -7,7 +7,7 @@ trigger:
 variables:
   AZURE_VM_USER: 'azureuser'
   AZURE_VM_IP: '172.212.201.240'
-
+  SSH_KEY: $(AZURE_VM_SSH_KEY)
 
 pool:
   vmImage: 'ubuntu-latest'
