@@ -14,13 +14,7 @@ steps:
       sshEndpoint: 'MyAzureVMServiceConnection'
       runOptions: 'commands'
       commands: |
-        if [ ! -d /var/www/ecommerce-laptop/.git ]; then
-          rm -rf /var/www/ecommerce-laptop
-          git clone https://github.com/igonoralexander/ecommerce-laptop.git /var/www/ecommerce-laptop
-        else
-          cd /var/www/ecommerce-laptop
-          git pull origin main
-        fi
+        [ ! -d /var/www/ecommerce-laptop/.git ] && rm -rf /var/www/ecommerce-laptop && git clone https://github.com/igonoralexander/ecommerce-laptop.git /var/www/ecommerce-laptop || (cd /var/www/ecommerce-laptop && git pull origin main)
 
         cd /var/www/ecommerce-laptop
         composer install --no-dev --optimize-autoloader
