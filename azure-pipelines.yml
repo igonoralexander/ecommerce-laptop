@@ -36,22 +36,9 @@ steps:
       ssh-keyscan -H $VM_IP >> ~/.ssh/known_hosts
     displayName: 'Prepare SSH Key'
     env:
-      VM_IP: $(AZURE_VM_IP)
-      SSH_KEY: |
-        -----BEGIN OPENSSH PRIVATE KEY-----
-        b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAACFwAAAAdzc2gtcn
-        NhAAAAAwEAAQAAAgEAwZ21jlcXEIxY3st3SZRJd+ACNbGk6v4yWXWPOAXjgRGZg/+807hQ
-        JaXxG1RK6Unnv0wm+8h1rZND1nbIFIjO2yimaSHnua7eVXxkvxdSTyMFj994qiHwnClL6i
-        f9Ug9UiFooQ8utQXJkXaWPaoLAcsu5zrfHhYEtqfnkbesjNh47BFPPoNFQwkn2GDoeq73w
-        6F9MNEg8XQ0voC7ERDAa+Wd2WXJl7eDKWoQlK8fUtaAhBFZ+MuLzxY0JiS+UCiSyxdPXUf
-        a3XY+U932lPYeEg0NN8kbv00aiwsSvHuDGiRtQsdIJk2MmVXbY5QIp0NC8NyEdSZaYKwER
-        H4TdrBaY6vFDnjyzooj/+8Ije7gf4LssvPiPT6+vnzieQfi7r3r6IVKFlULnI1cUHG7pkn
-        L+X76BMnIC/zV+DCKX2AO2DIUngHMZkV1kVCs6oj42SJyELLDjwBfMyI3pxmVvzG/LVVbF
-        D3E6QNSb9dprASSMVqf40AF5iZ3Mp2nMfafDS37SAKBscmG/tH4L4U4y7vDr8w4K1vRZCc
-        kbQbauXGK8Jfv9bCp2MP5fabrrYukNfiJuafXJnkhnF0jabFz7G310oaTOGNWQo07VAPpf
-        65luAHKJuBH2tZI4YLYSfSazjsazJzqhZxQroFJWvzvAirWjHlIUYkKF2jcYw1zcyDvnoV
-        0AAAD...
-        -----END OPENSSH PRIVATE KEY-----
+      VM_USER: ${{ variables.AZURE_VM_USER }}
+      VM_IP: ${{ variables.AZURE_VM_IP }}
+      SSH_KEY: ${{ variables.SSH_KEY }}
 
   - script: |
       ssh -o StrictHostKeyChecking=no $VM_USER@$VM_IP << 'EOF'
@@ -69,5 +56,5 @@ steps:
       EOF
     displayName: 'Deploy via SSH'
     env:
-      VM_USER: $(AZURE_VM_USER)
-      VM_IP: $(AZURE_VM_IP)
+      VM_USER: ${{ variables.AZURE_VM_USER }}
+      VM_IP: ${{ variables.AZURE_VM_IP }}
