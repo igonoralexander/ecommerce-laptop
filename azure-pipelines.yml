@@ -14,6 +14,20 @@ steps:
   - task: Checkout@1
     displayName: 'Checkout Code'
 
+  - script: |
+      echo "AZURE_VM_USER: $VM_USER"
+      echo "AZURE_VM_IP: $VM_IP"
+      if [ -n "$SSH_KEY" ]; then
+        echo "SSH_KEY is set"
+      else
+        echo "SSH_KEY is NOT set"
+      fi
+    displayName: 'Debug Variables'
+    env:
+      VM_USER: $(AZURE_VM_USER)
+      VM_IP: $(AZURE_VM_IP)
+      SSH_KEY: $(AZURE_VM_SSH_KEY)
+
  
 
   - script: |
