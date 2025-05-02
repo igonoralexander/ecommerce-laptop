@@ -26,9 +26,9 @@ steps:
     displayName: 'Prepare SSH Key'
 
     env:
-      VM_USER: '$(AZURE_VM_USER)'
-      VM_IP: '$(AZURE_VM_IP)'
-      SSH_KEY: '$(AZURE_VM_SSH_KEY)'
+      VM_USER: $(AZURE_VM_USER)
+      VM_IP: $(AZURE_VM_IP)
+      SSH_KEY: $(AZURE_VM_SSH_KEY)
 
   - script: |
       ssh -o StrictHostKeyChecking=no $VM_USER@$VM_IP << 'EOF'
