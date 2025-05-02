@@ -4,12 +4,15 @@ trigger:
       - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
+  - checkout: self
+
   - task: SSH@0
     inputs:
       sshEndpoint: 'MyAzureVMServiceConnection'
+      runOptions: 'commands'
       commands: |
         cd /var/www/ecommerce-laptop
         git pull origin main
