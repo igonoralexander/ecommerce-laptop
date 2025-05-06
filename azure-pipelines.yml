@@ -14,11 +14,15 @@ steps:
       sshEndpoint: 'MyAzureVMServiceConnection'
       runOptions: 'commands'
       commands: |
-        [ ! -d /var/www/ecommerce-laptop/.git ] && rm -rf /var/www/ecommerce-laptop && git clone https://github.com/igonoralexander/ecommerce-laptop.git /var/www/ecommerce-laptop || (cd /var/www/ecommerce-laptop && git pull origin main)
+        [ ! -d /var/www/ecommerce-laptop/.git ] && rm -rf /var/www/ecommerce-laptop && git clone https://github.com/igonoralexander/ecommerce-laptop.git /var/www/ecommerce-laptop || (cd /var/www/ecommerce-laptop && git remote set-url origin https://github.com/igonoralexander/ecommerce-laptop.git)
 
         cd /var/www/ecommerce-laptop
+        git fetch origin main
+        git reset --hard origin/main
+        git pull origin main --rebase
         composer install --no-dev --optimize-autoloader
-        php artisan migrate
         php artisan config:cache
         php artisan queue:restart
+        php artisan optimize
+        php artisan migrate
         sudo systemctl restart nginx
