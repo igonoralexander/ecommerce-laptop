@@ -16,7 +16,7 @@ steps:
       commands: |
         cd /var/www/ecommerce-laptop
 
-        [ ! -d /var/www/ecommerce-laptop/git ] && rm -rf /var/www/ecommerce-laptop && git clone https://github.com/igonoralexander/ecommerce-laptop.git /var/www/ecommerce-laptop || (cd /var/www/ecommerce-laptop && git remote set-url origin https://github.com/igonoralexander/ecommerce-laptop.git && git fetch origin main 2>&1 && git reset --hard origin/main 2>&1 && git pull origin main --rebase 2>&1 )
+        [ ! -d /var/www/ecommerce-laptop/.git ] && rm -rf /var/www/ecommerce-laptop && git clone https://github.com/igonoralexander/ecommerce-laptop.git /var/www/ecommerce-laptop || (cd /var/www/ecommerce-laptop && git remote set-url origin https://github.com/igonoralexander/ecommerce-laptop.git && git fetch origin main 2>&1 && git reset --hard origin/main 2>&1 && git pull origin main --rebase 2>&1 )
 
         composer install --no-dev --optimize-autoloader 2>&1 | grep -v 'Deprecation Notice' || true
         php artisan config:cache
