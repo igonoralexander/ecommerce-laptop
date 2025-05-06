@@ -14,16 +14,7 @@ steps:
       sshEndpoint: 'MyAzureVMServiceConnection'
       runOptions: 'commands'
       commands: |
-        if [ ! -d /var/www/ecommerce-laptop/.git ]; then
-          sudo rm -rf /var/www/ecommerce-laptop
-          git clone https://github.com/igonoralexander/ecommerce-laptop.git /var/www/ecommerce-laptop
-        else
-          cd /var/www/ecommerce-laptop
-          git remote set-url origin https://github.com/igonoralexander/ecommerce-laptop.git
-          git fetch origin main
-          git reset --hard origin/main
-          git pull origin main --rebase
-        fi
+        [ ! -d /var/www/ecommerce-laptop/.git ] && rm -rf /var/www/ecommerce-laptop && git clone https://github.com/igonoralexander/ecommerce-laptop.git /var/www/ecommerce-laptop || (cd /var/www/ecommerce-laptop && git remote set-url origin https://github.com/igonoralexander/ecommerce-laptop.git && git fetch origin main &&   git reset --hard origin/main &&  git pull origin main --rebase )
 
         cd /var/www/ecommerce-laptop
         composer install --no-dev --optimize-autoloader
