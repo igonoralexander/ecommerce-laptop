@@ -24,7 +24,12 @@ class Laptop extends Model
     {
         return $this->hasMany(LaptopImage::class);
     }
-    
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
     public function scopeTrending($query)
     {
         return $query->where('is_trending', true);
