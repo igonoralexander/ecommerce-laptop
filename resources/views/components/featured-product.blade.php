@@ -1,7 +1,9 @@
 @php
-    $images = $featuredProduct->images;
-    $mainImage = $images->first();
-    $hoverImage = $images->skip(1)->first();
+    if ($featuredProduct) {
+        $images = $featuredProduct->images;
+        $mainImage = $images->first();
+        $hoverImage = $images->skip(1)->first();
+    }
 @endphp
 
 <!-- Featured Product -->
