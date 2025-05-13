@@ -7,6 +7,7 @@ use App\Models\CartItem;
 use App\Models\Laptop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller

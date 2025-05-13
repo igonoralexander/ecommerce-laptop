@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,10 @@ class BrandController extends Controller
     public function index()
     {
         //
-        $brands = Brand::all();
+        $brands = Cache::remember('brands.all', now()->addMinutes(60), function () {
+            return Brand::all();
+        });
+    
         return view('admin.brands.index', [
             'brands' => $brands,
             'title' => 'Brands',
@@ -83,7 +87,9 @@ class BrandController extends Controller
             }
     
             $brand->save();
-    
+
+            Cache::forget('brands.all');
+
             return response()->json([
                 'success' => true,
                 'message' => 'Brand created successfully.',
@@ -169,6 +175,9 @@ class BrandController extends Controller
 
             $brand->save();
 
+            Cache::forget('brands.all');
+
+
             return response()->json([
                 'success' => true,
                 'message' => 'Brand updated successfully.',
@@ -200,6 +209,9 @@ class BrandController extends Controller
             }
     
             $brand->delete();
+
+            Cache::forget('brands.all');
+
     
             return response()->json([
                 'success' => true,

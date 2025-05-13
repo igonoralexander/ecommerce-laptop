@@ -49,12 +49,12 @@ class EmailController extends Controller
             'content'=> $request-> content
         ];
         
-        Mail::send('email-template', $data, function($message) use ($data)
-        {
-            $message->to('dieselphoenix78@gmail.com')
-            // $message->to($data['email'])
-            ->subject($data['subject']);
-        });
+        // Mail::send('email-template', $data, function($message) use ($data)
+        // {
+        //     $message->to('dieselphoenix78@gmail.com')
+        //     // $message->to($data['email'])
+        //     ->subject($data['subject']);
+        // });
         
         return back()->with (['message' => 'Message Successfully Sent!']);
     }

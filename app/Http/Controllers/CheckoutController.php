@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -79,6 +80,9 @@ class CheckoutController extends Controller
                     $cart->delete();
                 }
             }
+
+            Cache::forget("user_cart_" . Auth::id());
+
 
             DB::commit();
 

@@ -7,6 +7,7 @@ use App\Models\CartItem;
 use App\Models\Laptop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class FrontEndController extends Controller
 {
@@ -14,14 +15,34 @@ class FrontEndController extends Controller
 
     public function homepage()
     {
+        $featuredProduct = Cache::remember('homepage.featuredProduct', now()->addMinutes(10), function () {
+            return Laptop::with('images')->skip(1)->first();
+        });
+    
+        $trendingLaptops = Cache::remember('homepage.trendingLaptops', now()->addMinutes(10), function () {
+            return Laptop::trending()->get();
+        });
+    
+        $hotDeals = Cache::remember('homepage.hotDeals', now()->addMinutes(10), function () {
+            return Laptop::hotDeals()->get();
+        });
+    
+        $latestLaptops = Cache::remember('homepage.latestLaptops', now()->addMinutes(10), function () {
+            return Laptop::latest()->get();
+        });
+    
+        $bestSellers = Cache::remember('homepage.bestSellers', now()->addMinutes(10), function () {
+            return Laptop::bestSellers()->get();
+        });
+
         return view('frontend.index', [
-        
-            'featuredProduct' => Laptop::with('images')->skip(1)->first(),
-            'trendingLaptops' => Laptop::trending()->get(),
-            'hotDeals' => Laptop::hotDeals()->get(),
-            'latestLaptops' => Laptop::latest()->get(),
-            'bestSellers' => Laptop::bestSellers()->get(),
+            'featuredProduct' => $featuredProduct,
+            'trendingLaptops' => $trendingLaptops,
+            'hotDeals' => $hotDeals,
+            'latestLaptops' => $latestLaptops,
+            'bestSellers' => $bestSellers
         ]);
+        
     }
 
     public function checkout()

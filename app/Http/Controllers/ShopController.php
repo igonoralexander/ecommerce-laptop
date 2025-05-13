@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Laptop;
 use App\Models\ProductView;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -13,7 +14,10 @@ class ShopController extends Controller
     //
     public function ShopProducts()
     {
-        $products = Laptop::with(['brand', 'images'])->latest()->paginate(12);
+        $products = Cache::remember('shop.products.page.' . request('page', 1), now()->addMinutes(10), function () {
+            return Laptop::with(['brand', 'images'])->latest()->paginate(12);
+        });
+    
         return view('frontend.pages.product-shop', compact('products'));
     }
 
@@ -61,12 +65,14 @@ class ShopController extends Controller
             });
 
         // Related Products (same brand)
-        $relatedProducts = Laptop::where('brand_id', $product->brand_id)
-            ->where('id', '!=', $product->id)
-            ->with(['images', 'brand'])
-            ->latest()
-            ->take(4)
-            ->get();
+        $relatedProducts = Cache::remember("related.products.{$product->id}", now()->addMinutes(30), function () use ($product) {
+            return Laptop::where('brand_id', $product->brand_id)
+                ->where('id', '!=', $product->id)
+                ->with(['images', 'brand'])
+                ->latest()
+                ->take(4)
+                ->get();
+        });
 
         return view('frontend.pages.product-detail', compact('product', 'relatedProducts', 'recentlyViewed'));
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -26,13 +27,16 @@ class LaptopController extends Controller
     public function index()
     {
         //
-        $laptops = Laptop::with(['brand', 'images'])->get();
+        $laptops = Cache::remember('admin_laptops_index', now()->addMinutes(10), function () {
+            return Laptop::with(['brand', 'images'])->get();
+        });
+    
         return view('admin.laptops.index', [
             'laptops' => $laptops,
-            'title' => 'Laptops Available ',
+            'title' => 'Laptops Available',
             'breadcrumbs' => [
                 ['url' => '#', 'label' => 'All Laptops'],
-            ],   
+            ],
         ]);
     }
 
@@ -94,7 +98,8 @@ class LaptopController extends Controller
                 $laptop->specifications = $request->specifications;
                 $laptop->save();
             
-            
+                Cache::forget('admin_laptops_index');
+
 
                 if ($request->hasFile('images')) {
                     foreach ($request->file('images') as $image) {
@@ -200,6 +205,9 @@ class LaptopController extends Controller
                 }
             }
 
+            Cache::forget('admin_laptops_index');
+
+
             return response()->json([
                 'success' => true,
                 'message' => 'Laptop updated successfully.',
@@ -232,6 +240,9 @@ class LaptopController extends Controller
             }
     
             $laptop->delete();
+
+            Cache::forget('admin_laptops_index');
+
     
             return response()->json([
                 'success' => true,
